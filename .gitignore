@@ -1,0 +1,64 @@
+# ── Dependencies ──────────────────────────────────────────────
+node_modules/
+.pnpm-store/
+
+# ── Build outputs ─────────────────────────────────────────────
+dist/
+build/output/
+.astro/
+.output/
+*.tsbuildinfo
+
+# ── Secrets & local env ───────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ── Databases ─────────────────────────────────────────────────
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/app.db
+
+# ── Test / QA artifacts (regenerable) ─────────────────────────
+# The clone's QA screenshots and probe dumps are reproducible by
+# re-running the harness; they are not source.
+output/www.cravburgers.shop/qa/
+output/www.cravburgers.shop/qa-anim/
+output/www.cravburgers.shop/qa-final/
+output/www.cravburgers.shop/qa-mobile/
+output/www.cravburgers.shop/shots/
+output/www.cravburgers.shop/css/
+output/www.cravburgers.shop/build/
+
+# ── Large intermediate research blobs ─────────────────────────
+# Duplicated: every asset here already lives in frontend/client/public.
+# Keeping them out of git avoids ~14 MB of duplication.
+output/www.cravburgers.shop/assets-raw/
+output/www.cravburgers.shop/downloads/
+
+# ── Serverless / hosting ──────────────────────────────────────
+.vercel/
+.netlify/
+.wrangler/
+
+# ── Editor / OS ───────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+bun-debug.log*

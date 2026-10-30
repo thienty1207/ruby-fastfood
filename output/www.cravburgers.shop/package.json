@@ -1,0 +1,16 @@
+{
+  "name": "crav-clone-workspace",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Recon + QA tooling for the CRAV clone. The clone app itself is in ./site",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --cwd=site run dev",
+    "build": "bun --cwd=site run build",
+    "preview": "bun --cwd=site run preview",
+    "typecheck": "bun --cwd=site run typecheck"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}
