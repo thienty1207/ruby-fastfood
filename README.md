@@ -91,13 +91,19 @@ and voids the regression baseline (`docH 10429`).
 
 After any change to the client, the clone must still measure:
 
-| Viewport | document height |
-|---|---|
-| 1440 | **10429** |
-| section deltas | **0** |
+| Viewport | document height | section deltas |
+|---|---|---|
+| 1440 | **10429** | 0 |
+| 768 | **14634** | 0 |
+| 390 | **7790** | 0 |
 
-Run `bun run qa:stable` (serves the built client first). If the number moves,
-stop and fix before continuing.
+```bash
+bun run --cwd frontend/client build
+bun run --cwd frontend/client serve-dist.mjs   # in another shell
+bun run qa:stable
+```
+
+If a number moves, stop and fix before continuing.
 
 ## Status
 
@@ -105,7 +111,19 @@ stop and fix before continuing.
 |---|---|
 | Bun workspaces | ✅ installing, linking, resolving |
 | `@ruby/shared` | ✅ types + valibot schemas, imported by client |
-| `frontend/client` | 🟡 Astro shell builds; **clone source not yet migrated** |
-| `frontend/admin` | 🟡 Astro shell builds; pages not built |
+| `frontend/client` | ✅ **clone migrated to Astro — verified delta 0 at all 3 viewports** |
+| `frontend/admin` | 🟡 Astro MPA shell builds; pages not built yet |
 | `backend` | 🟡 Hono runs, `/api/health` OK, auth gate OK; no DB yet |
-| `tools/qa` | ✅ harness copied byte-identical |
+| `tools/qa` | ✅ `stable.mjs` byte-identical to the original harness |
+| `_research` | ✅ teardown, probes, 33 recon scripts archived |
+
+### What the migration preserved
+
+The `.astro` section components render the **same markup functions** the clone
+used (`set:html`), so the emitted HTML is byte-identical to the pre-migration
+build. `src/scripts/main.ts` now only runs `init()` in the original order:
+`lenis → dividers → chrome → sections → stickers → refresh`.
+
+No GSAP/Lenis logic was rewritten, and `site.css` is byte-identical
+(67051 bytes, unchanged in the migration commit).
+
