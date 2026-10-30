@@ -7,9 +7,14 @@ export default defineConfig({
   // per the agreed stack (no SSR on the client).
   output: 'static',
 
-  // host:true binds both IPv4 and IPv6 — otherwise Windows resolves only ::1
-  // and http://127.0.0.1:4321 is refused while http://localhost:4321 works.
-  server: { port: 4321, host: true },
+  // Bind IPv4 loopback ONLY.
+  //
+  // Why not host:true — it binds 0.0.0.0 and exposes the dev server on the LAN
+  // (e.g. http://10.16.8.216:4321), which we do not want for local work.
+  // Why not the default (false) — on Windows that resolves only ::1, so
+  // http://127.0.0.1:4321 is refused while http://localhost:4321 works.
+  // Binding 127.0.0.1 keeps it local AND makes the IPv4 address work.
+  server: { port: 4321, host: '127.0.0.1' },
 
   build: {
     // Keep Astro's own assets in a namespaced folder so they can never

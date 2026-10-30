@@ -7,8 +7,10 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   output: 'static',
 
-  // host:true binds both IPv4 and IPv6 (Windows defaults to ::1 only).
-  server: { port: 4322, host: true },
+  // Bind IPv4 loopback only — see the note in frontend/client/astro.config.mjs.
+  // host:true would expose the admin dev server on the LAN, which is worse here
+  // because this app talks to auth endpoints.
+  server: { port: 4322, host: '127.0.0.1' },
 
   // Served under /admin/ by Hono in production.
   // In dev, Astro runs at the root — relative asset paths keep both working.
