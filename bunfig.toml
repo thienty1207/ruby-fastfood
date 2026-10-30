@@ -1,0 +1,14 @@
+# Bun workspace config.
+# Run from the monorepo root: `bun install` installs all workspaces.
+
+[install]
+# Pin exact versions so a rebuild resolves the same dependency graph.
+# NOTE: this is for reproducibility — it does NOT make deps secure.
+# Security comes from `bun audit` + keeping bun.lock committed.
+exact = true
+# Never auto-install packages at runtime (important for production).
+auto = "disable"
+
+[run]
+# Persist the shell so workspace scripts behave consistently.
+shell = "system"
