@@ -7,7 +7,8 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   output: 'static',
 
-  server: { port: 4322 },
+  // host:true binds both IPv4 and IPv6 (Windows defaults to ::1 only).
+  server: { port: 4322, host: true },
 
   // Served under /admin/ by Hono in production.
   // In dev, Astro runs at the root — relative asset paths keep both working.

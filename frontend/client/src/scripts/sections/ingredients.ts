@@ -5,7 +5,7 @@
 //   if (visible > 0 && scroll < offsetTop + offsetHeight)
 //     el.style.transform = `translateY(${visible * factor}px)`
 // with factors -0.07 / -0.05 / -0.09 / -0.06 (CONFIRMED).
-import { buildSplitMarkup, revealSplit } from '../components/splitText';
+import { buildSplitMarkup, revealSplit } from '../motion/splitText';
 
 const VEG = [
   {

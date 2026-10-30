@@ -8,7 +8,7 @@
 //          ease:"back.out(2.35)", stagger:.055}
 //   trigger: ScrollTrigger {start:"top 88%", once:true}
 //   reduced motion: plain opacity fade, .4s power1.out, stagger .02
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { gsap, ScrollTrigger } from './gsap';
 
 type SplitKind = 'words' | 'chars';
 

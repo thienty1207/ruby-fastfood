@@ -5,10 +5,10 @@
 // "50% / 60%") holding a black pupil (borderRadius "50% / 55%"). Both pupils
 // rotate toward the pointer with gsap.quickSetter(el,'rotation','deg'):
 //   r = atan2(clientY - innerHeight/2, clientX - innerWidth/2) * 180/PI - 180
-import { gsap, ScrollTrigger } from '../lib/gsap';
-import { buildSplitMarkup, revealSplit } from '../components/splitText';
-import { revealLines } from '../components/linesReveal';
-import { stickerMarkup } from '../components/sticker';
+import { gsap, ScrollTrigger } from '../motion/gsap';
+import { buildSplitMarkup, revealSplit } from '../motion/splitText';
+import { revealLines } from '../motion/linesReveal';
+import { stickerMarkup } from '../motion/sticker';
 
 const EYE = (side: 'left' | 'right') => {
   const isLeft = side === 'left';

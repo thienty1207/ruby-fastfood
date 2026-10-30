@@ -8,8 +8,8 @@
 //                    {motionPath:{... start:t/4, end:(t+1)/4}, duration:1, ease:"none"}, t*1)
 //   fade in over first .2*duration, out over last .2*duration
 // Cards pop in with ScrollTrigger {start:"top 70%", once:true}.
-import { gsap, ScrollTrigger } from '../lib/gsap';
-import { dividerMarkup } from '../components/divider';
+import { gsap, ScrollTrigger } from '../motion/gsap';
+import { dividerMarkup } from '../motion/divider';
 
 const CARDS = [
   { src: '/img-webp/berlin.webp', alt: 'take away 1', country: 'BERLIN', note: 'Grilled to perfection juicy, smoky, unforgettable.' },

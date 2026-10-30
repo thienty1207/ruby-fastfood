@@ -12,7 +12,7 @@
 //   cta        → /img/burger-boy.png
 // Filter ids therefore have to be namespaced per instance, or the last-mounted
 // filter silently re-lights every sticker on the page.
-import { gsap } from '../lib/gsap';
+import { gsap } from './gsap';
 
 export interface StickerOptions {
   imageSrc: string;

@@ -3,9 +3,9 @@
 //   to {scale:1, opacity:1, y:0, rotate:0, duration:1.5, ease:"back.out(1.5)", delay:.5}
 //   then {y:"-=15", duration:2.5, ease:"sine.inOut", repeat:-1, yoyo:true, delay:1.7}
 // Eyes track the cursor: rotation = atan2(dy,dx)*180/PI - 180 via quickSetter.
-import { gsap } from '../lib/gsap';
-import { buildSplitMarkup, revealSplit } from '../components/splitText';
-import { revealLines } from '../components/linesReveal';
+import { gsap } from '../motion/gsap';
+import { buildSplitMarkup, revealSplit } from '../motion/splitText';
+import { revealLines } from '../motion/linesReveal';
 
 export function heroMarkup(): string {
   return `

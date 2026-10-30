@@ -16,10 +16,10 @@
 //   .to(rotation: ±spin, same dur, ease none, 0)
 //   .to(opacity 0, .25s power1.in, total-.25)
 //   onComplete → delayedCall(repeatDelay) → restart
-import { gsap } from '../lib/gsap';
-import { buildSplitMarkup, revealSplit } from '../components/splitText';
-import { revealLines } from '../components/linesReveal';
-import { rolling } from '../components/ui';
+import { gsap } from '../motion/gsap';
+import { buildSplitMarkup, revealSplit } from '../motion/splitText';
+import { revealLines } from '../motion/linesReveal';
+import { rolling } from '../motion/ui';
 
 const JUGGLE = [
   { src: '/img-webp/lettuce.webp', size: 11, lane: 12 },

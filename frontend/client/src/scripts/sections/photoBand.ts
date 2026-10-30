@@ -1,7 +1,7 @@
 // Full-bleed photo band between two wave dividers — chunk 0c-pxnn7_5v8q.js.
 // A 160vh box (70vh on mobile) holding an object-cover photo, with the red
 // divider pinned to its top and the beige divider (flipped) to its bottom.
-import { dividerMarkup } from '../components/divider';
+import { dividerMarkup } from '../motion/divider';
 
 export function photoBandMarkup(): string {
   return `

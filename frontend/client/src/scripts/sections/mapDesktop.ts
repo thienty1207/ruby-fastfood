@@ -10,8 +10,8 @@
 //            fromTo({opacity:0,scale:.8,rotate:random(±15)} → {opacity:1,scale:1.08,
 //            rotate:5-10*random, duration:.45, ease:"back.out(2.2)"})
 //          leaving → to({opacity:0,scale:.8,rotate:random(±15),duration:.28,ease:"back.in(1.2)"})
-import { gsap, ScrollTrigger } from '../lib/gsap';
-import { revealLines } from '../components/linesReveal';
+import { gsap, ScrollTrigger } from '../motion/gsap';
+import { revealLines } from '../motion/linesReveal';
 
 const PINS = [
   { src: '/img-webp/berlin.webp', alt: 'CRAV Burger takeaway packaging in Berlin', country: 'BERLIN', cls: 'absolute right-[5vw] space-y-[1.5vw] z-200 top-[50vw] items-end flex flex-col', noteCls: 'text-red rotate-7 text-right uppercase text-stroke-small text40 font-modak leading-[.9]! country-label' },

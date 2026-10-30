@@ -1,8 +1,8 @@
 // CTA — "FEEL IT / feel the Change" with the peeling burger-boy sticker.
-import { buildSplitMarkup, revealSplit } from '../components/splitText';
-import { revealLines } from '../components/linesReveal';
-import { orderButton } from '../components/ui';
-import { stickerMarkup } from '../components/sticker';
+import { buildSplitMarkup, revealSplit } from '../motion/splitText';
+import { revealLines } from '../motion/linesReveal';
+import { orderButton } from '../motion/ui';
+import { stickerMarkup } from '../motion/sticker';
 
 export function ctaMarkup(): string {
   return `

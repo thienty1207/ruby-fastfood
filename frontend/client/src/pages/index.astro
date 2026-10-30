@@ -1,26 +1,35 @@
-/**
- * Ruby Fastfood — public client.
- * Placeholder entry page. The CRAV clone source is migrated here in step 2.
- */
 ---
-import { MenuItemCreateSchema } from '@ruby/shared/schemas';
+/**
+ * Homepage — the CRAV clone.
+ *
+ * Section order matches the original DOM exactly:
+ *   cursor → nav → hero → about → experience → photo band →
+ *   ingredients → map (desktop|mobile) → cta → footer
+ */
+import Base from '../layouts/Base.astro';
+import Cursor from '../components/chrome/Cursor.astro';
+import Nav from '../components/chrome/Nav.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import Experience from '../components/sections/Experience.astro';
+import PhotoBand from '../components/sections/PhotoBand.astro';
+import Ingredients from '../components/sections/Ingredients.astro';
+import MapDesktop from '../components/sections/MapDesktop.astro';
+import MapMobile from '../components/sections/MapMobile.astro';
+import Cta from '../components/sections/Cta.astro';
+import Footer from '../components/sections/Footer.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ruby Fastfood</title>
-  </head>
-  <body>
-    <main style="font-family: ui-sans-serif, system-ui; padding: 3rem; max-width: 60ch">
-      <h1>Ruby Fastfood — client</h1>
-      <p>Astro skeleton is wired up. Source migration happens in the next step.</p>
-      <p
-        ><code>@ruby/shared</code> resolves: schema keys =
-        {Object.keys(MenuItemCreateSchema.entries).join(', ')}</p
-      >
-    </main>
-  </body>
-</html>
+<Base>
+  <Cursor />
+  <Nav />
+  <Hero />
+  <About />
+  <Experience />
+  <PhotoBand />
+  <Ingredients />
+  <MapDesktop />
+  <MapMobile />
+  <Cta />
+  <Footer />
+</Base>

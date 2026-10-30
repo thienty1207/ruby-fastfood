@@ -5,7 +5,7 @@
 // independent motions:
 //   1. a forever yoyo timeline breathing the control points (repeat:-1, yoyo:true)
 //   2. a scroll-scrubbed scaleY on the whole svg (1 -> 1.5 desktop, 1.2 mobile)
-import { gsap, ScrollTrigger } from '../lib/gsap';
+import { gsap, ScrollTrigger } from './gsap';
 
 export interface DividerOptions {
   fill?: string;

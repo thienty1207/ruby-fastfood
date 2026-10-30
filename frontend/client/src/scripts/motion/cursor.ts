@@ -4,7 +4,7 @@
 // icons [lettuce, tomato, cheese-logo, meat]; segment 0 quickTo pointer at
 // .05s power2.out, each subsequent segment clamped to segmentLength from its
 // predecessor with duration .12 + .01*r power3.out.
-import { gsap } from '../lib/gsap';
+import { gsap } from './gsap';
 
 const ICONS = [
   { src: '/img-webp/lettuce.webp', alt: 'lettuce' },

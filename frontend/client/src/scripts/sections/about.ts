@@ -3,11 +3,11 @@
 //   inertia { x:{velocity:30*dx,end:0}, y:{velocity:30*dy,end:0},
 //             rotation:{velocity:2*dx,end:baseRotation}, resistance:150 }
 // Order button morphs its blob between 4 SVG paths on hover.
-import { gsap, MorphSVGPlugin } from '../lib/gsap';
-import { buildSplitMarkup, revealSplit } from '../components/splitText';
-import { revealLines } from '../components/linesReveal';
-import { BLOB_BASE, BLOB_VARIANTS, orderButton } from '../components/ui';
-import { stickerMarkup } from '../components/sticker';
+import { gsap, MorphSVGPlugin } from '../motion/gsap';
+import { buildSplitMarkup, revealSplit } from '../motion/splitText';
+import { revealLines } from '../motion/linesReveal';
+import { BLOB_BASE, BLOB_VARIANTS, orderButton } from '../motion/ui';
+import { stickerMarkup } from '../motion/sticker';
 
 void MorphSVGPlugin;
 

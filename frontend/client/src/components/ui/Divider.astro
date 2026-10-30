@@ -1,0 +1,8 @@
+﻿---
+/** Wave divider — animated SVG path. Mounted per [data-divider-host]. */
+import { dividerMarkup, type DividerOptions } from '../../scripts/motion/divider';
+interface Props extends DividerOptions {}
+const { fill = '#f5e3cd', flip = false, className = '' } = Astro.props;
+const html = dividerMarkup({ fill, flip, className });
+---
+<Fragment set:html={html} />

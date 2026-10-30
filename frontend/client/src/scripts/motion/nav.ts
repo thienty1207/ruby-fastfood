@@ -1,7 +1,7 @@
 // Nav — hide-on-scroll-down, hamburger morph, menu panel, scroll-spy for dark sections.
 // Port of chunk 0jg2m1sj81gv0.js. All values CONFIRMED from that source.
-import { gsap, ScrollTrigger } from '../lib/gsap';
-import { onLenisScroll, startLenis, stopLenis } from '../lib/lenis';
+import { gsap, ScrollTrigger } from './gsap';
+import { onLenisScroll, startLenis, stopLenis } from './lenis';
 import { PILL, rolling, escapeHtml } from './ui';
 
 const MENU_ITEMS = [
@@ -220,7 +220,7 @@ export function initNav(): void {
         const target = document.querySelector(sel);
         if (target) {
           const offset = (nav?.offsetHeight ?? 0) + 12;
-          import('../lib/lenis').then(({ scrollToEl }) => scrollToEl(target, offset));
+          import('./lenis').then(({ scrollToEl }) => scrollToEl(target, offset));
         }
       } else {
         setOpen(false);
@@ -233,7 +233,7 @@ export function initNav(): void {
     if (hero && window.location.pathname === '/') {
       e.preventDefault();
       const offset = (nav?.offsetHeight ?? 0) + 12;
-      import('../lib/lenis').then(({ scrollToEl }) => scrollToEl(hero, offset));
+      import('./lenis').then(({ scrollToEl }) => scrollToEl(hero, offset));
     }
   });
 }

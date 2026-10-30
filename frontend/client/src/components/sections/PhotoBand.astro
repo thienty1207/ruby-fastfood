@@ -1,0 +1,14 @@
+﻿---
+/**
+ * 160vh photo band between two wave dividers
+ *
+ * Markup is produced by the SAME function the clone used, so the rendered
+ * HTML is byte-identical to the pre-migration build. Only the init() half
+ * moved; the markup source of truth lives in scripts/sections/photoBand.ts.
+ */
+import { photoBandMarkup } from '../../scripts/sections/photoBand';
+
+const html = photoBandMarkup();
+---
+
+<Fragment set:html={html} />

@@ -10,7 +10,7 @@
 //
 // Wrapping the footer case again in an extra inline-block span adds a stray
 // line box (39px at 1440) — that was the only remaining height delta.
-import { gsap, ScrollTrigger, SplitText } from '../lib/gsap';
+import { gsap, ScrollTrigger, SplitText } from './gsap';
 
 const reduceMotion = () =>
   window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
