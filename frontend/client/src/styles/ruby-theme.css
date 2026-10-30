@@ -1,0 +1,228 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Ruby palette — sampled from the reference art direction.
+
+   This file is loaded AFTER site.css and only OVERRIDES custom properties.
+   No layout, no spacing, no motion, no selector changes: the clone's
+   interaction and animation code is untouched. Every rule below re-points a
+   token the existing stylesheet already reads.
+
+   Sampled from the reference image (dominant-colour quantisation):
+     accent  #e54616   13.9° hue, 82.5% sat      (logo / CTA / headline)
+     ink     #0b0909   3.9% lightness           (page background)
+     cream   #f3e0ca   37° hue, 72% sat         (body text on ink)
+     gold    #d58837                            (crown, accents, stars)
+     deep    #3e0603   near-black red           (banner, shadows)
+
+   ── WHY THERE ARE NEW TOKEN NAMES ──────────────────────────────────────
+   In site.css `--beige` does double duty: it is BOTH the light page
+   background AND the light text colour used on red panels. Those two roles
+   must diverge on a dark theme, so this file introduces:
+       --bg      surface        (was --beige as background)
+       --cream   content text   (was --beige as colour)
+   and re-points `--beige` to --cream so nothing that still reads the old
+   name turns invisible. `--black` is treated the same way:
+       --ink     panel/dark surface   (was --black as background)
+       --body    body text            (was --black as colour)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── WHY `html:root` AND NOT `:root` ────────────────────────────────────
+   Astro splits the imported stylesheets into separate bundles and does not
+   guarantee that ruby-theme.css is emitted after site.css — in practice it
+   comes FIRST, so a plain `:root { --beige: … }` here loses to site.css's
+   own `:root`. `html:root` has higher specificity (one element + the root
+   pseudo-class) and wins regardless of bundle order.
+   ─────────────────────────────────────────────────────────────────────── */
+html:root {
+  /* ── Core surfaces ─────────────────────────────────────────────────── */
+  --bg: #0b0909;
+  --bg-raised: #161310;
+  --ink: #050303;
+  --deep: #3e0603;
+
+  /* ── Content ───────────────────────────────────────────────────────── */
+  --cream: #f3e0ca;
+  --body: #f3e0ca;
+
+  /* ── Accents ───────────────────────────────────────────────────────── */
+  --ruby: #e54616;
+  --ruby-hot: #fc5a00;
+  --gold: #d58837;
+  --gold-bright: #efd09d;
+
+  /* ── Re-point the ORIGINAL tokens (site.css reads these) ───────────── */
+  --beige: var(--bg); /* page background: light → dark      */
+  --white: var(--cream); /* text-stroke + "white" panels: paper → cream */
+  --black: var(--cream); /* body text on dark: ink → cream     */
+  --red: var(--ruby); /* brand red → sampled ruby           */
+  --mustard: var(--gold); /* the yellow section → warm gold      */
+  --mustard-dark: var(--gold-bright);
+
+  /* ── Sticker lighting: recalibrated for a dark ground ──────────────── */
+  /* On beige the shadow reads as a soft edge; on ink it must be stronger
+     or the die-cut sticker floats. */
+  --sticker-shadow-opacity: 0.85;
+  --sticker-lighting-constant: 0.18;
+
+  /* Colour scheme so native UI (scrollbars, form controls) follows. */
+  color-scheme: dark;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ROLE SEPARATION
+
+   The tokens above make the page dark, but a few utilities still assume the
+   light-theme meaning. Each block below fixes ONE role, using selectors the
+   original markup already emits — no HTML or JS changes.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Body copy that was `text-black` on a light page ─────────────────── */
+/* These sit on the dark page now, so they need cream, not cream-on-cream. */
+.text-black,
+.text-black\/95,
+.text-black\/90,
+.text-black\/85,
+.text-black\/80,
+.text-black\/70,
+.text-black\/60,
+.text-black\/50,
+.text-black\/40 {
+  color: var(--cream);
+}
+.border-black\/40,
+.border-black\/20,
+.border-black\/15,
+.border-black\/10,
+.border-black\/5 {
+  border-color: color-mix(in oklab, var(--cream) 22%, transparent);
+}
+.bg-black\/20,
+.bg-black\/10,
+.bg-black\/5 {
+  background-color: color-mix(in oklab, var(--cream) 10%, transparent);
+}
+
+/* ── `hover:bg-black` buttons would become cream-on-cream ────────────── */
+/* The pill/CTA buttons use text-beige + hover:bg-black. Cream text on a
+   cream hover is invisible, so the hover ground becomes deep ruby. */
+.hover\:bg-black:hover,
+.hover\:bg-black\/35:hover,
+.hover\:bg-black\/10:hover {
+  background-color: var(--deep);
+}
+
+/* ── Panels that were literally black on the light theme ─────────────── */
+/* bg-black exists for the nav hamburger bar/circle; keep it near-ink. */
+.bg-black {
+  background-color: var(--cream);
+}
+
+/* ── The mustard section keeps its identity, just warmer ─────────────── */
+/* map-desktop / map-mobile use bg-mustard with dark text on top. The text
+   utilities inside were text-black → now cream, which would clash on gold.
+   Re-assert ink for anything sitting on a gold panel. */
+.bg-mustard .text-black,
+.bg-mustard .text-black\/95,
+.bg-mustard .text-black\/90,
+.bg-mustard .text-black\/85,
+.bg-mustard .text-black\/80,
+.bg-mustard .text-black\/70 {
+  color: #1a0d05;
+}
+
+/* ── The red experience panel keeps cream text (unchanged role) ──────── */
+.bg-red .text-beige {
+  color: var(--cream);
+}
+
+/* ── Eyebrows (`text-mustard-dark`) ──────────────────────────────────────
+   In the light theme this was a warm amber on beige — readable. Mapped to
+   --gold-bright (#efd09d) it becomes cream-on-cream on the dark page, so the
+   hero's SMASHED FRESH / BOLD FLAVOR readouts vanished.
+   On ink the eyebrow needs the hot orange to hold its "sticker" feel. */
+.text-mustard-dark {
+  color: var(--ruby-hot);
+}
+
+/* The one place mustard-dark sits on the RED panel keeps amber, where it
+   contrasts correctly against #e54616. */
+.bg-red .text-mustard-dark {
+  color: var(--gold-bright);
+}
+
+/* ── Big display lettering that used text-beige as its FILL ────────────
+   The hero's giant "CRAV" and the experience headline are filled with
+   --beige, which is now the near-black page colour. Re-point them to cream
+   so they read as solid type with the stroke as an outline. */
+#hero .text-mustard-dark,
+.text-\[15vw\] {
+  color: var(--gold);
+}
+
+/* Experience headline + CTA headline are text-beige on the red panel. */
+#cta h2.text-red,
+#cta .text-red {
+  color: var(--ruby-hot);
+}
+
+/* ── Sticker / badge fills on dark ─────────────────────────────────────── */
+/* "BOLD FLAVOUR" and similar small stickers used mustard-dark; keep them
+   legible against imagery by using the saturated gold. */
+.text-mustard-dark,
+.font-modak.text-mustard-dark {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+/* ── Form fields / cookie banner: was white panel on beige ───────────── */
+.bg-white,
+.bg-white\/90,
+.bg-white\/80,
+.bg-white\/70,
+.bg-white\/15,
+.bg-white\/10,
+.bg-white\/5 {
+  background-color: color-mix(in oklab, var(--cream) 92%, transparent);
+}
+.text-white,
+.text-white\/90 {
+  color: var(--cream);
+}
+
+/* ── Hairlines that carried the old light-theme contrast ─────────────── */
+.hr,
+[class*='bg-black/20'] {
+  background-color: color-mix(in oklab, var(--cream) 18%, transparent);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PAGE-SECTION BACKGROUNDS
+
+   Sections that relied on the light body background now need the dark
+   surface, and the ones that were explicitly `bg-beige` need to match.
+   ═══════════════════════════════════════════════════════════════════════ */
+body {
+  background: var(--bg);
+  color: var(--cream);
+}
+
+#about,
+#ingredients,
+#cta,
+footer,
+section[data-nav-dark='false'] {
+  background-color: var(--bg);
+}
+
+/* ── Text-stroke: white outline on beige was ~invisible (1.25:1).
+      On ink a pure cream stroke is 14.7:1 and reads as a bright halo,
+      which is the look we want for this palette. Keep the width, change
+      nothing else. The stroke colour comes from --white → --cream. ─────── */
+
+/* ── Nav: the pill border used black/20 on beige; re-tint for ink ────── */
+nav a[class*='text-stroke-small'] {
+  color: var(--ruby);
+}
+
+/* ── Scrollbar (cosmetic, keeps the dark theme coherent) ─────────────── */
+html {
+  scrollbar-color: var(--ruby) var(--bg);
+}

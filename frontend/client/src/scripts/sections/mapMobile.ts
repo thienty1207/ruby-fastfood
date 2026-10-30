@@ -24,7 +24,7 @@ const SEGMENT_DURATION = 1;
 
 export function mapMobileMarkup(): string {
   return `
-  <section id="map-mobile" class="h-fit hidden space-y-[5vw] max-md:block relative min-h-screen w-full bg-mustard overflow-hidden" data-divider-host data-divider-fill="#F5E3CD" data-divider-flip="0">
+  <section id="map-mobile" class="h-fit hidden space-y-[5vw] max-md:block relative min-h-screen w-full bg-mustard overflow-hidden" data-divider-host data-divider-fill="var(--bg)" data-divider-flip="0">
     <div class="space-y-[4vw] mt-[30vw] relative z-10">
       <h2 class="text-white text-center w-full text-stroke-180-mustard heading300 uppercase leading-[.85]">A story in every bite.</h2>
       <p class="text40 mx-auto text-center w-[65%] text-black font-mouse-memoirs leading-[1.1]">From fresh farms to your hands every layer matters.</p>
@@ -33,7 +33,7 @@ export function mapMobileMarkup(): string {
     <div data-mobile-path-host class="flex flex-col relative gap-[50vw] items-center mt-[25vw] pb-[10vw]">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[83%] w-[2vw] flex items-center pointer-events-none z-0">
         <svg width="6" height="100%" viewBox="0 0 6 1000" class="h-full w-full" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block">
-          <path data-mobile-route d="M3 0 L3 1000" stroke="#F4A804" stroke-opacity="0.7" stroke-width="4" stroke-dasharray="10 14"></path>
+          <path data-mobile-route d="M3 0 L3 1000" stroke="var(--gold-bright)" stroke-opacity="0.7" stroke-width="4" stroke-dasharray="10 14"></path>
         </svg>
       </div>
 

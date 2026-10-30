@@ -6,8 +6,8 @@ import { dividerMarkup } from '../motion/divider';
 export function photoBandMarkup(): string {
   return `
   <div class="h-[160vh] max-md:h-[70vh] w-full relative">
-    ${dividerMarkup({ fill: '#f91814', flip: false })}
-    ${dividerMarkup({ fill: '#f5e3cd', flip: true })}
+    ${dividerMarkup({ fill: 'var(--ruby)', flip: false })}
+    ${dividerMarkup({ fill: 'var(--bg)', flip: true })}
     <img alt="CRAV Signature Cheesy Burger with dripping cheese" width="1000" height="1000" class="h-full w-full object-cover" src="/img-webp/cheesyBurger.webp">
   </div>`;
 }

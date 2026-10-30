@@ -65,3 +65,6 @@ bun-debug.log*
 
 # ── Migration QA screenshots ──────────────────────────────────
 qa-migrate/
+
+# Palette QA screenshots
+qa-ruby/

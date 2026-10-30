@@ -27,7 +27,7 @@ import { initFooter } from './sections/footer';
 function mountDividers(): void {
   document.querySelectorAll<HTMLElement>('[data-divider-host]').forEach((host) => {
     if (host.querySelector(':scope > [data-divider-mounted]')) return; // idempotent
-    const fill = host.dataset.dividerFill || '#f5e3cd';
+    const fill = host.dataset.dividerFill || 'var(--bg)';
     const flip = host.dataset.dividerFlip === '1';
     const wrapper = document.createElement('div');
     wrapper.innerHTML = dividerMarkup({ fill, flip });

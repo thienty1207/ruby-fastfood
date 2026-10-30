@@ -26,14 +26,14 @@ const ROUTE_D =
 
 export function mapDesktopMarkup(): string {
   return `
-  <section id="map-desktop" class="h-fit max-md:hidden overflow-hidden w-full bg-mustard relative" data-divider-host data-divider-fill="#F5E3CD" data-divider-flip="0">
+  <section id="map-desktop" class="h-fit max-md:hidden overflow-hidden w-full bg-mustard relative" data-divider-host data-divider-fill="var(--bg)" data-divider-flip="0">
     <div data-map-plane class="pointer-events-none absolute left-0 top-0 w-[15vw]" style="z-index:2;backface-visibility:hidden;transform:translate3d(0,0,0)">
       <img src="/img/plane.png" alt="Plane" width="1000" height="1000" class="h-full w-full object-contain" draggable="false">
     </div>
     <div data-map-inner class="relative self h-[163vw] w-full">
       <div class="absolute top-0 left-0 h-full w-full">
         <svg class="h-full w-full object-cover" width="1728" height="2176" viewBox="0 0 1728 2176" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path data-map-route d="${ROUTE_D}" stroke="#F4A804" stroke-opacity="0.5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="42 42"></path>
+          <path data-map-route d="${ROUTE_D}" stroke="var(--gold-bright)" stroke-opacity="0.5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="42 42"></path>
         </svg>
       </div>
 

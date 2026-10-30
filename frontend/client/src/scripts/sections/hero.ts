@@ -31,7 +31,7 @@ export function heroMarkup(): string {
       </div>
     </div>
 
-    <p class="text-center text-[15vw] max-md:text-[20vw] font-modak uppercase mt-[15vw] relative z-20 max-md:z-20 text-stroke-180 text-[#F4A804] translate-y-[-9vw] max-md:mt-[6vw] max-md:absolute max-md:top-[133vw] max-md:-translate-y-1/2" data-split="words" data-delay=".8">${buildSplitMarkup(
+    <p class="text-center text-[15vw] max-md:text-[20vw] font-modak uppercase mt-[15vw] relative z-20 max-md:z-20 text-stroke-180 text-mustard-dark translate-y-[-9vw] max-md:mt-[6vw] max-md:absolute max-md:top-[133vw] max-md:-translate-y-1/2" data-split="words" data-delay=".8">${buildSplitMarkup(
       'CRAV',
       'words',
     )}</p>

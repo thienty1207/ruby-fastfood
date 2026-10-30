@@ -37,7 +37,7 @@ export const BLOB_VARIANTS = [
 export function orderButton(label = 'Order Now', href = '/menu'): string {
   return `<a data-cursor-hide="true" class="relative w-fit mx-auto border-none bg-transparent p-0 block cursor-pointer outline-none select-none" href="${href}">
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="-10 -10 602 475" preserveAspectRatio="none" class="absolute inset-0 w-full h-full z-0 pointer-events-none">
-      <path class="blob-path" stroke="#ffffff" stroke-width="10" fill="#F91914" d="${BLOB_BASE}"></path>
+      <path class="blob-path" stroke="var(--cream)" stroke-width="10" fill="var(--ruby)" d="${BLOB_BASE}"></path>
     </svg>
     <span class="relative z-10 text-white font-bold text40 uppercase inline-block px-[4vw] py-[1.5vw] max-md:px-[10vw] max-md:py-[4vw]">${escapeHtml(label)}</span>
   </a>`;
