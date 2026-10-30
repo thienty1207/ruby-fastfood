@@ -1,22 +1,25 @@
 # Ruby Fastfood — monorepo
 
-Astro client/admin + Hono API on Bun. **Skeleton stage:** structure and config
-only — the CRAV clone source still lives in `output/www.cravburgers.shop/site/`
-and is migrated into `frontend/client/` in the next step.
+Astro client/admin + Hono API on Bun. The CRAV clone is fully migrated into
+`frontend/client/` and verified at **delta 0** against the pre-migration baseline.
+
+> **Run commands from THIS folder** (`D:\Working\Typescript\Ruby-Fastfood`).
+> Running `bun run dev:api` from anywhere else gives
+> `error: Script not found "dev:api"` — that means you are in the wrong folder,
+> not that the script is missing.
 
 ## Structure
 
 ```
 ruby-fastfood/
 ├── frontend/
-│   ├── client/            @ruby/client   Astro 7 + GSAP + Lenis
+│   ├── client/            @ruby/client   Astro 7 + GSAP + Lenis  (clone)
 │   └── admin/             @ruby/admin    Astro 7 + TypeScript
 ├── backend/               @ruby/backend  Hono 4 + Bun + SQLite + Drizzle
 ├── packages/
 │   └── shared/            @ruby/shared   types + valibot schemas
 ├── tools/qa/              regression harness
-├── _research/             clone artifacts (archive)
-├── output/                pre-restructure snapshot (to be removed later)
+├── _research/             teardown, probes, recon scripts (archive)
 ├── bunfig.toml
 ├── tsconfig.base.json
 └── .env.example
@@ -38,11 +41,28 @@ linked `node_modules` — do not expect a flat hoisted tree.
 
 ## Dev
 
+Each runs in its own terminal, from **this** folder:
+
 ```bash
-bun run dev:client    # Astro  → http://localhost:4321
-bun run dev:admin     # Astro  → http://localhost:4322
+bun run dev:client    # Astro  → http://localhost:4321  (127.0.0.1 too)
+bun run dev:admin     # Astro  → http://localhost:4322  (127.0.0.1 too)
 bun run dev:api       # Hono   → http://localhost:3000
-bun run dev:all       # all three in parallel
+```
+
+All three at once (parallel, from the workspace scripts):
+
+```bash
+bun run dev
+```
+
+Dev servers bind **127.0.0.1 only** — they are deliberately not reachable from
+the LAN, so there is no `Network:` URL to worry about.
+
+Quick check that the API is alive:
+
+```bash
+curl http://localhost:3000/api/health
+# {"ok":true,"data":{"status":"healthy","runtime":"bun 1.4.4",...}}
 ```
 
 ## Build
