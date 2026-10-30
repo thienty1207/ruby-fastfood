@@ -1,0 +1,1799 @@
+[
+  {
+    "d": 0,
+    "tag": "div",
+    "cls": "fixed max-md:hidden inset-0 pointer-events-none",
+    "y": 0,
+    "h": 900,
+    "w": 1440,
+    "s": "fixed|block|16px|rgb(27, 27, 27)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "svg",
+        "cls": "",
+        "y": 0,
+        "h": 900,
+        "w": 1440,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": []
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2",
+        "y": -16,
+        "h": 32,
+        "w": 32,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "size-[2.2vw] max-md:hidden max-md:size-[7vw] rounded-full bg-white/80 backdrop-blur-md  border border-black/20  grid place-items-center",
+            "y": -16,
+            "h": 32,
+            "w": 32,
+            "s": "static|grid|16px|rgb(27, 27, 27)|oklab(0.999994 0.0000455677 0.0000200868 / 0.8)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "w-[70%] h-[70%] object-contain select-none",
+                "y": -10,
+                "h": 21,
+                "w": 21,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2",
+        "y": -16,
+        "h": 32,
+        "w": 32,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "size-[2.2vw] max-md:hidden max-md:size-[7vw] rounded-full bg-white/80 backdrop-blur-md  border border-black/20  grid place-items-center",
+            "y": -16,
+            "h": 32,
+            "w": 32,
+            "s": "static|grid|16px|rgb(27, 27, 27)|oklab(0.999994 0.0000455677 0.0000200868 / 0.8)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "w-[70%] h-[70%] object-contain select-none",
+                "y": -10,
+                "h": 21,
+                "w": 21,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2",
+        "y": -16,
+        "h": 32,
+        "w": 32,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "size-[2.2vw] max-md:hidden max-md:size-[7vw] rounded-full bg-white/80 backdrop-blur-md  border border-black/20  grid place-items-center",
+            "y": -16,
+            "h": 32,
+            "w": 32,
+            "s": "static|grid|16px|rgb(27, 27, 27)|oklab(0.999994 0.0000455677 0.0000200868 / 0.8)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "w-[70%] h-[70%] object-contain select-none",
+                "y": -10,
+                "h": 21,
+                "w": 21,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2",
+        "y": -16,
+        "h": 32,
+        "w": 32,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "size-[2.2vw] max-md:hidden max-md:size-[7vw] rounded-full bg-white/80 backdrop-blur-md  border border-black/20  grid place-items-center",
+            "y": -16,
+            "h": 32,
+            "w": 32,
+            "s": "static|grid|16px|rgb(27, 27, 27)|oklab(0.999994 0.0000455677 0.0000200868 / 0.8)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "w-[70%] h-[70%] object-contain select-none",
+                "y": -10,
+                "h": 21,
+                "w": 21,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "div",
+    "cls": "fixed inset-0 z-998 bg-red/30 backdrop-blur-md",
+    "y": 0,
+    "h": 900,
+    "w": 1440,
+    "s": "fixed|block|16px|rgb(27, 27, 27)|oklab(0.622692 0.216387 0.119361 / 0.3)",
+    "kids": []
+  },
+  {
+    "d": 0,
+    "tag": "nav",
+    "cls": "fixed top-0 left-0 w-full z-999 flex items-center justify-between px-[2.5vw] max-md:px-[4vw] py-[1vw] max-md:py-[4vw]",
+    "y": 0,
+    "h": 86,
+    "w": 1440,
+    "s": "fixed|flex|16px|rgb(27, 27, 27)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "a",
+        "cls": "font-modak hover:scale-105 transition-all duration-300 text-red text-stroke-small text-[4vw] max-md:text-[10vw] leading-none",
+        "y": 14,
+        "h": 58,
+        "w": 142,
+        "s": "static|block|57.6px|rgb(249, 24, 20)",
+        "t": "CRAV",
+        "kids": []
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "flex items-center gap-[1vw] max-md:gap-[3vw]",
+        "y": 20,
+        "h": 46,
+        "w": 209,
+        "s": "static|flex|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "a",
+            "cls": "font-mouse-memoirs hover:scale-105 transition-all duration-300 flex items-center justify-center text-[1.3vw] max-md:text-[4vw] uppercase tracking-wide text-beig",
+            "y": 22,
+            "h": 42,
+            "w": 93,
+            "s": "static|flex|18.72px|rgb(245, 227, 205)|rgb(249, 24, 20)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "overflow-hidden  relative inline-block group ",
+                "y": 29,
+                "h": 28,
+                "w": 47,
+                "s": "relative|block|18.72px|rgb(245, 227, 205)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "relative",
+            "y": 20,
+            "h": 46,
+            "w": 102,
+            "s": "relative|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "button",
+                "cls": "hover:scale-105 flex items-center gap-[.6vw] max-md:gap-[2vw] px-[1.4vw] py-[.5vw] max-md:px-[4vw] group max-md:py-[1.8vw] rounded-full cursor-pointer transitio",
+                "y": 20,
+                "h": 46,
+                "w": 102,
+                "s": "static|flex|16px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "id": "main-menu",
+                "cls": "absolute top-[calc(100%+1vw)] right-0 w-[18vw] max-md:w-[91vw] bg-red rounded-[1.2vw] max-md:rounded-[4vw] p-[2vw] max-md:mt-[5vw] max-md:p-[6vw] shadow-[0_1vw_",
+                "y": 81,
+                "h": 102,
+                "w": 78,
+                "s": "absolute|block|16px|rgb(27, 27, 27)|rgb(249, 24, 20)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "div",
+    "cls": "fixed bottom-[2vw] max-md:bottom-[3vw] left-1/2 -translate-x-1/2 z-997 w-[32vw] max-w-[98vw] min-w-[290px] max-md:w-[99vw] max-md:px-[2vw] pointer-events-none",
+    "y": 762,
+    "h": 109,
+    "w": 461,
+    "s": "fixed|block|16px|rgb(27, 27, 27)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "pointer-events-auto bg-white/90 backdrop-blur-md text-black border border-beige/30 rounded-2xl shadow-lg px-[1.6vw] py-[1.1vw] max-md:px-[4vw] max-md:py-[4vw] m",
+        "y": 762,
+        "h": 109,
+        "w": 461,
+        "s": "static|flex|16px|rgb(27, 27, 27)|oklab(0.999994 0.0000455678 0.0000200868 / 0.9)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "flex items-center gap-2 mb-[.5vw] max-md:gap-2.5 max-md:mb-[1.3vw]",
+            "y": 779,
+            "h": 29,
+            "w": 413,
+            "s": "static|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "inline-flex items-center justify-center bg-mustard/20 rounded-full p-1 mr-1 max-md:p-[2.2vw] max-md:mr-[1vw]",
+                "y": 779,
+                "h": 29,
+                "w": 29,
+                "s": "static|flex|16px|rgb(27, 27, 27)|oklab(0.889914 -0.00592461 0.154259 / 0.2)"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "font-mouse-memoirs uppercase tracking-[.16em] text-[.88vw] max-md:text-[4vw] text-black/85 max-md:leading-tight",
+                "y": 784,
+                "h": 19,
+                "w": 82,
+                "s": "static|block|12.672px|oklab(0.222127 0.000010103 0.00000445545 / 0.85)",
+                "t": "Cookies in use"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "flex items-center w-full gap-3 max-md:flex-col max-md:items-stretch max-md:gap-[2vw] max-md:w-full",
+            "y": 821,
+            "h": 33,
+            "w": 413,
+            "s": "static|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "font-mouse-memoirs text-[.96vw] max-md:text-[4vw] text-black/95 leading-normal mr-auto max-md:mr-0 max-md:mb-[2vw] max-md:text-left",
+                "y": 827,
+                "h": 21,
+                "w": 172,
+                "s": "static|block|13.824px|oklab(0.222127 0.000010103 0.00000445545 / 0.95)",
+                "t": "We use cookies to improve your experience."
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "flex items-center gap-2 shrink-0 max-md:mt-0 max-md:w-full max-md:gap-[3vw]",
+                "y": 821,
+                "h": 33,
+                "w": 113,
+                "s": "static|flex|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "section",
+    "id": "hero",
+    "cls": "h-screen w-full relative flex flex-col justify-between items-center pt-[8vw] max-md:pt-[40vw]  max-md:h-[200vw] max-md:pb-[2vw]",
+    "y": 0,
+    "h": 900,
+    "w": 1440,
+    "s": "relative|flex|16px|rgb(27, 27, 27)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "w-fit h-fit relative",
+        "y": 115,
+        "h": 346,
+        "w": 1368,
+        "s": "relative|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "h1",
+            "cls": "text-[30vw] leading-[.8] text-center text-red text-stroke-180 font-mouse-memoirs max-md:text-[26vw] max-md:leading-[.85]",
+            "y": 115,
+            "h": 346,
+            "w": 1368,
+            "s": "static|block|432px|rgb(249, 24, 20)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "sr-only",
+                "y": 114,
+                "h": 1,
+                "w": 1,
+                "s": "absolute|block|432px|rgb(249, 24, 20)",
+                "t": "THE BURGER"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "",
+                "y": 40,
+                "h": 494,
+                "w": 1368,
+                "s": "static|inline|432px|rgb(249, 24, 20)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "p",
+            "cls": "absolute top-[10%] left-[10%] text-mustard-dark z-10 rotate-15 max-md:rotate-0 max-md:top-[2%] max-md:left-[2%] text-stroke-180 text-center text-[2.8vw] font-mo",
+            "y": 128,
+            "h": 116,
+            "w": 189,
+            "s": "absolute|block|40.32px|rgb(244, 168, 4)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "sr-only",
+                "y": 127,
+                "h": 1,
+                "w": 1,
+                "s": "absolute|block|40.32px|rgb(244, 168, 4)",
+                "t": "SMASHED\nFRESH"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "",
+                "y": 116,
+                "h": 132,
+                "w": 186,
+                "s": "static|inline|40.32px|rgb(244, 168, 4)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "p",
+            "cls": "absolute bottom-[10%] right-[10%] text-mustard-dark z-10 -rotate-15 max-md:rotate-0 max-md:bottom-[2%] max-md:right-[2%] text-stroke-180 text-center text-[2.8vw",
+            "y": 336,
+            "h": 107,
+            "w": 157,
+            "s": "absolute|block|40.32px|rgb(244, 168, 4)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "sr-only",
+                "y": 367,
+                "h": 1,
+                "w": 1,
+                "s": "absolute|block|40.32px|rgb(244, 168, 4)",
+                "t": "BOLD\nFLAVOR"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "",
+                "y": 330,
+                "h": 125,
+                "w": 154,
+                "s": "static|inline|40.32px|rgb(244, 168, 4)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "size-[40vw] z-20 absolute top-[60%] -translate-y-[60%] left-1/2 -translate-x-1/2 max-md:size-[80vw] max-md:top-[110vw] max-md:-translate-y-[50%]",
+        "y": 194,
+        "h": 576,
+        "w": 576,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-full h-full opacity-0",
+            "y": 190,
+            "h": 576,
+            "w": 576,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "h-full w-full object-contain",
+                "y": 190,
+                "h": 576,
+                "w": 576,
+                "s": "static|block|16px|rgba(0, 0, 0, 0)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "p",
+        "cls": "text-center text-[15vw] max-md:text-[20vw] font-modak uppercase mt-[15vw] relative z-20 max-md:z-20 text-stroke-180 text-[#F4A804] translate-y-[-9vw] max-md:mt-",
+        "y": 547,
+        "h": 324,
+        "w": 532,
+        "s": "relative|block|216px|rgb(244, 168, 4)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "span",
+            "cls": "sr-only",
+            "y": 546,
+            "h": 1,
+            "w": 1,
+            "s": "absolute|block|216px|rgb(244, 168, 4)",
+            "t": "CRAV",
+            "kids": []
+          },
+          {
+            "d": 2,
+            "tag": "span",
+            "cls": "",
+            "y": 546,
+            "h": 326,
+            "w": 532,
+            "s": "static|inline|216px|rgb(244, 168, 4)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "inline-block will-change-transform",
+                "y": 547,
+                "h": 324,
+                "w": 532,
+                "s": "static|inline-block|216px|rgb(244, 168, 4)",
+                "t": "CRAV"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "w-full absolute bottom-0 left-0 flex justify-between px-[2.5vw] py-[2vw] max-md:static max-md:flex-col max-md:gap-[4vw] max-md:items-center max-md:px-[5vw] max-",
+        "y": 765,
+        "h": 135,
+        "w": 1440,
+        "s": "absolute|flex|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[23vw] max-md:w-full",
+            "y": 793,
+            "h": 78,
+            "w": 331,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text40 leading-none max-md:text-center",
+                "y": 793,
+                "h": 78,
+                "w": 331,
+                "s": "static|block|25.92px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[23vw] max-md:w-full ",
+            "y": 793,
+            "h": 78,
+            "w": 331,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text40 leading-none text-right max-md:text-center",
+                "y": 793,
+                "h": 78,
+                "w": 331,
+                "s": "static|block|25.92px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "section",
+    "id": "about",
+    "cls": "h-fit overflow-clip self relative z-100 text-center space-y-[2vw] w-full max-md:space-y-[6vw] py-[6vw]",
+    "y": 900,
+    "h": 1306,
+    "w": 1440,
+    "s": "relative|block|16px|rgb(27, 27, 27)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "space-y-[1vw] relative max-md:space-y-[6vw]",
+        "y": 1015,
+        "h": 460,
+        "w": 1368,
+        "s": "relative|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "p",
+            "cls": "text-red z-100 max-md:rotate-0 relative top-[-1vw] max-md:top-0 -rotate-5 text-stroke-180 w-full text-center mx-auto text-[2.8vw] font-modak leading-[.9]! max-m",
+            "y": 941,
+            "h": 155,
+            "w": 1366,
+            "s": "relative|block|40.32px|rgb(249, 24, 20)",
+            "t": "TOP CLASSIC",
+            "kids": []
+          },
+          {
+            "d": 2,
+            "tag": "h2",
+            "cls": "text-stroke-180 max-md:w-full w-[70%] text-center mx-auto leading-[.75]! text-red heading300 uppercase ",
+            "y": 1066,
+            "h": 324,
+            "w": 958,
+            "s": "static|block|216px|rgb(249, 24, 20)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "sr-only",
+                "y": 1065,
+                "h": 1,
+                "w": 1,
+                "s": "absolute|block|216px|rgb(249, 24, 20)",
+                "t": "juicy cheesy fully Loaded"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "",
+                "y": 1023,
+                "h": 409,
+                "w": 814,
+                "s": "static|inline|216px|rgb(249, 24, 20)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "p",
+            "cls": "text-black text40 w-[45%] mt-[2vw] leading-[1.1] mx-auto max-md:w-[90%] ",
+            "y": 1419,
+            "h": 57,
+            "w": 616,
+            "s": "static|block|25.92px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "inline-block",
+                "y": 1419,
+                "h": 57,
+                "w": 573,
+                "s": "static|inline-block|25.92px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "mx-auto mt-[2vw] mb-[4vw] w-full max-md:mt-[6vw] max-md:mb-[8vw]",
+        "y": 1504,
+        "h": 82,
+        "w": 1368,
+        "s": "static|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "a",
+            "cls": "relative w-fit mx-auto border-none bg-transparent p-0 block cursor-pointer outline-none select-none ",
+            "y": 1504,
+            "h": 82,
+            "w": 198,
+            "s": "relative|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "svg",
+                "cls": "",
+                "y": 1504,
+                "h": 82,
+                "w": 198,
+                "s": "absolute|block|16px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "relative z-10 text-white font-bold text40 uppercase inline-block px-[4vw] py-[1.5vw] max-md:px-[10vw] max-md:py-[4vw] ",
+                "y": 1504,
+                "h": 82,
+                "w": 198,
+                "s": "relative|inline-block|25.92px|rgb(255, 255, 255)",
+                "t": "Order Now"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "relative grid h-fit w-full place-items-center px-[10vw] pb-[6vw] max-md:px-[4vw] max-md:pb-[12vw]",
+        "y": 1644,
+        "h": 446,
+        "w": 1368,
+        "s": "relative|grid|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "absolute w-[15vw] max-md:w-[25vw] h-auto top-[-13vw] max-md:top-[-30vw] left-[5vw] max-md:-left-[4vw] z-50 drop-shadow-xl",
+            "y": 1457,
+            "h": 324,
+            "w": 216,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": " ",
+                "y": 1457,
+                "h": 324,
+                "w": 216,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "grid grid-cols-3 gap-[1vw] justify-center mx-auto max-w-[70vw]  max-md:flex max-md:flex-row max-md:flex-nowrap max-md:items-end max-md:justify-center max-md:gap",
+            "y": 1644,
+            "h": 360,
+            "w": 893,
+            "s": "static|grid|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "\n              h-[25vw] w-[20vw] rounded-[4%] overflow-hidden media-item max-md:origin-bottom\n              max-md:w-[35vw] max-md:h-[38vw] max-md:shrink-0\n    ",
+                "y": 1632,
+                "h": 384,
+                "w": 318,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "\n              h-[25vw] w-[20vw] rounded-[4%] overflow-hidden media-item max-md:origin-bottom\n              max-md:w-[35vw] max-md:h-[38vw] max-md:shrink-0\n    ",
+                "y": 1632,
+                "h": 384,
+                "w": 318,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "\n              h-[25vw] w-[20vw] rounded-[4%] overflow-hidden media-item max-md:origin-bottom\n              max-md:w-[35vw] max-md:h-[38vw] max-md:shrink-0\n    ",
+                "y": 1626,
+                "h": 397,
+                "w": 335,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "div",
+    "cls": "h-fit  -mt-[15vw] max-md:-mt-[10vw] self flex items-center justify-center relative w-full bg-red",
+    "y": 1990,
+    "h": 1736,
+    "w": 1440,
+    "s": "relative|flex|16px|rgb(27, 27, 27)|rgb(249, 24, 20)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "\n        z-99 w-full absolute left-0 right-0 overflow-x-clip\n        max-md:left-0 max-md:right-0\n        top-0\n        \n      ",
+        "y": 1990,
+        "h": 300,
+        "w": 1440,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "svg",
+            "cls": "",
+            "y": 1990,
+            "h": 300,
+            "w": 1440,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "path",
+                "cls": "",
+                "y": 1990,
+                "h": 218,
+                "w": 1441,
+                "s": "static|inline|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "h-fit relative mt-[15vw] max-md:mt-[10vw] flex flex-col items-center justify-center translate-y-[10vw] max-md:translate-y-[5vw] z-10 w-full overflow-hidden pb-[",
+        "y": 2465,
+        "h": 1290,
+        "w": 1368,
+        "s": "relative|flex|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[14vw] max-md:w-[25vw] h-auto absolute top-[5vw] max-md:top-[30vw] left-[5vw] max-md:-left-[4vw] z-50 ",
+            "y": 2537,
+            "h": 252,
+            "w": 202,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "sticker-container",
+                "y": 2537,
+                "h": 252,
+                "w": 202,
+                "s": "relative|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[18vw] max-md:w-[35vw] h-auto absolute top-[20vw] max-md:top-[35vw] right-[2vw] max-md:-right-[6vw] z-50 ",
+            "y": 2753,
+            "h": 202,
+            "w": 259,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "sticker-container",
+                "y": 2753,
+                "h": 202,
+                "w": 259,
+                "s": "relative|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "relative z-20 w-full flex flex-col items-center",
+            "y": 2465,
+            "h": 468,
+            "w": 1368,
+            "s": "relative|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text-red absolute -rotate-8 max-md:rotate-0 text-stroke-180 text-center top-[5vw] max-md:top-[6vw] left-1/2 -translate-x-1/2 text-[2.8vw] max-md:text-[7vw] font",
+                "y": 2521,
+                "h": 68,
+                "w": 231,
+                "s": "absolute|block|40.32px|rgb(249, 24, 20)",
+                "t": "EXPERIENCE"
+              },
+              {
+                "d": 3,
+                "tag": "h2",
+                "cls": "text-center heading300 uppercase max-md:text-[14vw] leading-[.75] w-full text-beige relative z-20 mt-[10vw] max-md:mt-[15vw]",
+                "y": 2609,
+                "h": 324,
+                "w": 1368,
+                "s": "relative|block|216px|rgb(245, 227, 205)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "flex items-end justify-between w-full px-0 max-md:px-[4vw] max-md:flex-col max-md:items-center relative max-md:mt-[15vw]",
+            "y": 2933,
+            "h": 750,
+            "w": 1368,
+            "s": "relative|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "max-md:absolute max-md:bottom-[-15vw] max-md:left-0 z-20 max-md:text-left",
+                "y": 3597,
+                "h": 86,
+                "w": 138,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "h-auto translate-y-[4vw] max-md:translate-y-0 w-[80vw] max-md:w-screen relative z-10",
+                "y": 2990,
+                "h": 750,
+                "w": 1125,
+                "s": "relative|block|16px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "max-md:absolute max-md:bottom-[-15vw] max-md:right-0 z-20 max-md:text-right",
+                "y": 3597,
+                "h": 86,
+                "w": 105,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "div",
+    "cls": "h-[160vh] max-md:h-[70vh] w-full relative",
+    "y": 3726,
+    "h": 1440,
+    "w": 1440,
+    "s": "relative|block|16px|rgb(27, 27, 27)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "\n        z-99 w-full absolute left-0 right-0 overflow-x-clip\n        max-md:left-0 max-md:right-0\n        top-0\n        \n      ",
+        "y": 3726,
+        "h": 300,
+        "w": 1440,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "svg",
+            "cls": "",
+            "y": 3726,
+            "h": 300,
+            "w": 1440,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "path",
+                "cls": "",
+                "y": 3726,
+                "h": 218,
+                "w": 1441,
+                "s": "static|inline|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "\n        z-99 w-full absolute left-0 right-0 overflow-x-clip\n        max-md:left-0 max-md:right-0\n        bottom-[-.5vw] max-md:bottom-0\n        max-md:!bottom-",
+        "y": 4873,
+        "h": 300,
+        "w": 1440,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "svg",
+            "cls": "",
+            "y": 4873,
+            "h": 300,
+            "w": 1440,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "path",
+                "cls": "",
+                "y": 4976,
+                "h": 197,
+                "w": 1441,
+                "s": "static|inline|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "img",
+        "cls": "h-full w-full object-cover",
+        "y": 3726,
+        "h": 1440,
+        "w": 1440,
+        "s": "static|block|16px|rgba(0, 0, 0, 0)",
+        "kids": []
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "section",
+    "id": "ingredients",
+    "cls": "h-fit max-md:h-fit max-md:py-[14vw] w-full px-[2.5vw] relative",
+    "y": 5166,
+    "h": 799,
+    "w": 1440,
+    "s": "relative|block|16px|rgb(27, 27, 27)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "h-fit pt-[2vw] relative z-100 space-y-[3vw] w-full max-md:space-y-[6vw]",
+        "y": 5166,
+        "h": 799,
+        "w": 1368,
+        "s": "relative|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "p",
+            "cls": "text-red -rotate-7 max-md:rotate-0 mx-auto uppercase text-stroke-180 text-center text-[2.8vw] max-md:text-[8vw] font-modak leading-[.9]!",
+            "y": 5112,
+            "h": 203,
+            "w": 1362,
+            "s": "static|block|40.32px|rgb(249, 24, 20)",
+            "t": "Pure quality",
+            "kids": []
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "max-md:mt-[10vw] flex flex-col gap-[1vw] w-full items-center justify-center",
+            "y": 5274,
+            "h": 691,
+            "w": 1368,
+            "s": "static|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "heading300 mx-auto text-center w-[60vw] max-md:w-full leading-[.75] uppercase text-stroke-180 text-red",
+                "y": 5274,
+                "h": 162,
+                "w": 864,
+                "s": "static|block|216px|rgb(249, 24, 20)"
+              },
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "heading300 mx-auto text-center w-[60vw] max-md:w-full leading-[.75] uppercase text-stroke-180 text-red",
+                "y": 5451,
+                "h": 162,
+                "w": 864,
+                "s": "static|block|216px|rgb(249, 24, 20)"
+              },
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "heading300 mx-auto text-center w-[60vw] max-md:w-full leading-[.75] uppercase text-stroke-180 text-red",
+                "y": 5627,
+                "h": 162,
+                "w": 864,
+                "s": "static|block|216px|rgb(249, 24, 20)"
+              },
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "heading300 mx-auto text-center w-[60vw] max-md:w-full leading-[.75] uppercase text-stroke-180 text-red",
+                "y": 5804,
+                "h": 162,
+                "w": 864,
+                "s": "static|block|216px|rgb(249, 24, 20)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[18vw] max-md:w-[26vw] h-auto absolute right-[15vw] max-md:right-[5vw] top-[18vw] max-md:top-[25vw] z-10",
+            "y": 5346,
+            "h": 229,
+            "w": 259,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "h-full w-full object-contain",
+                "y": 5346,
+                "h": 229,
+                "w": 259,
+                "s": "static|block|16px|rgba(0, 0, 0, 0)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[23vw] max-md:w-[32vw] h-auto absolute left-[14vw] max-md:left-[5vw] top-[37vw] max-md:top-[65vw] z-20",
+            "y": 5642,
+            "h": 331,
+            "w": 331,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "h-full w-full object-contain",
+                "y": 5642,
+                "h": 331,
+                "w": 331,
+                "s": "static|block|16px|rgba(0, 0, 0, 0)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[20vw] max-md:w-[28vw] h-auto absolute right-[16vw] max-md:right-[5vw] bottom-[-4vw] max-md:bottom-[-10vw] z-30",
+            "y": 5713,
+            "h": 164,
+            "w": 288,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "h-full w-full object-contain",
+                "y": 5713,
+                "h": 164,
+                "w": 288,
+                "s": "static|block|16px|rgba(0, 0, 0, 0)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[24vw] max-md:w-[36vw] h-auto absolute left-[15vw] max-md:left-[5vw] top-[5vw] max-md:top-[20vw] z-40",
+            "y": 5170,
+            "h": 346,
+            "w": 346,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "h-full w-full object-contain",
+                "y": 5170,
+                "h": 346,
+                "w": 346,
+                "s": "static|block|16px|rgba(0, 0, 0, 0)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "section",
+    "id": "map-desktop",
+    "cls": "h-fit max-md:hidden overflow-hidden w-full bg-mustard relative",
+    "y": 6009,
+    "h": 2347,
+    "w": 1440,
+    "s": "relative|block|16px|rgb(27, 27, 27)|rgb(255, 215, 80)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "\n        z-99 w-full absolute left-0 right-0 overflow-x-clip\n        max-md:left-0 max-md:right-0\n        top-0\n        \n      ",
+        "y": 6009,
+        "h": 300,
+        "w": 1440,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "svg",
+            "cls": "",
+            "y": 6009,
+            "h": 300,
+            "w": 1440,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "path",
+                "cls": "",
+                "y": 6009,
+                "h": 218,
+                "w": 1441,
+                "s": "static|inline|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "pointer-events-none absolute left-0 top-0 w-[15vw]",
+        "y": 6052,
+        "h": 216,
+        "w": 228,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "img",
+            "cls": "h-full w-full object-contain",
+            "y": 6052,
+            "h": 216,
+            "w": 228,
+            "s": "static|block|16px|rgba(0, 0, 0, 0)",
+            "kids": []
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "relative self h-[163vw] w-full",
+        "y": 6009,
+        "h": 2347,
+        "w": 1440,
+        "s": "relative|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "absolute top-0 left-0 h-full w-full",
+            "y": 6009,
+            "h": 2347,
+            "w": 1440,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "svg",
+                "cls": "",
+                "y": 6009,
+                "h": 2347,
+                "w": 1440,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "space-y-[2vw] mt-[20vw] relative z-10",
+            "y": 6412,
+            "h": 547,
+            "w": 1368,
+            "s": "relative|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text-mustard-dark -rotate-7 ml-[1vw] -translate-y-[6vw]  uppercase text-stroke-180 text-[2.8vw] font-modak leading-[.9]!",
+                "y": 6243,
+                "h": 201,
+                "w": 1348,
+                "s": "static|block|40.32px|rgb(244, 168, 4)",
+                "t": "take away"
+              },
+              {
+                "d": 3,
+                "tag": "h2",
+                "cls": "text-white text-stroke-180-mustard heading300 w-[80vw] leading-[.85]",
+                "y": 6477,
+                "h": 367,
+                "w": 1152,
+                "s": "static|block|216px|rgb(255, 255, 255)",
+                "t": "QUALITY THAT TRAVELS WITH YOU"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "inline-block",
+                "y": 6873,
+                "h": 86,
+                "w": 446,
+                "s": "static|inline-block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "absolute right-[5vw] space-y-[1.5vw] z-200 top-[50vw] items-end flex flex-col",
+            "y": 6749,
+            "h": 250,
+            "w": 188,
+            "s": "absolute|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text-red rotate-7 text-right uppercase text-stroke-small text40 font-modak leading-[.9]! country-label",
+                "y": 6755,
+                "h": 37,
+                "w": 79,
+                "s": "static|block|25.92px|rgb(249, 24, 20)",
+                "t": "BERLIN˝"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "w-[14vw] rounded-[1vw] overflow-hidden h-[17vw]",
+                "y": 6784,
+                "h": 214,
+                "w": 184,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "absolute left-[35vw] space-y-[1.5vw] z-200 top-[64vw] items-start flex flex-col",
+            "y": 6954,
+            "h": 242,
+            "w": 177,
+            "s": "absolute|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text-red -rotate-7 text-left uppercase text-stroke-small text40 font-modak leading-[.9]! country-label",
+                "y": 6955,
+                "h": 23,
+                "w": 86,
+                "s": "static|block|25.92px|rgb(249, 24, 20)",
+                "t": "LONDON˝"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "w-[14vw] rounded-[1vw] overflow-hidden h-[17vw]",
+                "y": 6990,
+                "h": 206,
+                "w": 174,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "absolute right-[20vw] space-y-[1.5vw] z-200 top-[80vw] items-end flex flex-col",
+            "y": 7178,
+            "h": 255,
+            "w": 198,
+            "s": "absolute|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text-red rotate-12 text-right uppercase text-stroke-small text40 font-modak leading-[.9]! country-label",
+                "y": 7176,
+                "h": 57,
+                "w": 108,
+                "s": "static|block|25.92px|rgb(249, 24, 20)",
+                "t": "NEW YORK˝"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "w-[14vw] rounded-[1vw] overflow-hidden h-[17vw]",
+                "y": 7213,
+                "h": 220,
+                "w": 192,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "absolute left-[15vw] space-y-[1.5vw] z-200 top-[105vw] items-start flex flex-col",
+            "y": 7542,
+            "h": 248,
+            "w": 186,
+            "s": "absolute|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text-red -rotate-12 text-left uppercase text-stroke-small text40 font-modak leading-[.9]! country-label",
+                "y": 7542,
+                "h": 44,
+                "w": 85,
+                "s": "static|block|25.92px|rgb(249, 24, 20)",
+                "t": "SYDNEY˝"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "w-[14vw] rounded-[1vw] overflow-hidden h-[17vw]",
+                "y": 7577,
+                "h": 212,
+                "w": 182,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "absolute right-[14vw] space-y-[1.5vw] z-200 top-[130vw] items-end flex flex-col",
+            "y": 7894,
+            "h": 263,
+            "w": 211,
+            "s": "absolute|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text-red rotate-6 text-right uppercase text-stroke-small text40 font-modak leading-[.9]! country-label",
+                "y": 7911,
+                "h": 42,
+                "w": 76,
+                "s": "static|block|25.92px|rgb(249, 24, 20)",
+                "t": "TOKYO˝"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "w-[14vw] rounded-[1vw] overflow-hidden h-[17vw]",
+                "y": 7929,
+                "h": 228,
+                "w": 203,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "section",
+    "id": "map-mobile",
+    "cls": "h-fit hidden space-y-[5vw] max-md:block relative min-h-screen w-full bg-mustard overflow-hidden",
+    "y": 0,
+    "h": 0,
+    "w": 0,
+    "s": "relative|none|16px|rgb(27, 27, 27)|rgb(255, 215, 80)",
+    "kids": []
+  },
+  {
+    "d": 0,
+    "tag": "section",
+    "id": "cta",
+    "cls": "h-fit w-full pt-[18vw] max-md:pt-[12vw] overflow-clip relative bg-beige",
+    "y": 8356,
+    "h": 1159,
+    "w": 1440,
+    "s": "relative|block|16px|rgb(27, 27, 27)|rgb(245, 227, 205)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "\n        z-99 w-full absolute left-0 right-0 overflow-x-clip\n        max-md:left-0 max-md:right-0\n        top-0\n        \n      ",
+        "y": 8356,
+        "h": 300,
+        "w": 1440,
+        "s": "absolute|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "svg",
+            "cls": "",
+            "y": 8356,
+            "h": 300,
+            "w": 1440,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "path",
+                "cls": "",
+                "y": 8356,
+                "h": 218,
+                "w": 1441,
+                "s": "static|inline|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "h-screen my-[8vw] mt-0 flex items-center justify-center w-full relative max-md:my-[2vw] max-md:mt-0 max-md:h-fit max-md:flex-col max-md:gap-0 max-md:px-[2vw]",
+        "y": 8615,
+        "h": 900,
+        "w": 1440,
+        "s": "relative|flex|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "absolute z-222 bottom-[1vw] max-md:bottom-[65vw] max-md:left-[2vw] max-md:translate-x-0! -rotate-45 left-1/2  -translate-x-1/2 w-[35vw] h-auto  max-md:w-[70vw] ",
+            "y": 8879,
+            "h": 724,
+            "w": 724,
+            "s": "absolute|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "sticker-container",
+                "y": 8879,
+                "h": 724,
+                "w": 724,
+                "s": "relative|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[60vw] flex items-start gap-[2vw] justify-center flex-col self h-full max-md:w-full max-md:gap-[4vw] max-md:items-center max-md:h-fit",
+            "y": 8615,
+            "h": 900,
+            "w": 824,
+            "s": "static|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text-red -rotate-7 ml-[.5vw] uppercase text-stroke-180 font-modak leading-[.9]! text60 max-md:rotate-0 max-md:ml-0 max-md:translate-y-0 max-md:text-center",
+                "y": 8750,
+                "h": 52,
+                "w": 138,
+                "s": "static|block|40.32px|rgb(249, 24, 20)",
+                "t": "FEEL IT"
+              },
+              {
+                "d": 3,
+                "tag": "h2",
+                "cls": "text-red text-stroke-180 heading300 uppercase leading-[.75] max-md:leading-[.85]! max-md:text-[10vw] max-md:text-center",
+                "y": 8823,
+                "h": 324,
+                "w": 504,
+                "s": "static|block|216px|rgb(249, 24, 20)"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "inline-block",
+                "y": 9176,
+                "h": 86,
+                "w": 432,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "max-md:w-full max-md:flex max-md:justify-center",
+                "y": 9290,
+                "h": 82,
+                "w": 198,
+                "s": "static|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "w-[45vw] rounded-[2vw] overflow-hidden h-[60vw] max-md:w-full max-md:h-[40vh] max-md:min-h-[40vw] max-md:rounded-[4vw]",
+            "y": 8633,
+            "h": 864,
+            "w": 616,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "img",
+                "cls": "h-full w-full object-cover",
+                "y": 8633,
+                "h": 864,
+                "w": 616,
+                "s": "static|block|16px|rgba(0, 0, 0, 0)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "d": 0,
+    "tag": "footer",
+    "cls": "h-fit w-full  overflow-hidden self relative",
+    "y": 9630,
+    "h": 799,
+    "w": 1440,
+    "s": "relative|block|16px|rgb(27, 27, 27)",
+    "kids": [
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "relative z-30 flex items-center justify-between gap-[2vw] pb-[1vw] max-md:flex-col max-md:items-center max-md:gap-[4vw] max-md:pb-[6vw]",
+        "y": 9746,
+        "h": 64,
+        "w": 1368,
+        "s": "relative|flex|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "nav",
+            "cls": "flex flex-wrap items-center gap-x-[2vw] gap-y-[.6vw] max-md:gap-x-[5vw] max-md:gap-y-[2vw]",
+            "y": 9746,
+            "h": 50,
+            "w": 294,
+            "s": "static|flex|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "a",
+                "cls": "text40 uppercase font-mouse-memoirs hover:text-red transition-colors",
+                "y": 9746,
+                "h": 50,
+                "w": 42,
+                "s": "static|block|25.92px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "a",
+                "cls": "text40 uppercase font-mouse-memoirs hover:text-red transition-colors",
+                "y": 9746,
+                "h": 50,
+                "w": 60,
+                "s": "static|block|25.92px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "a",
+                "cls": "text40 uppercase font-mouse-memoirs hover:text-red transition-colors",
+                "y": 9746,
+                "h": 50,
+                "w": 46,
+                "s": "static|block|25.92px|rgb(27, 27, 27)"
+              },
+              {
+                "d": 3,
+                "tag": "a",
+                "cls": "text40 uppercase font-mouse-memoirs hover:text-red transition-colors",
+                "y": 9746,
+                "h": 50,
+                "w": 60,
+                "s": "static|block|25.92px|rgb(27, 27, 27)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "span",
+            "cls": "inline-block",
+            "y": 9751,
+            "h": 39,
+            "w": 264,
+            "s": "static|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "line-mask",
+                "y": 9751,
+                "h": 39,
+                "w": 264,
+                "s": "relative|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "relative z-30 max-md:hidden",
+        "y": 9810,
+        "h": 2,
+        "w": 1368,
+        "s": "relative|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "h-[2px]  w-full bg-black/20",
+            "y": 9810,
+            "h": 2,
+            "w": 1368,
+            "s": "static|block|16px|rgb(27, 27, 27)|oklab(0.222127 0.000010103 0.00000445545 / 0.2)",
+            "kids": []
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "relative z-30 max-md:hidden pt-[1vw] opacity-80 max-md:pt-[4vw]",
+        "y": 9812,
+        "h": 53,
+        "w": 1368,
+        "s": "relative|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "span",
+            "cls": "inline-block",
+            "y": 9826,
+            "h": 39,
+            "w": 313,
+            "s": "static|inline-block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "div",
+                "cls": "line-mask",
+                "y": 9826,
+                "h": 39,
+                "w": 313,
+                "s": "relative|block|16px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "d": 1,
+        "tag": "div",
+        "cls": "mt-[10vw]  relative min-h-[18vw] max-md:mt-[5vw]",
+        "y": 10009,
+        "h": 305,
+        "w": 1368,
+        "s": "relative|block|16px|rgb(27, 27, 27)",
+        "kids": [
+          {
+            "d": 2,
+            "tag": "h2",
+            "cls": "heading600 leading-[.5] translate-y-[5vw] max-md:translate-y-0 text-center text-red text-stroke z-10 relative",
+            "y": 10081,
+            "h": 252,
+            "w": 1368,
+            "s": "relative|block|504px|rgb(249, 24, 20)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "sr-only",
+                "y": 10080,
+                "h": 1,
+                "w": 1,
+                "s": "absolute|block|504px|rgb(249, 24, 20)",
+                "t": "CRAV"
+              },
+              {
+                "d": 3,
+                "tag": "span",
+                "cls": "",
+                "y": 9827,
+                "h": 759,
+                "w": 1266,
+                "s": "static|inline|504px|rgb(249, 24, 20)"
+              }
+            ]
+          },
+          {
+            "d": 2,
+            "tag": "div",
+            "cls": "relative z-30 pt-[1vw] max-md:pt-[4vw]",
+            "y": 10261,
+            "h": 53,
+            "w": 1368,
+            "s": "relative|block|16px|rgb(27, 27, 27)",
+            "kids": [
+              {
+                "d": 3,
+                "tag": "p",
+                "cls": "text40 uppercase font-mouse-memoirs opacity-80 text-center",
+                "y": 10275,
+                "h": 39,
+                "w": 1368,
+                "s": "static|block|25.92px|rgb(27, 27, 27)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

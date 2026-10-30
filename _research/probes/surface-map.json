@@ -1,0 +1,45 @@
+{
+  "url": "https://www.cravburgers.shop/",
+  "title": "CRAV | Sizzling",
+  "viewport": {
+    "w": 1440,
+    "h": 900,
+    "dpr": 1
+  },
+  "globals": {
+    "three": false,
+    "babylon": false,
+    "regl": false,
+    "pixi": false,
+    "ogl": false,
+    "p5": false,
+    "gsap": false,
+    "unicornStudio": false,
+    "spline": false,
+    "rive": false,
+    "shadertoy": false
+  },
+  "scroll": {
+    "lenis": true,
+    "locomotive": false,
+    "scrollTimelineCSS": false,
+    "scrollSnap": false
+  },
+  "counts": {
+    "canvas": 0,
+    "gpuCanvas": 0,
+    "video": 0,
+    "iframe": 0,
+    "opaqueIframe": 0
+  },
+  "surfaces": [],
+  "routingSummary": {
+    "hasGpuSurfaces": false,
+    "gpuHeroPresent": false,
+    "sendToShaderExtract": [],
+    "opaqueIframes": [],
+    "platformGlobalsDetected": [],
+    "lazyGpuLikely": false,
+    "note": "No GPU surfaces detected — dom-clone alone is sufficient; still verify animated video/SVG are re-embedded, not snapshotted."
+  }
+}
