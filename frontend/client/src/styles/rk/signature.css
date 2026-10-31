@@ -156,22 +156,16 @@
   grid-template-columns: 1fr;
   gap: 0;
   overflow: hidden;
-  border-radius: var(--rk-radius-m);
-  border: 1px solid rgb(245 235 221 / 0.1);
+  /* Square corners, no border: the imagery bleeds to the edge of the card.
+     The rounded orange edge competed with the photographs. */
+  border-radius: 0;
+  border: 0;
   background: var(--rk-charcoal-raised);
-  transition: border-color var(--rk-dur-mid) var(--rk-ease-out);
-}
-
-/* Active card: a warm edge, animated by CSS only — no layout shift because
-   border-width never changes, only its colour. */
-.rk-sig-card.is-current {
-  border-color: rgb(244 119 53 / 0.5);
 }
 
 /* INNER: geometry. GSAP owns y/opacity here; nothing in CSS touches them. */
 .rk-sig-card__shell {
   overflow: hidden;
-  border-radius: inherit;
 }
 
 /* Promotion only while the section is actually on screen — see the
