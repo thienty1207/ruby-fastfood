@@ -8,6 +8,10 @@
  * transformer that normalizes that breakpoint breaks the footer by 45–88px.
  */
 import '../styles/site.css';
+// Palette override. Loaded AFTER site.css so it only re-points custom
+// properties — it contains no layout, spacing or motion rules.
+// Delete this one line to return to the original CRAV beige palette.
+import '../styles/ruby-theme.css';
 
 interface Props {
   title?: string;

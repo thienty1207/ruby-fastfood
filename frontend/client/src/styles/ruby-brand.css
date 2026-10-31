@@ -1,0 +1,235 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — BRAND TOKENS
+   Concept D: "Ruby Dark Diner"
+
+   Merges A (dark, cinematic type, high-impact) + B (red/black checkerboard,
+   playful Western Diner). Neon Grid is explicitly NOT the direction.
+
+   Loaded AFTER site.css. This file only declares variables and the few new
+   primitives the redesign needs — no CRAV rule is redefined here.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Self-hosted, OFL-licensed type ─────────────────────────────────────
+   Anton  — condensed display, diner-poster energy (SIL OFL, commercial OK)
+   Inter  — variable text face, 400-800 (SIL OFL, commercial OK)
+   Both replace Modak + Mouse Memoirs, which read as CRAV's identity.
+   ─────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'RK Display';
+  src: url('/fonts/anton.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'RK Text';
+  src: url('/fonts/inter-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+html:root {
+  /* ══ PALETTE (client-supplied) ═══════════════════════════════════════ */
+  --rk-charcoal: #151515;
+  --rk-charcoal-deep: #0c0c0c;
+  --rk-charcoal-raised: #1f1f1f;
+  --rk-ruby: #951e2a;
+  --rk-ruby-bright: #c22634;
+  --rk-flame: #f47735;
+  --rk-flame-soft: #ff9457;
+  --rk-cream: #f5ebdd;
+  --rk-cream-dim: #cfc2b1;
+  --rk-gold: #c79a63;
+
+  /* ══ TYPE SCALE ═════════════════════════════════════════════════════ */
+  --rk-font-display: 'RK Display', 'Arial Narrow', sans-serif;
+  --rk-font-text: 'RK Text', ui-sans-serif, system-ui, sans-serif;
+
+  /* clamp() so the scale is fluid but never breaks: min / fluid / max.
+     The hero cap is deliberately 11.5vw, not 15vw: at 1440 two 15vw lines
+     (354px) + mascot + facts overflowed a 900px viewport. 11.5vw keeps the
+     whole hero within 100svh at every desktop size. */
+  --rk-size-hero: clamp(3.4rem, 11.5vw, 11.5rem);
+  --rk-size-h2: clamp(2.6rem, 8.5vw, 7.5rem);
+  --rk-size-h3: clamp(1.6rem, 3.6vw, 3rem);
+  --rk-size-eyebrow: clamp(0.72rem, 1.15vw, 1rem);
+  --rk-size-body: clamp(0.95rem, 1.15vw, 1.15rem);
+  --rk-size-small: clamp(0.78rem, 0.9vw, 0.9rem);
+  --rk-size-price: clamp(1.05rem, 1.5vw, 1.5rem);
+
+  /* Anton has a tall cap-height and almost no descender space, so a 0.82
+     leading made consecutive lines collide (BIG / FLAVOR / RUBY / STYLE
+     visually merged). 0.9 keeps the tight poster feel without touching. */
+  --rk-leading-display: 0.9;
+  --rk-leading-tight: 1.1;
+  --rk-leading-body: 1.55;
+
+  --rk-tracking-display: -0.02em;
+  --rk-tracking-eyebrow: 0.22em;
+
+  /* ══ SPACE — 8px grid, vw-fluid on desktop ══════════════════════════ */
+  --rk-space-1: 0.5rem;
+  --rk-space-2: 1rem;
+  --rk-space-3: 1.5rem;
+  --rk-space-4: 2rem;
+  --rk-space-5: 3rem;
+  --rk-space-6: 4rem;
+  --rk-space-7: 6rem;
+  --rk-space-section: clamp(4rem, 9vw, 9rem);
+
+  /* ══ LAYOUT ════════════════════════════════════════════════════════ */
+  --rk-gutter: clamp(1.15rem, 3vw, 3.5rem);
+  --rk-max: 1480px;
+  --rk-nav-h: clamp(60px, 5.5vw, 84px);
+
+  /* ══ SURFACE ═══════════════════════════════════════════════════════ */
+  --rk-radius-s: 6px;
+  --rk-radius-m: 14px;
+  --rk-radius-pill: 999px;
+  --rk-border: 1px solid rgb(245 235 221 / 0.14);
+  --rk-border-strong: 1px solid rgb(245 235 221 / 0.28);
+
+  /* Checkerboard — red/black, the Western Diner signature */
+  --rk-checker-size: 28px;
+  --rk-checker-light: var(--rk-ruby);
+  --rk-checker-dark: var(--rk-charcoal-deep);
+
+  /* ══ MOTION ════════════════════════════════════════════════════════ */
+  --rk-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --rk-ease-snap: cubic-bezier(0.7, 0, 0.2, 1);
+  --rk-dur-fast: 0.22s;
+  --rk-dur-mid: 0.45s;
+  --rk-dur-slow: 0.8s;
+
+  /* ══ Z-INDEX LADDER (mirrors the clone's, 2 new rungs) ═════════════ */
+  --rk-z-base: 0;
+  --rk-z-raised: 10;
+  --rk-z-nav: 999;
+  --rk-z-menu: 998;
+  --rk-z-cursor: 10000;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PRIMITIVES — the small set of new building blocks Concept D needs.
+   Everything is prefixed `rk-` so it can never collide with site.css.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Type ────────────────────────────────────────────────────────────── */
+.rk-display {
+  font-family: var(--rk-font-display);
+  font-weight: 400;
+  line-height: var(--rk-leading-display);
+  letter-spacing: var(--rk-tracking-display);
+  text-transform: uppercase;
+}
+
+.rk-eyebrow {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--rk-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--rk-flame);
+}
+
+.rk-body {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-body);
+  line-height: var(--rk-leading-body);
+  font-weight: 400;
+  color: var(--rk-cream-dim);
+}
+
+.rk-price {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-price);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--rk-cream);
+  white-space: nowrap;
+}
+
+/* ── Checkerboard band (CSS only, no image) ──────────────────────────── */
+.rk-checker {
+  background-image:
+    linear-gradient(45deg, var(--rk-checker-light) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--rk-checker-light) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--rk-checker-light) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--rk-checker-light) 75%);
+  background-size: var(--rk-checker-size) var(--rk-checker-size);
+  background-position: 0 0, 0 calc(var(--rk-checker-size) / 2),
+    calc(var(--rk-checker-size) / 2) calc(var(--rk-checker-size) / -2),
+    calc(var(--rk-checker-size) / -2) 0;
+  background-color: var(--rk-checker-dark);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+.rk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  /* 1px transparent border on the BASE, not only on --ghost: without it the
+     ghost variant was 2px taller than the flame one (visible mismatch in the
+     same row). Same box, different paint. */
+  border: 1px solid transparent;
+  /* Equal-size buttons in a row: both get the same inline padding AND the same
+     minimum width, so "EXPLORE MENU" (11 chars) and "FIND US" (7 chars) render
+     at identical height and rhythm instead of the label deciding the box. */
+  padding: 0.95em 1.6em;
+  min-height: 3.15em;
+  min-width: 11.5em;
+  border-radius: var(--rk-radius-pill);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--rk-dur-fast) var(--rk-ease-out),
+    border-color var(--rk-dur-fast) var(--rk-ease-out),
+    color var(--rk-dur-fast) var(--rk-ease-out),
+    transform var(--rk-dur-fast) var(--rk-ease-out);
+}
+.rk-btn:hover {
+  transform: translateY(-2px);
+}
+.rk-btn:focus-visible {
+  outline: 2px solid var(--rk-flame);
+  outline-offset: 3px;
+}
+
+.rk-btn--flame {
+  background: var(--rk-flame);
+  color: var(--rk-charcoal);
+}
+.rk-btn--flame:hover {
+  background: var(--rk-flame-soft);
+}
+
+.rk-btn--ghost {
+  background: transparent;
+  color: var(--rk-cream);
+  border-color: rgb(245 235 221 / 0.28);
+}
+.rk-btn--ghost:hover {
+  border-color: var(--rk-flame);
+  color: var(--rk-flame);
+}
+
+/* ── Reduced motion: kill every transition/animation we introduce ───── */
+@media (prefers-reduced-motion: reduce) {
+  .rk-btn,
+  .rk-marquee-track {
+    transition: none !important;
+    animation: none !important;
+  }
+  .rk-btn:hover {
+    transform: none;
+  }
+}

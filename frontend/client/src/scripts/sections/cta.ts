@@ -6,7 +6,7 @@ import { stickerMarkup } from '../motion/sticker';
 
 export function ctaMarkup(): string {
   return `
-  <section id="cta" class="h-fit w-full pt-[18vw] max-md:pt-[12vw] overflow-clip relative bg-beige" data-divider-host data-divider-fill="#ffd750" data-divider-flip="0">
+  <section id="cta" class="h-fit w-full pt-[18vw] max-md:pt-[12vw] overflow-clip relative bg-beige" data-divider-host data-divider-fill="var(--gold)" data-divider-flip="0">
     <div class="h-screen my-[8vw] mt-0 flex items-center justify-center w-full relative max-md:my-[2vw] max-md:mt-0 max-md:h-fit max-md:flex-col max-md:gap-0 max-md:px-[2vw]">
       ${stickerMarkup({
         imageSrc: '/img/burger-boy.png',

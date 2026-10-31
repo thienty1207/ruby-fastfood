@@ -30,7 +30,7 @@ function buildPath(p: typeof DESKTOP, flip: boolean): string {
  * Render the divider markup.
  * The wrapper class list is the original's, including the max-md offsets.
  */
-export function dividerMarkup({ fill = '#f5e3cd', flip = false, className = '' }: DividerOptions): string {
+export function dividerMarkup({ fill = 'var(--bg)', flip = false, className = '' }: DividerOptions): string {
   const p = flip ? FLIPPED : DESKTOP;
   return `<div class="z-99 w-full absolute left-0 right-0 overflow-x-clip max-md:left-0 max-md:right-0 ${
     flip ? 'bottom-[-.5vw] max-md:bottom-0 max-md:!bottom-[-7vw]' : 'top-0'

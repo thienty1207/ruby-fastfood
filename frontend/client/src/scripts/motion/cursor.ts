@@ -20,7 +20,7 @@ const KNOTS = [0, 3, 5, 9];
 export function cursorMarkup(): string {
   return `<div data-cursor-layer class="fixed max-md:hidden inset-0 pointer-events-none" style="opacity:0;z-index:10000">
     <svg class="absolute inset-0 h-full w-full" aria-hidden="true">
-      <path data-cursor-path fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="1"></path>
+      <path data-cursor-path fill="none" stroke="var(--cream)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="1"></path>
     </svg>
     ${ICONS.map(
       (ic, i) => `<div data-cursor-knot="${i}" class="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2" style="opacity:0;z-index:${10000 - i}">

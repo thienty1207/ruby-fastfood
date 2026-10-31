@@ -65,3 +65,15 @@ bun-debug.log*
 
 # ── Migration QA screenshots ──────────────────────────────────
 qa-migrate/
+
+# Palette QA screenshots
+qa-ruby/
+
+# Ruby section QA screenshots
+qa-rk*/
+
+# QA screenshots (regenerable, ~8 MB)
+qa-baseline/
+qa-ruby-final/
+qa-rk*/
+qa-migrate/

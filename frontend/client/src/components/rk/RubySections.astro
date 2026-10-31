@@ -1,0 +1,28 @@
+---
+/**
+ * Menu → Footer in one component: they share the same motion context
+ * (initRubySections), so splitting them into six Astro files would add nothing
+ * but four more files. Markup still comes from scripts/rk/sections.ts, the
+ * single source of truth.
+ */
+import {
+  menuMarkup,
+  burgersMarkup,
+  chickenMarkup,
+  combosMarkup,
+  visitMarkup,
+  footerMarkup,
+} from '../../scripts/rk/sections';
+
+const html = [
+  menuMarkup(),
+  burgersMarkup(),
+  chickenMarkup(),
+  combosMarkup(),
+  visitMarkup(),
+].join('\n');
+const foot = footerMarkup();
+---
+
+<Fragment set:html={html} />
+<Fragment set:html={foot} />

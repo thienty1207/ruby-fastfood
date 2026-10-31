@@ -34,7 +34,7 @@ const EYE = (side: 'left' | 'right') => {
 
 export function experienceMarkup(): string {
   return `
-  <div class="h-fit -mt-[15vw] max-md:-mt-[10vw] self flex items-center justify-center relative w-full bg-red" data-divider-host data-divider-fill="#f5e3cd" data-divider-flip="0">
+  <div class="h-fit -mt-[15vw] max-md:-mt-[10vw] self flex items-center justify-center relative w-full bg-red" data-divider-host data-divider-fill="var(--bg)" data-divider-flip="0">
     <div class="h-fit relative mt-[15vw] max-md:mt-[10vw] flex flex-col items-center justify-center translate-y-[10vw] max-md:translate-y-[5vw] z-10 w-full overflow-hidden pb-[5vw] max-md:pb-[15vw]">
       <div class="w-[14vw] max-md:w-[25vw] h-auto absolute top-[5vw] max-md:top-[30vw] left-[5vw] max-md:-left-[4vw] z-50">
         ${stickerMarkup({ imageSrc: '/img-webp/fries.webp', width: '100%', id: 'exp-fries' })}
