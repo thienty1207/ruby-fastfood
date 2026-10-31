@@ -76,16 +76,9 @@ export function rubyHeroMarkup(): string {
         <a class="rk-btn rk-btn--flame" href="${h.cta.href}" data-rk-hero-cta>${h.cta.label}</a>
       </div>
 
-      <div class="rk-hero__facts">
-        <p class="rk-body" data-rk-fact>${h.paraLeft}</p>
-        <p class="rk-body rk-hero__fact-right" data-rk-fact>${h.paraRight}</p>
-      </div>
     </div>
 
-    <div class="rk-hero__scroll" aria-hidden="true">
-      <span class="rk-hero__scroll-label">${content.a11y.scrollHint}</span>
-      <span class="rk-hero__scroll-rail"><span class="rk-hero__scroll-dot"></span></span>
-    </div>
+
   </section>`;
 }
 
@@ -121,7 +114,7 @@ export function initRubyHero(): () => void {
   const ctx = gsap.context(() => {
     if (reduced) {
       // static, fully legible state — no motion at all
-      gsap.set('[data-rk-line], [data-rk-hero-eyebrow], [data-rk-badge], [data-rk-fact], [data-rk-hero-cta], [data-rk-mascot]', {
+      gsap.set('[data-rk-line], [data-rk-hero-eyebrow], [data-rk-badge], [data-rk-hero-cta], [data-rk-mascot]', {
         opacity: 1,
         y: 0,
         clearProps: 'transform',
@@ -154,7 +147,6 @@ export function initRubyHero(): () => void {
     tl.from('[data-rk-badge]', { opacity: 0, scale: 0.7, rotate: -12, duration: 0.55, stagger: 0.12, ease: 'back.out(2.4)' }, 0.85);
 
     // copy + cta
-    tl.from('[data-rk-fact]', { opacity: 0, y: 18, duration: 0.6, stagger: 0.1 }, 0.95);
     tl.from('[data-rk-hero-cta]', { opacity: 0, y: 16, duration: 0.5 }, 1.0);
 
     // ── 2. idle mascot bob (paused when off-screen) ───────────────────
