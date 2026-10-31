@@ -1,0 +1,355 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — SIGNATURE MENU SHOWCASE (#menu)
+
+   Sticky split-screen scrollytelling:
+     left  40%  sticky intro column (eyebrow / headline / support / progress)
+     right 60%  four cards that scroll past it
+
+   Pinning uses CSS position:sticky only. No ScrollTrigger.pin, so nothing is
+   wrapped in a .pin-spacer and the sticky column releases exactly when the
+   section ends.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.rk-sig {
+  position: relative;
+  background: var(--rk-charcoal);
+  border-top: 1px solid rgb(245 235 221 / 0.08);
+  padding-block: clamp(3rem, 7vw, 7rem);
+  /* `overflow: clip` would break position:sticky inside; do not add it. */
+  /* Scroll-margin so an in-page jump (hero CTA / nav MENU) does not tuck the
+     eyebrow under the fixed navbar. */
+  scroll-margin-top: calc(var(--rk-nav-h) + 1rem);
+}
+
+.rk-sig__inner {
+  width: 100%;
+  max-width: var(--rk-max);
+  margin-inline: auto;
+  padding-inline: var(--rk-gutter);
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: 1fr;
+}
+
+/* ── Left column ─────────────────────────────────────────────────────── */
+.rk-sig__sticky {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.9rem, 1.6vw, 1.35rem);
+}
+
+.rk-sig__eyebrow {
+  margin: 0;
+}
+
+.rk-sig__title {
+  margin: 0;
+  font-size: clamp(2.4rem, 5.2vw, 4.6rem);
+  line-height: 0.94;
+  color: var(--rk-cream);
+  display: flex;
+  flex-direction: column;
+}
+
+.rk-sig__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.04em;
+}
+
+.rk-sig__line > span {
+  display: block;
+  will-change: transform;
+}
+
+.rk-sig__line--alt > span {
+  color: var(--rk-ruby-bright);
+}
+
+.rk-sig__support {
+  margin: 0;
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.95rem, 1.05vw, 1.08rem);
+  line-height: 1.6;
+  color: var(--rk-cream-dim);
+  max-width: 42ch;
+}
+
+/* ── Progress ────────────────────────────────────────────────────────── */
+.rk-sig__progress {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 1.4vw, 1.2rem);
+  margin-top: clamp(0.6rem, 1.6vw, 1.4rem);
+  padding-top: clamp(0.8rem, 1.6vw, 1.2rem);
+  border-top: 1px solid rgb(245 235 221 / 0.14);
+  width: 100%;
+  max-width: 34rem;
+}
+
+.rk-sig__counter {
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--rk-cream);
+  white-space: nowrap;
+}
+
+.rk-sig__slash {
+  color: rgb(245 235 221 / 0.35);
+  margin-inline: 0.15em;
+}
+
+.rk-sig__track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;
+}
+
+.rk-sig__tick {
+  display: block;
+  height: 2px;
+  flex: 1 1 0;
+  background: rgb(245 235 221 / 0.18);
+  border-radius: 2px;
+  transition: background-color var(--rk-dur-mid) var(--rk-ease-out);
+}
+
+.rk-sig__tick.is-active {
+  background: var(--rk-flame);
+}
+
+.rk-sig__hint {
+  font-family: var(--rk-font-text);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgb(207 194 177 / 0.6);
+  white-space: nowrap;
+}
+
+/* ── Right column ────────────────────────────────────────────────────── */
+.rk-sig__right {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.2rem, 2.6vw, 2.2rem);
+}
+
+.rk-sig-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  overflow: hidden;
+  border-radius: var(--rk-radius-m);
+  border: 1px solid rgb(245 235 221 / 0.1);
+  background: var(--rk-charcoal-raised);
+  transition:
+    border-color var(--rk-dur-mid) var(--rk-ease-out),
+    transform var(--rk-dur-mid) var(--rk-ease-out);
+  will-change: transform;
+}
+
+/* Active card: a warm edge and a slightly lifted surface — the "premium"
+   hover state without any glow or shadow bloom. */
+.rk-sig-card.is-current {
+  border-color: rgb(244 119 53 / 0.5);
+}
+
+/* ── Media ───────────────────────────────────────────────────────────── */
+.rk-sig__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 11;
+  background: linear-gradient(135deg, #1d1512 0%, #120d0b 100%);
+}
+
+.rk-sig__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;
+  display: block;
+  transform-origin: 50% 55%;
+  /* Overscan so the hover scale never exposes an edge. */
+  will-change: transform;
+}
+
+/* Bottom fade so the card body always sits on a controlled ground. */
+.rk-sig__media-scrim {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 62%;
+  background: linear-gradient(to top, rgb(22 19 16 / 0.96) 0%, rgb(22 19 16 / 0.55) 45%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Type-only fallback: no imageUrl, or the file failed to load. */
+.rk-sig__media--type {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(80% 90% at 20% 15%, rgb(149 30 42 / 0.5) 0%, transparent 60%),
+    linear-gradient(135deg, #1c1310 0%, #0e0a09 100%);
+}
+
+.rk-sig__media.is-missing .rk-sig__img {
+  display: none;
+}
+
+.rk-sig__media.is-missing::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(80% 90% at 20% 15%, rgb(149 30 42 / 0.5) 0%, transparent 60%),
+    linear-gradient(135deg, #1c1310 0%, #0e0a09 100%);
+}
+
+.rk-sig__watermark {
+  font-family: var(--rk-font-display);
+  font-size: clamp(5rem, 14vw, 11rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(245 235 221 / 0.16);
+  user-select: none;
+}
+
+/* ── Card body ───────────────────────────────────────────────────────── */
+.rk-sig-card__body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: clamp(1rem, 2vw, 1.6rem);
+}
+
+/* When the card has a photo, the body overlaps its bottom edge so the text
+   sits over the scrim instead of in a separate white-ish block. */
+.rk-sig-card:has(.rk-sig__img) .rk-sig-card__body {
+  margin-top: clamp(-6rem, -9vw, -4rem);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.rk-sig-card__n {
+  font-family: var(--rk-font-text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  color: var(--rk-ruby-bright);
+}
+
+.rk-sig-card__name {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+  line-height: 1;
+  color: var(--rk-cream);
+  text-transform: uppercase;
+}
+
+.rk-sig-card__copy {
+  margin: 0;
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.85rem, 0.95vw, 0.95rem);
+  line-height: 1.5;
+  color: var(--rk-cream-dim);
+  max-width: 46ch;
+}
+
+.rk-sig-card__price {
+  margin-top: 0.5rem;
+  font-family: var(--rk-font-text);
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--rk-flame);
+  white-space: nowrap;
+}
+
+/* Category card (no single published price) — a label, not a fake number. */
+.rk-sig-card__price--cat {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--rk-gold);
+}
+
+/* ══ Tablet ══════════════════════════════════════════════════════════ */
+@media (min-width: 760px) {
+  .rk-sig__inner {
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    align-items: start;
+  }
+}
+
+/* Below the sticky breakpoint the intro sits in normal flow; give it the
+   navbar's height as top padding so it is never flush against the bar. */
+@media (max-width: 1023px) {
+  .rk-sig {
+    padding-top: calc(var(--rk-nav-h) + clamp(2rem, 6vw, 4rem));
+    scroll-margin-top: 0;
+  }
+}
+
+/* ══ Desktop: 40/60 with a sticky left column ════════════════════════ */
+@media (min-width: 1024px) {
+  .rk-sig__inner {
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+    gap: clamp(3rem, 5vw, 6rem);
+  }
+
+  /* The sticky child needs a TALL parent to travel inside. With
+     `align-items: start` on the grid the left cell collapses to its content
+     height, so `position:sticky` had nothing to scroll within and simply
+     scrolled away (measured top going -299 -> -1945).
+     `align-self: stretch` (the default, restored here) makes the cell as tall
+     as the row — which is as tall as the four cards — giving the sticky child
+     the full section to travel in, while the inner wrapper still pins at the
+     correct offset. */
+  .rk-sig__left {
+    align-self: stretch;
+  }
+
+  .rk-sig__sticky {
+    position: sticky;
+    top: calc(var(--rk-nav-h) + clamp(2rem, 5vw, 4rem));
+  }
+
+  .rk-sig__right {
+    gap: clamp(1.5rem, 3vw, 2.6rem);
+  }
+
+  .rk-sig-card__body {
+    padding: clamp(1.2rem, 2vw, 1.8rem);
+  }
+}
+
+/* Very large screens: keep the column measure readable. */
+@media (min-width: 1600px) {
+  .rk-sig__title {
+    font-size: 4.8rem;
+  }
+}
+
+/* ══ Reduced motion ══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .rk-sig-card,
+  .rk-sig__tick {
+    transition: none !important;
+  }
+  .rk-sig__img {
+    will-change: auto;
+  }
+}

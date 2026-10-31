@@ -2,15 +2,15 @@
 /**
  * Ruby Kitchen 81 homepage.
  *
- * Scope per client direction: hero + footer only. The menu / burgers / chicken
- * / combos / visit sections were removed — the diner sells in person and those
- * blocks were placeholder-heavy without photography or full menu data.
+ * Order: nav → hero → signature menu (#menu) → footer (with visit strip).
+ * The hero CTA and the nav "MENU" link both scroll to #menu.
  *
  * The un-rebranded CRAV page remains at /clone for comparison.
  */
 import RubyBase from '../layouts/RubyBase.astro';
 import RubyNav from '../components/rk/RubyNav.astro';
 import RubyHero from '../components/rk/RubyHero.astro';
+import RubySignature from '../components/rk/RubySignature.astro';
 import RubyFooter from '../components/rk/RubyFooter.astro';
 ---
 
@@ -18,6 +18,7 @@ import RubyFooter from '../components/rk/RubyFooter.astro';
   <RubyNav />
   <main class="rk-main" id="main">
     <RubyHero />
+    <RubySignature />
   </main>
   <RubyFooter />
 </RubyBase>

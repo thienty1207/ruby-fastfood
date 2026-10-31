@@ -75,3 +75,12 @@ html:root,
 body.rk-page {
   scrollbar-color: var(--rk-ruby) var(--rk-charcoal-deep);
 }
+
+/* ── Anchor targets must clear the fixed navbar ──────────────────────────
+   Clicking the hero CTA jumps to #menu. Without scroll-padding the section
+   top lands flush at y=0 and the fixed nav (60-84px) covers the eyebrow —
+   measured eyebrow top 49px vs nav bottom 60px at 375. This one rule fixes
+   every in-page anchor at once. */
+html {
+  scroll-padding-top: calc(var(--rk-nav-h) + 1rem);
+}

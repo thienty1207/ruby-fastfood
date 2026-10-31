@@ -77,3 +77,5 @@ qa-baseline/
 qa-ruby-final/
 qa-rk*/
 qa-migrate/
+
+qa-sig/

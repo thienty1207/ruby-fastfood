@@ -31,6 +31,19 @@ export interface MenuCategory {
   hasItems: boolean;
 }
 
+/** A card in the signature showcase. `imageUrl` is optional by design so the
+ *  component keeps working before photography exists. */
+export interface SignatureCard {
+  n: string;
+  name: string;
+  /** null = no single published price (category card) */
+  price: number | null;
+  priceLabel: string;
+  copy: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  verified: boolean;
+}
 export const content = {
   brand: {
     name: 'RUBY KITCHEN 81',
@@ -56,6 +69,7 @@ export const content = {
     // visit sections were removed, so those links are gone rather than dead.
     links: [
       { label: 'Home', href: '#top' },
+      { label: 'Menu', href: '#menu' },
       { label: 'Visit', href: '#visit' },
       { label: 'Contact', href: '#contact' },
     ],
@@ -131,6 +145,63 @@ export const content = {
     ] as MenuItem[],
   },
 
+
+  /* ══════════════════════════════════════════════════════════════════
+     SIGNATURE MENU SHOWCASE — sticky split-screen scrollytelling
+     Section id: #menu (the hero CTA scrolls here)
+     ══════════════════════════════════════════════════════════════════ */
+  signature: {
+    id: 'menu',
+    eyebrow: '01 / THE RUBY FAVORITES',
+    headlineTop: 'FOUR PICKS.',
+    headlineBottom: 'BIG FLAVOR.',
+    support:
+      'From juicy burgers to crispy chicken, hearty pasta and sausages — explore the flavors of Ruby Kitchen 81.',
+    scrollHint: 'SCROLL TO EXPLORE',
+    cards: [
+      {
+        n: '01',
+        name: 'CHEESE BURGER',
+        price: 75000,
+        priceLabel: '75.000₫',
+        copy: 'The classic burger experience.',
+        imageUrl: '/img-webp/Signature-MenuSection-CheeseBurger.webp',
+        imageAlt: 'Ruby Kitchen 81 cheese burger with fries',
+        verified: true,
+      },
+      {
+        n: '02',
+        name: 'PREMIUM SMOKED SAUSAGE',
+        price: 49000,
+        priceLabel: '49.000₫',
+        copy: 'A smoky Western diner favorite.',
+        imageUrl: '/img-webp/Signature-MenuSection-Sausage.webp',
+        imageAlt: 'Ruby Kitchen 81 premium smoked sausage',
+        verified: true,
+      },
+      {
+        n: '03',
+        name: 'SPAGHETTI BOLOGNESE',
+        price: 69000,
+        priceLabel: '69.000₫',
+        copy: 'Comfort food, Ruby style.',
+        imageUrl: '/img-webp/Signature-MenuSection-Pasta.webp',
+        imageAlt: 'Ruby Kitchen 81 spaghetti bolognese',
+        verified: true,
+      },
+      {
+        n: '04',
+        name: 'CRISPY CHICKEN',
+        /** Category card — no single-item price is published, so none is shown. */
+        price: null,
+        priceLabel: 'CHICKEN & SNACKS',
+        copy: 'Golden, crunchy, made for sharing.',
+        imageUrl: '/img-webp/Signature-MenuSection-Chicken.webp',
+        imageAlt: 'Ruby Kitchen 81 crispy fried chicken',
+        verified: true,
+      },
+    ] as SignatureCard[],
+  },
   visit: {
     eyebrow: 'FIND US',
     headline: 'COME HUNGRY.',
@@ -157,7 +228,8 @@ export const content = {
     skipToMenu: 'Skip to menu',
     scrollHint: 'Scroll',
   },
-} as const;
+};
+
 
 /** 140000 → "140.000₫" (Vietnamese grouping, no decimals) */
 export function formatPrice(vnd: number | null): string {

@@ -17,7 +17,15 @@
 import { $ } from 'bun';
 
 const dry = process.argv.includes('--dry');
-const msgArg = process.argv.slice(2).find((a) => !a.startsWith('--'));
+// Join everything that is not a flag into one message. Necessary because some
+// shells split on ":" — passing `"chore: foo"` from PowerShell used to arrive
+// as the single token `"chore:` and the subject was truncated.
+const msgArg =
+  process.argv
+    .slice(2)
+    .filter((a) => !a.startsWith('--'))
+    .join(' ')
+    .trim() || undefined;
 
 const run = async (cmd: string[]) => {
   const r = await $`${cmd}`.quiet().nothrow();
