@@ -79,7 +79,6 @@ export const content = {
     paraRight:
       'Dine in, take away or make it a combo. 24, 30/4 Street, Phú Quốc. Call us on 0327 81 57 57.',
     cta: { label: 'Explore Menu', href: '#menu' },
-    ctaSecondary: { label: 'Find Us', href: '#visit' },
     mascotAlt: 'Ruby Kitchen 81 crab mascot',
   },
 

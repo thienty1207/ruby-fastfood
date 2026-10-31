@@ -74,7 +74,6 @@ export function rubyHeroMarkup(): string {
 
       <div class="rk-hero__actions">
         <a class="rk-btn rk-btn--flame" href="${h.cta.href}" data-rk-hero-cta>${h.cta.label}</a>
-        <a class="rk-btn rk-btn--ghost" href="${h.ctaSecondary.href}">${h.ctaSecondary.label}</a>
       </div>
 
       <div class="rk-hero__facts">
