@@ -1,0 +1,207 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — HERO (editorial single column)
+
+   Reference: a "mâm cơm" menu card — one narrow left-aligned column, small
+   caps eyebrow, tight display headline, one quiet line of body, a single pill
+   CTA, then a small mascot row. Deliberately NOT a full-bleed poster: the type
+   is smaller than viewport-scaled so the eye reads it like a printed menu.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.rk-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--rk-nav-h);
+  background: var(--rk-charcoal);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ── Background photo (optional) ─────────────────────────────────────── */
+.rk-hero__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(120% 90% at 82% 22%, #341814 0%, transparent 55%),
+    linear-gradient(160deg, #1f1512 0%, var(--rk-charcoal) 55%, #0b0909 100%);
+  overflow: hidden;
+}
+
+.rk-hero__photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% 50%;
+  filter: saturate(0.9) contrast(1.03);
+  opacity: 0;
+  transition: opacity 0.6s var(--rk-ease-out);
+}
+
+.rk-hero__photo.is-loaded .rk-hero__photo-img {
+  opacity: 1;
+}
+
+/* Scrim tuned to the supplied photograph. Its left third already measures
+   luminance 35/255 (dark booth + red gingham), so the overlay only needs to
+   deepen that side and lift the bottom edge — a heavy scrim would kill the
+   neon and the burger. Right side stays almost clear so the food reads. */
+.rk-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgb(10 8 7 / 0.88) 0%, rgb(10 8 7 / 0.72) 34%, rgb(10 8 7 / 0.28) 62%, rgb(10 8 7 / 0.06) 100%),
+    linear-gradient(to bottom, rgb(10 8 7 / 0.62) 0%, transparent 22%, rgb(10 8 7 / 0.22) 78%, rgb(10 8 7 / 0.55) 100%);
+  pointer-events: none;
+}
+
+/* ── The column ──────────────────────────────────────────────────────── */
+.rk-hero__inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: var(--rk-max);
+  margin-inline: auto;
+  padding: clamp(2rem, 5vw, 4rem) var(--rk-gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* everything snaps to the left text edge */
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+  /* One narrow measure — this is what makes it read as a menu card. */
+  --rk-hero-measure: min(96ch, 46rem);
+}
+
+.rk-hero__inner > * {
+  max-width: var(--rk-hero-measure);
+}
+
+.rk-hero__eyebrow {
+  margin: 0;
+  letter-spacing: 0.24em;
+}
+
+/* ── Headline: smaller than before, tight, two stacked lines ─────────── */
+.rk-hero__title {
+  margin: 0;
+  /* Was 11.5vw (216px @1440). This is an editorial card now: ~4.4vw ≈ 63px,
+     large enough to lead but small enough that the column breathes. */
+  font-size: clamp(2.6rem, 4.7vw, 4.6rem);
+  line-height: 0.94;
+  color: var(--rk-cream);
+  display: flex;
+  flex-direction: column;
+}
+
+.rk-hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.04em;
+}
+
+.rk-hero__line-inner {
+  display: block;
+  will-change: transform;
+}
+
+.rk-hero__line--alt .rk-hero__line-inner {
+  color: var(--rk-ruby-bright);
+}
+
+/* ── Lede ────────────────────────────────────────────────────────────── */
+.rk-hero__lede {
+  margin: 0;
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.95rem, 1.05vw, 1.08rem);
+  line-height: 1.6;
+  color: var(--rk-cream-dim);
+  max-width: 44ch;
+}
+
+/* ── CTA ─────────────────────────────────────────────────────────────── */
+.rk-hero__actions {
+  display: flex;
+  gap: var(--rk-space-2);
+  margin-top: clamp(0.4rem, 1vw, 0.9rem);
+  width: auto;
+  max-width: none;
+}
+
+/* ── Mascot: FIRST element in the column, above the eyebrow ─────────── */
+.rk-hero__mascot {
+  position: relative;
+  /* Lead illustration, not a footnote: about 2x the previous size -
+     150px on phones, ~14vw on desktop (roughly 200px at 1440). */
+  width: clamp(150px, 14vw, 210px);
+  aspect-ratio: 1;
+  flex: 0 0 auto;
+  /* optical align: the crab art carries transparent padding */
+  margin-left: -0.9rem;
+  margin-bottom: clamp(-0.9rem, -1.4vw, -0.3rem);
+  will-change: transform;
+}
+
+.rk-hero__mascot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.5));
+  pointer-events: none;
+  user-select: none;
+}
+
+.rk-hero__mascot-eye {
+  position: absolute;
+  top: 47%;
+  width: 11%;
+  height: 12%;
+  background: var(--rk-charcoal-deep);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scaleY(0);
+  pointer-events: none;
+}
+.rk-hero__mascot-eye--l {
+  left: 38%;
+}
+.rk-hero__mascot-eye--r {
+  left: 55%;
+}
+
+
+
+
+/* ══ Tablet ══════════════════════════════════════════════════════════ */
+@media (min-width: 640px) {
+  .rk-hero__inner {
+    --rk-hero-measure: min(96ch, 44rem);
+  }
+}
+
+/* ══ Desktop: keep ONE column, just roomier ══════════════════════════ */
+@media (min-width: 900px) {
+  .rk-hero__inner {
+    padding-block: clamp(3rem, 6vw, 5.5rem);
+    gap: clamp(1.1rem, 1.5vw, 1.6rem);
+    --rk-hero-measure: min(96ch, 40rem);
+  }
+
+  .rk-hero__title {
+    font-size: clamp(3rem, 4.4vw, 4.4rem);
+  }
+}
+
+/* ══ Reduced motion ══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .rk-hero__photo-img {
+    transition: none;
+  }
+  .rk-hero__mascot-eye {
+    display: none;
+  }
+}

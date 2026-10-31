@@ -1,0 +1,68 @@
+---
+/**
+ * Base layout for the public site.
+ *
+ * Critical: `site.css` is the original site's own compiled stylesheet. It is
+ * imported here as plain CSS — no Tailwind, no PostCSS, no autoprefixer.
+ * It defines `md:` as min-width:1025px (NOT Tailwind's 768px default); any
+ * transformer that normalizes that breakpoint breaks the footer by 45–88px.
+ */
+import '../styles/site.css';
+// Palette override. Loaded AFTER site.css so it only re-points custom
+// properties — it contains no layout, spacing or motion rules.
+// Delete this one line to return to the original CRAV beige palette.
+import '../styles/ruby-theme.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'CRAV | Sizzling',
+  description = 'Smashed hot on the flat top, our prime patties lock in ultimate juiciness under a caramelized crust.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html
+  lang="en"
+  class="modak_e8c77bb9-module__To9VbG__variable mouse_memoirs_a09dbcb8-module__HOyvqG__variable h-full antialiased"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/img-webp/cheese-logo.webp" />
+    <link
+      rel="preload"
+      href="/fonts/1c549cf76d17aa84-s.p.0duk76ik6drf0.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/e24507cc2fd99222-s.p.116v.fn8s2.9a.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div class="relative w-full h-full" data-page>
+        <slot />
+      </div>
+    </div>
+
+    <!--
+      A single module entry for ALL motion. Deliberately not colocated in each
+      section component: GSAP must not be duplicated per island, and the init
+      order (lenis → dividers → sections → refresh) is load-bearing.
+    -->
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>

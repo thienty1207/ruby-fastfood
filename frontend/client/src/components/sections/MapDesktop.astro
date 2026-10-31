@@ -1,0 +1,14 @@
+﻿---
+/**
+ * Dashed route + plane motion path + country pins
+ *
+ * Markup is produced by the SAME function the clone used, so the rendered
+ * HTML is byte-identical to the pre-migration build. Only the init() half
+ * moved; the markup source of truth lives in scripts/sections/mapDesktop.ts.
+ */
+import { mapDesktopMarkup } from '../../scripts/sections/mapDesktop';
+
+const html = mapDesktopMarkup();
+---
+
+<Fragment set:html={html} />

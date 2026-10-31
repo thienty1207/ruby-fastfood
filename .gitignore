@@ -1,0 +1,79 @@
+﻿# â”€â”€ Dependencies â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+node_modules/
+.pnpm-store/
+
+# â”€â”€ Build outputs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+dist/
+build/output/
+.astro/
+.output/
+*.tsbuildinfo
+
+# â”€â”€ Secrets & local env â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# â”€â”€ Databases â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/app.db
+
+# â”€â”€ Test / QA artifacts (regenerable) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# The clone's QA screenshots and probe dumps are reproducible by
+# re-running the harness; they are not source.
+output/www.cravburgers.shop/qa/
+output/www.cravburgers.shop/qa-anim/
+output/www.cravburgers.shop/qa-final/
+output/www.cravburgers.shop/qa-mobile/
+output/www.cravburgers.shop/shots/
+output/www.cravburgers.shop/css/
+output/www.cravburgers.shop/build/
+
+# â”€â”€ Large intermediate research blobs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# Duplicated: every asset here already lives in frontend/client/public.
+# Keeping them out of git avoids ~14 MB of duplication.
+output/www.cravburgers.shop/assets-raw/
+output/www.cravburgers.shop/downloads/
+
+# â”€â”€ Serverless / hosting â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.vercel/
+.netlify/
+.wrangler/
+
+# â”€â”€ Editor / OS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# â”€â”€ Logs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# ── Migration QA screenshots ──────────────────────────────────
+qa-migrate/
+
+# Palette QA screenshots
+qa-ruby/
+
+# Ruby section QA screenshots
+qa-rk*/
+
+# QA screenshots (regenerable, ~8 MB)
+qa-baseline/
+qa-ruby-final/
+qa-rk*/
+qa-migrate/

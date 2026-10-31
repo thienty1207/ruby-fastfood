@@ -1,0 +1,60 @@
+---
+/**
+ * Ruby Kitchen 81 — base layout.
+ *
+ * Deliberately separate from Base.astro (the CRAV clone layout) so the clone
+ * stays intact and this can be reverted by pointing pages back to Base.astro.
+ *
+ * CSS order matters:
+ *   site.css      — the original 67KB sheet (layout primitives + breakpoints)
+ *   ruby-brand.css— tokens, fonts, rk-* primitives
+ *   rk/*.css      — section styles, scoped to .rk-*
+ *
+ * No Tailwind, no PostCSS plugins: site.css defines `md:` as min-width 1025px
+ * and any transformer that normalizes it breaks the inherited layout rules.
+ */
+import '../styles/site.css';
+import '../styles/ruby-brand.css';
+import '../styles/rk/shell.css';
+import '../styles/rk/nav.css';
+import '../styles/rk/hero.css';
+import '../styles/rk/sections.css';
+
+import { content } from '../content/en';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = `${content.brand.name} — Western Diner, Phú Quốc`,
+  description = content.hero.paraLeft,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-rk>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#151515" />
+
+    <link rel="icon" href="/img-webp/Newlogo-heroSection.webp" />
+
+    <!-- Preload only the two fonts actually used above the fold. -->
+    <link rel="preload" href="/fonts/anton.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/img-webp/NewBackground-heroSection.webp" as="image" fetchpriority="high" />
+  </head>
+  <body class="rk-page">
+    <a class="rk-skip" href="#menu">{content.a11y.skipToMenu}</a>
+    <slot />
+
+    <!-- One motion entry for the whole page. Order is load-bearing. -->
+    <script>
+      import '../scripts/rk/main';
+    </script>
+  </body>
+</html>

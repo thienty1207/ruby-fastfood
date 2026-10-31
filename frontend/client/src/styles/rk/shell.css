@@ -1,0 +1,77 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — page shell
+   Resets only what the CRAV sheet assumes, scoped to body.rk-page.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+body.rk-page {
+  margin: 0;
+  background: var(--rk-charcoal);
+  color: var(--rk-cream);
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-body);
+  line-height: var(--rk-leading-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* site.css sets overflow-x:hidden; keep it — it masks sub-pixel rounding */
+  overflow-x: hidden;
+}
+
+/* The clone's `user-select:none` is wrong for a content site: customers must
+   be able to copy the address and phone number. */
+body.rk-page,
+body.rk-page * {
+  user-select: text;
+}
+body.rk-page .rk-nav a,
+body.rk-page .rk-btn,
+body.rk-page img {
+  user-select: none;
+}
+
+.rk-main {
+  display: block;
+}
+
+/* ── Skip link (keyboard a11y) ───────────────────────────────────────── */
+.rk-skip {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: calc(var(--rk-z-cursor) + 1);
+  padding: 0.75em 1.4em;
+  background: var(--rk-flame);
+  color: var(--rk-charcoal);
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0 0 var(--rk-radius-s) var(--rk-radius-s);
+  transition: transform var(--rk-dur-fast) var(--rk-ease-out);
+}
+
+.rk-skip:focus {
+  transform: translate(-50%, 0);
+  outline: 2px solid var(--rk-cream);
+  outline-offset: 2px;
+}
+
+/* ── Focus ring for everything we added ──────────────────────────────── */
+.rk-page :where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--rk-flame);
+  outline-offset: 3px;
+}
+
+/* ── Selection ───────────────────────────────────────────────────────── */
+body.rk-page ::selection {
+  background: var(--rk-ruby);
+  color: var(--rk-cream);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+html:root,
+body.rk-page {
+  scrollbar-color: var(--rk-ruby) var(--rk-charcoal-deep);
+}

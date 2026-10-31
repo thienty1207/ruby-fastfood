@@ -1,0 +1,14 @@
+﻿---
+/**
+ * Red block — googly-eyed burger, wave divider
+ *
+ * Markup is produced by the SAME function the clone used, so the rendered
+ * HTML is byte-identical to the pre-migration build. Only the init() half
+ * moved; the markup source of truth lives in scripts/sections/experience.ts.
+ */
+import { experienceMarkup } from '../../scripts/sections/experience';
+
+const html = experienceMarkup();
+---
+
+<Fragment set:html={html} />

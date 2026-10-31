@@ -1,0 +1,14 @@
+﻿---
+/**
+ * Hero — 30vw headline, floating burger, split-text word pops
+ *
+ * Markup is produced by the SAME function the clone used, so the rendered
+ * HTML is byte-identical to the pre-migration build. Only the init() half
+ * moved; the markup source of truth lives in scripts/sections/hero.ts.
+ */
+import { heroMarkup } from '../../scripts/sections/hero';
+
+const html = heroMarkup();
+---
+
+<Fragment set:html={html} />

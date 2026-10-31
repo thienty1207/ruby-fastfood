@@ -1,0 +1,14 @@
+﻿---
+/**
+ * Mobile map — 4 planes on a vertical path
+ *
+ * Markup is produced by the SAME function the clone used, so the rendered
+ * HTML is byte-identical to the pre-migration build. Only the init() half
+ * moved; the markup source of truth lives in scripts/sections/mapMobile.ts.
+ */
+import { mapMobileMarkup } from '../../scripts/sections/mapMobile';
+
+const html = mapMobileMarkup();
+---
+
+<Fragment set:html={html} />

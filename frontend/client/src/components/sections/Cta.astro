@@ -1,0 +1,14 @@
+﻿---
+/**
+ * CTA — peeling sticker + order button
+ *
+ * Markup is produced by the SAME function the clone used, so the rendered
+ * HTML is byte-identical to the pre-migration build. Only the init() half
+ * moved; the markup source of truth lives in scripts/sections/cta.ts.
+ */
+import { ctaMarkup } from '../../scripts/sections/cta';
+
+const html = ctaMarkup();
+---
+
+<Fragment set:html={html} />

@@ -1,0 +1,25 @@
+/**
+ * Ruby Fastfood — admin dashboard.
+ * Placeholder entry page. Pages are built out in a later step.
+ */
+---
+const pages = ['login', 'menu', 'campaigns', 'users'];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ruby Admin</title>
+  </head>
+  <body>
+    <main style="font-family: ui-sans-serif, system-ui; padding: 3rem; max-width: 60ch">
+      <h1>Ruby Fastfood — admin</h1>
+      <p>Astro MPA skeleton. No SPA, no client router.</p>
+      <ul>
+        {pages.map((p) => <li><code>/admin/{p}</code></li>)}
+      </ul>
+    </main>
+  </body>
+</html>

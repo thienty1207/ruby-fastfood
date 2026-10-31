@@ -1,0 +1,22 @@
+{
+  // Base config for all workspaces.
+  //
+  // NOTE ON STRICTNESS: the migrated clone code (frontend/client/src/scripts)
+  // was written against the ORIGINAL clone tsconfig, which had `strict: true`
+  // and nothing stricter. Do NOT add noUncheckedIndexedAccess here — it forces
+  // edits to GSAP/Lenis logic that must stay untouched. Stricter flags belong
+  // in the config of NEW code (backend, packages/shared).
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
+}

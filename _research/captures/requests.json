@@ -1,0 +1,372 @@
+[
+  {
+    "url": "https://www.cravburgers.shop/",
+    "status": 200,
+    "type": "document"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/media/1c549cf76d17aa84-s.p.0duk76ik6drf0.woff2",
+    "status": 200,
+    "type": "font",
+    "len": "18108"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img/burgerselfie.png",
+    "status": 200,
+    "type": "image",
+    "len": "2676848"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0zaia6i55l01..js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/turbopack-0b3buy4qy35yj.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img-webp/burger.webp",
+    "status": 200,
+    "type": "image",
+    "len": "33758"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0jg2m1sj81gv0.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0wj8l4fwydekq.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg%2Fplane.png&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "165750"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fabout-3.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "41604"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fabout-2.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "47254"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0ovftnp3y9gzb.css",
+    "status": 200,
+    "type": "stylesheet"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fabout-1.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "35844"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img-webp/fries.webp",
+    "status": 200,
+    "type": "image",
+    "len": "35176"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/05n9.pfd~lr39.css",
+    "status": 200,
+    "type": "stylesheet"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fsydney.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "16924"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Ftomato.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "21356"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0c-pxnn7_5v8q.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fnewyork.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "26734"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0d3shmwh5_nmn.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/15b1_xl_2nu.v.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0pqt~8bl3ukh4.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Flondon.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "8918"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/media/e24507cc2fd99222-s.p.116v.fn8s2.9a.woff2",
+    "status": 200,
+    "type": "font",
+    "len": "22328"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0dvuw12hbr-ev.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0v8rh9ns1udzx.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0257pdz1-imal.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0286ehihuc~da.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0194vlaaft120.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0h72oc0nv1wic.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fberlin.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "18908"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2FburgerH.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "81654"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img-webp/meat.webp",
+    "status": 200,
+    "type": "image",
+    "len": "47248"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img-webp/lettuce.webp",
+    "status": 200,
+    "type": "image",
+    "len": "71270"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Ftokyo.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "10228"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img-webp/cheese-logo.webp",
+    "status": 200,
+    "type": "image",
+    "len": "10080"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img-webp/tomato.webp",
+    "status": 200,
+    "type": "image",
+    "len": "48306"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img/burger-boy.png",
+    "status": 200,
+    "type": "image",
+    "len": "1745966"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fburgerwithhands.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "81836"
+  },
+  {
+    "url": "https://www.cravburgers.shop/contact?_rsc=1r34m",
+    "status": 200,
+    "type": "fetch",
+    "len": "597"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/media/8eef5a389a468817-s.02i1v5~1n-qbz.woff2",
+    "status": 200,
+    "type": "font",
+    "len": "9224"
+  },
+  {
+    "url": "https://www.cravburgers.shop/?_rsc=nn07o",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2FcheesyBurger.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "44040"
+  },
+  {
+    "url": "https://www.cravburgers.shop/menu?_rsc=1r34m",
+    "status": 200,
+    "type": "fetch",
+    "len": "594"
+  },
+  {
+    "url": "https://www.cravburgers.shop/?_rsc=1pn8p",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/spices?_rsc=1r34m",
+    "status": 200,
+    "type": "fetch",
+    "len": "633"
+  },
+  {
+    "url": "https://www.cravburgers.shop/4a2af2c9fb33a07b/script.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/contact?_rsc=1pn8p",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/img-webp/spices.webp",
+    "status": 200,
+    "type": "image",
+    "len": "420930"
+  },
+  {
+    "url": "https://www.cravburgers.shop/?_rsc=ivliq",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/contact?_rsc=ufrug",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/contact?_rsc=1399r",
+    "status": 200,
+    "type": "fetch",
+    "len": "605"
+  },
+  {
+    "url": "https://www.cravburgers.shop/spices?_rsc=1pn8p",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/spices?_rsc=1t5fm",
+    "status": 200,
+    "type": "fetch",
+    "len": "605"
+  },
+  {
+    "url": "https://www.cravburgers.shop/spices?_rsc=zciwj",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0te8_hestdmqb.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0c.pl-_.6beb_.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/menu?_rsc=1pn8p",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/menu?_rsc=19qte",
+    "status": 200,
+    "type": "fetch"
+  },
+  {
+    "url": "https://www.cravburgers.shop/menu?_rsc=11buk",
+    "status": 200,
+    "type": "fetch",
+    "len": "605"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/014r2tef6u366.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/0chbjmlgg4qht.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/static/chunks/007kg070x-b~l.js",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fmeat.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "20732"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Flettuce.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "33266"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fcheese.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "6808"
+  },
+  {
+    "url": "https://www.cravburgers.shop/_next/image?url=%2Fimg-webp%2Fcta.webp&w=1080&q=75",
+    "status": 200,
+    "type": "image",
+    "len": "53992"
+  }
+]
