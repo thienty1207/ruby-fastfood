@@ -22,7 +22,8 @@
     "db:migrate": "bun run --cwd backend db:migrate",
     "db:seed": "bun run --cwd backend db:seed",
     "audit": "bun audit",
-    "qa:stable": "bun run tools/qa/stable.mjs"
+    "qa:stable": "bun run tools/qa/stable.mjs",
+    "push": "bun run tools/push.ts"
   },
   "devDependencies": {
     "playwright": "^1.64.1",
