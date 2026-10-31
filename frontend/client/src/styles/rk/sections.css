@@ -601,11 +601,6 @@
   align-items: stretch;
 }
 
-.rk-visit-strip__band {
-  height: 14px;
-  --rk-checker-size: 14px;
-  opacity: 0.9;
-}
 
 @media (min-width: 760px) {
   .rk-visit-strip__inner {

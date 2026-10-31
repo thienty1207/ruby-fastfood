@@ -40,7 +40,7 @@ export function footerMarkup(): string {
             <a class="rk-btn rk-btn--ghost" href="${contact.phoneHref}">${content.visit.labels.call}</a>
           </div>
         </div>
-        <div class="rk-visit-strip__band rk-checker" aria-hidden="true"></div>
+
       </div>
     </div>
 
@@ -75,13 +75,6 @@ export function initRubySections(): () => void {
   const ctx = gsap.context(() => {
     if (reduced) return;
 
-    gsap.from('.rk-visit-strip__band', {
-      scaleX: 0,
-      transformOrigin: 'left',
-      duration: 0.9,
-      ease: 'power3.inOut',
-      scrollTrigger: { trigger: '.rk-visit-strip__band', start: 'top 96%', once: true },
-    });
 
     gsap.from('.rk-foot__mark', {
       opacity: 0,

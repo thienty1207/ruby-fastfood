@@ -57,26 +57,7 @@
     linear-gradient(160deg, #1f1512 0%, var(--rk-charcoal) 55%, #0b0909 100%);
 }
 
-.rk-hero__photo.is-empty::after {
-  content: '""';
-  position: absolute;
-  inset: auto -6% -14% auto;
-  width: min(46vw, 620px);
-  aspect-ratio: 1;
-  opacity: 0.1;
-  --rk-checker-size: 34px;
-  background-image:
-    linear-gradient(45deg, var(--rk-ruby) 25%, transparent 25%),
-    linear-gradient(-45deg, var(--rk-ruby) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, var(--rk-ruby) 75%),
-    linear-gradient(-45deg, transparent 75%, var(--rk-ruby) 75%);
-  background-size: var(--rk-checker-size) var(--rk-checker-size);
-  background-position: 0 0, 0 calc(var(--rk-checker-size) / 2),
-    calc(var(--rk-checker-size) / 2) calc(var(--rk-checker-size) / -2),
-    calc(var(--rk-checker-size) / -2) 0;
-  transform: rotate(-12deg);
-  pointer-events: none;
-}
+
 
 /* Readability scrim: dark on the copy side, lighter toward the subject. */
 .rk-hero__scrim {
@@ -89,15 +70,6 @@
   pointer-events: none;
 }
 
-/* ── Checkerboard band along the top edge ────────────────────────────── */
-.rk-hero__checker {
-  position: absolute;
-  inset: var(--rk-nav-h) 0 auto 0;
-  height: 14px;
-  z-index: 2;
-  --rk-checker-size: 14px;
-  opacity: 0.85;
-}
 
 /* ── Ghost word ──────────────────────────────────────────────────────── */
 .rk-hero__ghost {

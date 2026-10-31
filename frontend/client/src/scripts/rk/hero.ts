@@ -42,8 +42,6 @@ export function rubyHeroMarkup(): string {
     <!-- readability scrim over the photo -->
     <div class="rk-hero__scrim" aria-hidden="true"></div>
 
-    <!-- checkerboard band, wipes in on load -->
-    <div class="rk-hero__checker rk-checker" data-rk-checker aria-hidden="true"></div>
 
     <!-- giant ghost word behind everything -->
     <div class="rk-hero__ghost rk-display" aria-hidden="true">${h.ghostWord}</div>
@@ -135,8 +133,6 @@ export function initRubyHero(): () => void {
     // ── 1. entrance timeline ─────────────────────────────────────────
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-    // checkerboard band wipes down
-    tl.from('[data-rk-checker]', { scaleY: 0, transformOrigin: 'top', duration: 0.75, ease: 'power3.inOut' }, 0);
 
     // eyebrow
     tl.from('[data-rk-hero-eyebrow]', { opacity: 0, y: 14, duration: 0.5 }, 0.15);
