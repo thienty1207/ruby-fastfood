@@ -68,16 +68,16 @@ export const content = {
     eyebrow: 'WESTERN DINER · PHÚ QUỐC',
     headlineTop: 'BIG FLAVOR.',
     headlineBottom: 'RUBY STYLE.',
-    /** Giant background word */
-    ghostWord: 'RUBY',
+    /** Quiet one-liner under the headline (single-column editorial layout). */
+    lede: 'Burgers, fried chicken and cold beer — made fresh to order in Dương Đông, Phú Quốc.',
+    /** Small caption beside the mascot illustration. */
+    illuNote: '24, 30/4 Street · Dương Đông',
     badges: {
       left: 'SMASHED DAILY',
-      right: 'ICE COLD BEER',
     },
+    /** Kept for the page <meta name="description"> in RubyBase.astro. */
     paraLeft:
       'Burgers, fried chicken and cold beer, made fresh to order in Dương Đông. No shortcuts, no small portions.',
-    paraRight:
-      'Dine in, take away or make it a combo. 24, 30/4 Street, Phú Quốc. Call us on 0327 81 57 57.',
     cta: { label: 'Explore Menu', href: '#menu' },
     mascotAlt: 'Ruby Kitchen 81 crab mascot',
   },
