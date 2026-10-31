@@ -145,6 +145,9 @@ export function initSignature(): () => void {
       );
       gsap.set('[data-rk-sig-shell], [data-rk-sig-body] > *', { opacity: 1, y: 0, clearProps: 'transform' });
       gsap.set('[data-rk-sig-media-inner]', { scale: 1, y: 0 });
+      // No clip mask under reduced motion: the image must be fully visible
+      // immediately, not revealed by scroll.
+      gsap.set('[data-rk-sig-media]', { clipPath: 'none' });
     } else {
       /* ── LEFT COLUMN: scrubbed intro ──────────────────────────────── */
       // Scrubbed rather than once-only so reversing the scroll rebuilds the
@@ -194,6 +197,7 @@ export function initSignature(): () => void {
 
       cards.forEach((card) => {
         const shell = card.querySelector<HTMLElement>('[data-rk-sig-shell]');
+        const media = card.querySelector<HTMLElement>('[data-rk-sig-media]');
         const mediaInner = card.querySelector<HTMLElement>('[data-rk-sig-media-inner]');
         const bodyEls = [...card.querySelectorAll<HTMLElement>('[data-rk-sig-el]')];
 
@@ -205,6 +209,11 @@ export function initSignature(): () => void {
         // animating with .to() removes the flicker entirely.
         if (shell) gsap.set(shell, { y: travel, opacity: 0.25 });
         if (mediaInner) gsap.set(mediaInner, { scale: 1.08, yPercent: parallax });
+        // Clip reveal: the photo's top edge starts 14% down and slides open as
+        // the card settles, so the image "enters" the frame instead of just
+        // scaling. Applied to the media BOX (not the parallax layer) so the
+        // mask stays put while the image drifts inside it.
+        if (media) gsap.set(media, { clipPath: 'inset(14% 0% 0% 0%)' });
         if (bodyEls.length) gsap.set(bodyEls, { y: 22, opacity: 0 });
 
         const tl = gsap.timeline({
@@ -223,8 +232,11 @@ export function initSignature(): () => void {
           tl.to(shell, { y: 0, opacity: 1, ease: 'power1.out', duration: 0.55 }, 0);
         }
 
-        // 2. Image: settles from 1.08 to 1 while drifting upward inside the
-        //    overflow-hidden media box (parallax, no exposed edges).
+        // 2. Image: clip opens, then settles from 1.08 to 1 while drifting
+        //    upward inside the media box (parallax, no exposed edges).
+        if (media) {
+          tl.to(media, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power1.out', duration: 0.62 }, 0);
+        }
         if (mediaInner) {
           tl.to(mediaInner, { scale: 1, yPercent: 0, ease: 'none', duration: 0.85 }, 0);
         }
