@@ -70,9 +70,6 @@ export const content = {
     headlineBottom: 'RUBY STYLE.',
     /** Quiet one-liner under the headline (single-column editorial layout). */
     lede: 'Burgers, fried chicken and cold beer — made fresh to order in Dương Đông, Phú Quốc.',
-    badges: {
-      left: 'SMASHED DAILY',
-    },
     /** Kept for the page <meta name="description"> in RubyBase.astro. */
     paraLeft:
       'Burgers, fried chicken and cold beer, made fresh to order in Dương Đông. No shortcuts, no small portions.',

@@ -131,27 +131,15 @@
   max-width: none;
 }
 
-/* ── Illustration row: mascot LEFT, caption beside it ───────────────── */
-/* Mascot ABOVE the badge — a stacked block, not a side-by-side row. */
-.rk-hero__illu {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(0.55rem, 1.1vw, 0.9rem);
-  margin-top: clamp(1rem, 2.4vw, 2rem);
-  padding-top: clamp(0.9rem, 2vw, 1.5rem);
-  border-top: 1px solid rgb(245 235 221 / 0.12);
-  width: 100%;
-  max-width: var(--rk-hero-measure);
-}
-
+/* ── Mascot: FIRST element in the column, above the eyebrow ─────────── */
 .rk-hero__mascot {
   position: relative;
-  /* Companion illustration, not a hero object: 96–148px. */
-  width: clamp(96px, 11vw, 148px);
+  width: clamp(88px, 9vw, 122px);
   aspect-ratio: 1;
   flex: 0 0 auto;
-  margin-left: -0.5rem; /* optical align: the crab art has transparent padding */
+  /* optical align: the crab art carries transparent padding */
+  margin-left: -0.45rem;
+  margin-bottom: clamp(-0.5rem, -0.8vw, -0.2rem);
   will-change: transform;
 }
 
@@ -184,19 +172,6 @@
 }
 
 
-/* Badge is a quiet inline label now — no sticker rotation. */
-.rk-hero__badge {
-  font-family: var(--rk-font-text);
-  font-size: clamp(0.58rem, 0.72vw, 0.68rem);
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--rk-charcoal);
-  background: var(--rk-gold);
-  padding: 0.42em 0.85em;
-  border-radius: var(--rk-radius-pill);
-  white-space: nowrap;
-}
 
 
 /* ══ Tablet ══════════════════════════════════════════════════════════ */

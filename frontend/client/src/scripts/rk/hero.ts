@@ -44,6 +44,21 @@ export function rubyHeroMarkup(): string {
     <div class="rk-hero__scrim" aria-hidden="true"></div>
 
     <div class="rk-hero__inner">
+      <!-- Mascot sits at the very top of the column, above the eyebrow. -->
+      <div class="rk-hero__mascot" data-rk-mascot>
+        <img
+          src="/img-webp/Newlogo-heroSection.webp"
+          alt="${h.mascotAlt}"
+          width="1254"
+          height="1254"
+          class="rk-hero__mascot-img"
+          data-rk-mascot-img
+          draggable="false"
+        />
+        <span class="rk-hero__mascot-eye rk-hero__mascot-eye--l" data-rk-eye aria-hidden="true"></span>
+        <span class="rk-hero__mascot-eye rk-hero__mascot-eye--r" data-rk-eye aria-hidden="true"></span>
+      </div>
+
       <p class="rk-hero__eyebrow rk-eyebrow" data-rk-hero-eyebrow>${h.eyebrow}</p>
 
       <h1 class="rk-hero__title rk-display">
@@ -55,24 +70,6 @@ export function rubyHeroMarkup(): string {
 
       <div class="rk-hero__actions">
         <a class="rk-btn rk-btn--flame" href="${h.cta.href}" data-rk-hero-cta>${h.cta.label}</a>
-      </div>
-
-      <!-- Mascot stacked ABOVE the badge, both left-aligned to the column -->
-      <div class="rk-hero__illu" data-rk-illu>
-        <div class="rk-hero__mascot" data-rk-mascot>
-          <img
-            src="/img-webp/Newlogo-heroSection.webp"
-            alt="${h.mascotAlt}"
-            width="1254"
-            height="1254"
-            class="rk-hero__mascot-img"
-            data-rk-mascot-img
-            draggable="false"
-          />
-          <span class="rk-hero__mascot-eye rk-hero__mascot-eye--l" data-rk-eye aria-hidden="true"></span>
-          <span class="rk-hero__mascot-eye rk-hero__mascot-eye--r" data-rk-eye aria-hidden="true"></span>
-        </div>
-        <span class="rk-hero__badge" data-rk-badge>${h.badges.left}</span>
       </div>
     </div>
   </section>`;
@@ -110,7 +107,7 @@ export function initRubyHero(): () => void {
   const ctx = gsap.context(() => {
     if (reduced) {
       gsap.set(
-        '[data-rk-line], [data-rk-hero-eyebrow], [data-rk-badge], [data-rk-lede], [data-rk-hero-cta], [data-rk-illu]',
+        '[data-rk-line], [data-rk-hero-eyebrow], [data-rk-lede], [data-rk-hero-cta], [data-rk-mascot]',
         { opacity: 1, y: 0, clearProps: 'transform' },
       );
       return;
@@ -119,7 +116,8 @@ export function initRubyHero(): () => void {
     // ── 1. quiet entrance: type first, illustration last ─────────────
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.from('[data-rk-hero-eyebrow]', { opacity: 0, y: 10, duration: 0.45 }, 0);
+    tl.from('[data-rk-mascot]', { opacity: 0, y: -10, scale: 0.85, duration: 0.6, ease: 'back.out(1.7)' }, 0);
+    tl.from('[data-rk-hero-eyebrow]', { opacity: 0, y: 10, duration: 0.45 }, 0.14);
     tl.from(
       '[data-rk-line]',
       { yPercent: 110, opacity: 0, duration: 0.85, stagger: 0.08, ease: 'power4.out' },
@@ -127,7 +125,6 @@ export function initRubyHero(): () => void {
     );
     tl.from('[data-rk-lede]', { opacity: 0, y: 12, duration: 0.5 }, 0.45);
     tl.from('[data-rk-hero-cta]', { opacity: 0, y: 12, duration: 0.45 }, 0.55);
-    tl.from('[data-rk-illu]', { opacity: 0, y: 16, duration: 0.6 }, 0.7);
 
     // ── 2. mascot: gentle bob, paused off-screen ─────────────────────
     const bob = gsap.to('[data-rk-mascot]', {
