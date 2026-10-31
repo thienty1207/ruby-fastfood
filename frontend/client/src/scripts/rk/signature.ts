@@ -38,23 +38,26 @@ export function signatureMarkup(): string {
                draggable="false"
              />
              </div>
-             <span class="rk-sig__media-scrim" aria-hidden="true"></span>
            </div>`
         : `<div class="rk-sig__media rk-sig__media--type" aria-hidden="true">
              <span class="rk-sig__watermark">${c.n}</span>
            </div>`;
 
+      // Layout follows the reference: photo on top with no text over it, then
+      // the dish name, a hairline, and one row holding 01 | description | price.
       return `
       <article class="rk-sig-card" data-rk-sig-card data-index="${i}">
         <div class="rk-sig-card__shell" data-rk-sig-shell>
           ${media}
           <div class="rk-sig-card__body" data-rk-sig-body>
-            <span class="rk-sig-card__n" data-rk-sig-el="n">${c.n}</span>
             <h3 class="rk-sig-card__name rk-display" data-rk-sig-el="name">${c.name}</h3>
-            <p class="rk-sig-card__copy" data-rk-sig-el="copy">${c.copy}</p>
-            <span class="rk-sig-card__price ${c.price === null ? 'rk-sig-card__price--cat' : ''}" data-rk-sig-el="price">
-              ${c.priceLabel}
-            </span>
+            <div class="rk-sig-card__meta">
+              <span class="rk-sig-card__n" data-rk-sig-el="n">${c.n}</span>
+              <p class="rk-sig-card__copy" data-rk-sig-el="copy">${c.copy}</p>
+              <span class="rk-sig-card__price ${c.price === null ? 'rk-sig-card__price--cat' : ''}" data-rk-sig-el="price">
+                ${c.priceLabel}
+              </span>
+            </div>
           </div>
         </div>
       </article>`;
@@ -282,25 +285,19 @@ export function initSignature(): () => void {
 
     setActive(0);
 
-    /* ── Hover: image only, and never while its scrub is running ────── */
+    /* ── Hover: subtle image push-in ──────────────────────────────────
+       Writes to a separate wrapper (.rk-sig__media-hover inside the media box)
+       so it can never fight the scrubbed scale/parallax on .rk-sig__media-inner,
+       and it only runs on devices that actually have a pointer. */
     if (!reduced && window.matchMedia('(hover: hover)').matches) {
       cards.forEach((card) => {
-        const mediaInner = card.querySelector<HTMLElement>('[data-rk-sig-media-inner]');
-        if (!mediaInner) return;
-
-        // quickTo keeps this separate from the scrubbed timeline: it writes to
-        // the same element but through its own tween that the scrub does not
-        // overwrite (the scrub targets scale, this targets a CSS custom prop
-        // driven scale is overkill — instead we nudge brightness of the scrim).
-        const scrim = card.querySelector<HTMLElement>('.rk-sig__media-scrim');
-        if (!scrim) return;
-        const dim = gsap.quickTo(scrim, 'opacity', { duration: 0.45, ease: 'power2.out' });
-
-        card.addEventListener('pointerenter', () => dim(0.72));
-        card.addEventListener('pointerleave', () => dim(1));
+        const img = card.querySelector<HTMLElement>('[data-rk-sig-img]');
+        if (!img) return;
+        const push = gsap.quickTo(img, 'scale', { duration: 0.55, ease: 'power2.out' });
+        card.addEventListener('pointerenter', () => push(1.045));
+        card.addEventListener('pointerleave', () => push(1));
       });
-    }
-  }, root);
+    }  }, root);
 
   return () => ctx.revert();
 }
