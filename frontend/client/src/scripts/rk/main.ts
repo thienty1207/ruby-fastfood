@@ -18,6 +18,7 @@ import { initRubyNav } from './nav';
 import { initRubyHero } from './hero';
 import { initHeroMenuTransition } from './transition';
 import { initSignature } from './signature';
+import { initJourney } from './journey';
 import { initRubySections } from './sections';
 
 const disposers: Array<() => void> = [];
@@ -36,6 +37,7 @@ function boot(): void {
     initRubyHero(),
     initHeroMenuTransition(),
     initSignature(),
+    initJourney(),
     initRubySections(),
   );
 

@@ -1,0 +1,282 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — JOURNEY (#journey)
+
+   Geometry is copied from the clone's #map-desktop (163vw tall inner, 1728x2176
+   route viewBox, vw-based pin coordinates) so the motion path lands the crab on
+   exactly the same curve. Only the palette changed: mustard background -> black,
+   and the aeroplane -> the Ruby crab.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.rk-jr {
+  position: relative;
+  width: 100%;
+  background: var(--rk-charcoal-deep);
+  overflow: hidden;
+  /* Matches the clone's h-fit so the inner 163vw box fully determines height. */
+  height: auto;
+}
+
+/* ── The crab (was the aeroplane) ────────────────────────────────────── */
+.rk-jr__crab {
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* Same 15vw footprint as the plane wrapper. */
+  width: 15vw;
+  /* Above the route SVG and above the pins: the crab is the subject of this
+     section, so nothing may paint over it. (Measured: with z-index 2 the route
+     path and pin photos sat on top of the crab at every scroll position.) */
+  z-index: 300;
+  pointer-events: none;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+
+}
+
+.rk-jr__crab-img {
+  display: block;
+  /* Fixed box so the measured width cannot change with the path transform.
+     (MotionPath writes translate+rotate on the wrapper; a percentage-based
+     height let the reported box jump between 216 and 305px.) */
+  width: 15vw;
+  height: 15vw;
+  object-fit: contain;
+  /* The crab art points "up" like the plane art, so autoRotate:-90 lands it
+     nose-first along the path exactly as the plane did.
+     Scaled to 78%: the wrapper is 15vw like the plane's, but the plane art
+     fills its canvas while the crab carries transparent padding — at 100% it
+     read much larger than the plane ever did. */
+  transform: scale(0.78);
+  filter: drop-shadow(0 1.2vw 2.4vw rgb(0 0 0 / 0.55));
+}
+
+/* ── Route canvas ───────────────────────────────────────────────────── */
+.rk-jr__inner {
+  position: relative;
+  height: 163vw;
+  width: 100%;
+}
+
+.rk-jr__route-wrap {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.rk-jr__route {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Copy block (same offset as the clone's mt-[20vw]) ──────────────── */
+.rk-jr__copy {
+  position: relative;
+  z-index: 10;
+  margin-top: 20vw;
+  padding-inline: var(--rk-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2vw;
+  max-width: 60vw;
+}
+
+.rk-jr__eyebrow {
+  margin: 0;
+  transform: rotate(-7deg) translateX(1vw);
+  transform-origin: left center;
+  color: var(--rk-flame);
+}
+
+.rk-jr__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(2.4rem, 7.6vw, 7rem);
+  line-height: 0.86;
+  color: var(--rk-cream);
+}
+
+.rk-jr__title-alt {
+  color: var(--rk-ruby-bright);
+}
+
+.rk-jr__sub {
+  margin: 0;
+  margin-left: 1vw;
+  width: 30vw;
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.9rem, 1.35vw, 1.15rem);
+  line-height: 1.45;
+  color: var(--rk-cream-dim);
+}
+
+/* ── Pins: coordinates lifted 1:1 from the clone ─────────────────────── */
+.rk-jr__pin {
+  position: absolute;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vw;
+}
+
+.rk-jr__thumb {
+  width: 14vw;
+  height: 17vw;
+  overflow: hidden;
+  border-radius: var(--rk-radius-m);
+}
+
+.rk-jr__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rk-jr__label {
+  margin: 0;
+  font-family: var(--rk-font-display);
+  font-size: clamp(1rem, 2.4vw, 2rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--rk-cream);
+}
+
+/* pin 0 — right 5vw, top 50vw (BERLIN slot) */
+.rk-jr__pin--0 {
+  right: 5vw;
+  top: 50vw;
+  align-items: flex-end;
+}
+.rk-jr__label--0 {
+  transform: rotate(7deg);
+  text-align: right;
+  color: var(--rk-flame);
+}
+
+/* pin 1 — left 35vw, top 64vw (LONDON slot) */
+.rk-jr__pin--1 {
+  left: 35vw;
+  top: 64vw;
+  align-items: flex-start;
+}
+.rk-jr__label--1 {
+  transform: rotate(-7deg);
+  text-align: left;
+  color: var(--rk-cream);
+}
+
+/* pin 2 — right 20vw, top 80vw (NEW YORK slot) */
+.rk-jr__pin--2 {
+  right: 20vw;
+  top: 80vw;
+  align-items: flex-end;
+}
+.rk-jr__label--2 {
+  transform: rotate(12deg);
+  text-align: right;
+  color: var(--rk-flame);
+}
+
+/* pin 3 — left 15vw, top 105vw (SYDNEY slot) */
+.rk-jr__pin--3 {
+  left: 15vw;
+  top: 105vw;
+  align-items: flex-start;
+}
+.rk-jr__label--3 {
+  transform: rotate(-12deg);
+  text-align: left;
+  color: var(--rk-cream);
+}
+
+/* pin 4 — right 14vw, top 130vw (TOKYO slot) */
+.rk-jr__pin--4 {
+  right: 14vw;
+  top: 130vw;
+  align-items: flex-end;
+}
+.rk-jr__label--4 {
+  transform: rotate(6deg);
+  text-align: right;
+  color: var(--rk-flame);
+}
+
+/* ══ Mobile: the clone hid the desktop map and used a separate mobile one.
+      Here the same section keeps the route but stacks the content, with pins
+      at fixed offsets so nothing overlaps the 375px measure. ══════════ */
+@media (max-width: 1024px) {
+  .rk-jr__crab {
+    width: 22vw;
+  }
+
+  .rk-jr__inner {
+    /* Shorter travel on a narrow viewport — a 163vw route would be unreadable. */
+    height: 300vw;
+  }
+
+  .rk-jr__copy {
+    margin-top: 34vw;
+    max-width: none;
+    gap: 3.2vw;
+  }
+
+  .rk-jr__title {
+    font-size: clamp(2.2rem, 12vw, 3.6rem);
+  }
+
+  .rk-jr__eyebrow {
+    transform: rotate(-5deg) translateX(0);
+  }
+
+  .rk-jr__sub {
+    width: auto;
+    margin-left: 0;
+    max-width: 34ch;
+    font-size: 0.95rem;
+  }
+
+  .rk-jr__pin {
+    gap: 2.2vw;
+  }
+
+  .rk-jr__thumb {
+    width: 30vw;
+    height: 36vw;
+  }
+
+  .rk-jr__label {
+    font-size: clamp(0.95rem, 4.6vw, 1.4rem);
+  }
+
+  .rk-jr__pin--0 {
+    right: 6vw;
+    top: 96vw;
+  }
+  .rk-jr__pin--1 {
+    left: 6vw;
+    top: 146vw;
+  }
+  .rk-jr__pin--2 {
+    right: 6vw;
+    top: 196vw;
+  }
+  .rk-jr__pin--3 {
+    left: 6vw;
+    top: 246vw;
+  }
+  .rk-jr__pin--4 {
+    right: 6vw;
+    top: 296vw;
+  }
+}
+
+/* ══ Reduced motion: no route travel, content simply readable ═════════ */
+@media (prefers-reduced-motion: reduce) {
+  .rk-jr__crab {
+    display: none;
+  }
+}

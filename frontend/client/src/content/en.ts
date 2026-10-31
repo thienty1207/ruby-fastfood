@@ -150,6 +150,47 @@ export const content = {
      SIGNATURE MENU SHOWCASE — sticky split-screen scrollytelling
      Section id: #menu (the hero CTA scrolls here)
      ══════════════════════════════════════════════════════════════════ */
+  /* ══════════════════════════════════════════════════════════════════
+     JOURNEY — crab travels the dashed route (#journey)
+     Mechanism is a 1:1 port of the clone's map section; copy and imagery
+     are Ruby's own.
+     ══════════════════════════════════════════════════════════════════ */
+  journey: {
+    id: 'journey',
+    eyebrow: 'EVERYWHERE YOU GO',
+    headlineTop: 'BIG FLAVOR',
+    headlineBottom: 'TRAVELS WITH YOU',
+    sub: 'Freshly packed burgers and fried chicken, ready to go. Packed hot, wrapped tight, and built to survive the trip — wherever you are headed.',
+    /** Five slots, same order and coordinates as the clone's pins. */
+    pins: [
+      {
+        label: 'CHEESE BURGER',
+        img: '/img-webp/Signature-MenuSection-CheeseBurger.webp',
+        alt: 'Ruby Kitchen 81 cheese burger packed to travel',
+      },
+      {
+        label: 'CRISPY CHICKEN',
+        img: '/img-webp/Signature-MenuSection-Chicken.webp',
+        alt: 'Ruby Kitchen 81 crispy chicken',
+      },
+      {
+        label: 'PASTA',
+        img: '/img-webp/Signature-MenuSection-Pasta.webp',
+        alt: 'Ruby Kitchen 81 spaghetti bolognese',
+      },
+      {
+        label: 'SAUSAGE',
+        img: '/img-webp/Signature-MenuSection-Sausage.webp',
+        alt: 'Ruby Kitchen 81 smoked sausage',
+      },
+      {
+        label: 'THE DINER',
+        img: '/img-webp/NewBackground-heroSection.webp',
+        alt: 'Ruby Kitchen 81 diner interior',
+      },
+    ],
+  },
+
   signature: {
     id: 'menu',
     eyebrow: '01 / THE RUBY FAVORITES',
