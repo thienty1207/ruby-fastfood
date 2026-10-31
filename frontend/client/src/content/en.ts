@@ -52,14 +52,14 @@ export const content = {
   },
 
   nav: {
+    // Only anchors that exist on the page. The menu/burgers/chicken/combos/
+    // visit sections were removed, so those links are gone rather than dead.
     links: [
-      { label: 'Menu', href: '#menu' },
-      { label: 'Burgers', href: '#burgers' },
-      { label: 'Chicken', href: '#chicken' },
-      { label: 'Combos', href: '#combos' },
+      { label: 'Home', href: '#top' },
       { label: 'Visit', href: '#visit' },
+      { label: 'Contact', href: '#contact' },
     ],
-    cta: { label: 'Order Now', href: '#menu' }, // B12: no delivery link supplied
+    cta: { label: 'Call Us', href: 'tel:+84327815757' },
     menuOpenLabel: 'Open menu',
     menuCloseLabel: 'Close menu',
   },

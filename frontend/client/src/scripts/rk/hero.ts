@@ -22,6 +22,26 @@ export function rubyHeroMarkup(): string {
 
   return `
   <section class="rk-hero" id="top" data-rk-hero>
+    <!-- Full-bleed photo behind everything.
+         The file is optional: if /img/hero-bg.webp is missing the element
+         simply paints the charcoal + gradient fallback, so the page never has
+         a broken state while the restaurant supplies photography. -->
+    <div class="rk-hero__photo" data-rk-hero-photo aria-hidden="true">
+      <img
+        src="/img/hero-bg.webp"
+        alt=""
+        class="rk-hero__photo-img"
+        data-rk-photo-img
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        draggable="false"
+      />
+    </div>
+
+    <!-- readability scrim over the photo -->
+    <div class="rk-hero__scrim" aria-hidden="true"></div>
+
     <!-- checkerboard band, wipes in on load -->
     <div class="rk-hero__checker rk-checker" data-rk-checker aria-hidden="true"></div>
 
@@ -36,9 +56,8 @@ export function rubyHeroMarkup(): string {
         <span class="rk-hero__line rk-hero__line--alt"><span class="rk-hero__line-inner" data-rk-line>${h.headlineBottom}</span></span>
       </h1>
 
-      <!-- rotated sticker badges, Ruby's own copy -->
+      <!-- rotated sticker badge (right one removed: "ice cold beer" dropped) -->
       <span class="rk-hero__badge rk-hero__badge--l" data-rk-badge>${h.badges.left}</span>
-      <span class="rk-hero__badge rk-hero__badge--r" data-rk-badge>${h.badges.right}</span>
 
       <!-- animated mascot -->
       <div class="rk-hero__mascot" data-rk-mascot>
@@ -77,6 +96,29 @@ export function rubyHeroMarkup(): string {
 export function initRubyHero(): () => void {
   const root = document.querySelector<HTMLElement>('[data-rk-hero]');
   if (!root) return () => {};
+
+  // ── Background photo is optional ────────────────────────────────────
+  // If /img/hero-bg.webp has not been supplied yet, hide the <img> so the
+  // browser never paints a broken-image icon; the CSS gradient on
+  // .rk-hero__photo is the designed fallback, not a placeholder.
+  const photo = root.querySelector<HTMLImageElement>('[data-rk-photo-img]');
+  const photoWrap = root.querySelector<HTMLElement>('[data-rk-hero-photo]');
+  if (photo && photoWrap) {
+    const markMissing = () => {
+      photoWrap.classList.add('is-empty');
+      photo.remove();
+    };
+    if (photo.complete && photo.naturalWidth === 0) {
+      markMissing();
+    } else {
+      photo.addEventListener('error', markMissing, { once: true });
+      photo.addEventListener(
+        'load',
+        () => photoWrap.classList.add('is-loaded'),
+        { once: true },
+      );
+    }
+  }
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ctx = gsap.context(() => {

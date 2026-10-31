@@ -180,7 +180,12 @@ html:root {
      ghost variant was 2px taller than the flame one (visible mismatch in the
      same row). Same box, different paint. */
   border: 1px solid transparent;
+  /* Equal-size buttons in a row: both get the same inline padding AND the same
+     minimum width, so "EXPLORE MENU" (11 chars) and "FIND US" (7 chars) render
+     at identical height and rhythm instead of the label deciding the box. */
   padding: 0.95em 1.6em;
+  min-height: 3.15em;
+  min-width: 11.5em;
   border-radius: var(--rk-radius-pill);
   cursor: pointer;
   text-decoration: none;

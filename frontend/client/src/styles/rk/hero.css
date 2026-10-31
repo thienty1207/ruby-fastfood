@@ -15,6 +15,80 @@
   isolation: isolate;
 }
 
+/* ── Hero background photo ──────────────────────────────────────────────
+   Optional asset. If /img/hero-bg.webp is absent the <img> fails silently and
+   the charcoal + gradient below shows through, so there is no broken state.
+   ─────────────────────────────────────────────────────────────────────── */
+.rk-hero__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(120% 90% at 78% 30%, #2a1410 0%, transparent 55%),
+    linear-gradient(160deg, #1a1412 0%, var(--rk-charcoal) 55%, #0b0909 100%);
+  overflow: hidden;
+}
+
+.rk-hero__photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 50%;
+  /* Slight desaturation keeps the ruby palette dominant over the photo. */
+  filter: saturate(0.92) contrast(1.04);
+  transform: scale(1.04);
+  will-change: transform;
+  /* Fade in when the file resolves; stays invisible if it never loads. */
+  opacity: 0;
+  transition: opacity 0.6s var(--rk-ease-out);
+}
+
+.rk-hero__photo.is-loaded .rk-hero__photo-img {
+  opacity: 1;
+}
+
+/* No photograph supplied yet: the designed gradient fallback carries the hero.
+   The checkerboard stays visible so the diner motif still reads. */
+.rk-hero__photo.is-empty {
+  background:
+    radial-gradient(120% 90% at 78% 30%, #341814 0%, transparent 55%),
+    linear-gradient(160deg, #1f1512 0%, var(--rk-charcoal) 55%, #0b0909 100%);
+}
+
+.rk-hero__photo.is-empty::after {
+  content: '""';
+  position: absolute;
+  inset: auto -6% -14% auto;
+  width: min(46vw, 620px);
+  aspect-ratio: 1;
+  opacity: 0.1;
+  --rk-checker-size: 34px;
+  background-image:
+    linear-gradient(45deg, var(--rk-ruby) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--rk-ruby) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--rk-ruby) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--rk-ruby) 75%);
+  background-size: var(--rk-checker-size) var(--rk-checker-size);
+  background-position: 0 0, 0 calc(var(--rk-checker-size) / 2),
+    calc(var(--rk-checker-size) / 2) calc(var(--rk-checker-size) / -2),
+    calc(var(--rk-checker-size) / -2) 0;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+/* Readability scrim: dark on the copy side, lighter toward the subject. */
+.rk-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(100deg, rgb(12 12 12 / 0.96) 0%, rgb(12 12 12 / 0.82) 38%, rgb(12 12 12 / 0.35) 68%, rgb(12 12 12 / 0.15) 100%),
+    linear-gradient(to bottom, rgb(12 12 12 / 0.55) 0%, transparent 30%, rgb(12 12 12 / 0.35) 100%);
+  pointer-events: none;
+}
+
 /* ── Checkerboard band along the top edge ────────────────────────────── */
 .rk-hero__checker {
   position: absolute;
@@ -111,16 +185,6 @@
   background: var(--rk-gold);
 }
 
-/* On mobile the right badge used to sit at bottom:26% and landed on top of
-   the first paragraph. It is anchored next to the mascot instead. */
-.rk-hero__badge--r {
-  bottom: auto;
-  top: 47%;
-  left: 0;
-  transform: rotate(6deg);
-  background: var(--rk-ruby);
-  color: var(--rk-cream);
-}
 
 /* ── Mascot ──────────────────────────────────────────────────────────── */
 .rk-hero__mascot {
@@ -170,6 +234,12 @@
   flex-wrap: wrap;
   gap: var(--rk-space-2);
   margin-top: var(--rk-space-2);
+  align-items: stretch;
+}
+
+/* Both CTAs share one box so neither looks "bigger" than the other. */
+.rk-hero__actions .rk-btn {
+  flex: 0 1 auto;
 }
 
 /* ── Facts ───────────────────────────────────────────────────────────── */
@@ -299,10 +369,6 @@
     right: 8%;
   }
 
-  .rk-hero__badge--r {
-    bottom: 22%;
-    left: 52%;
-  }
 
   .rk-hero__scroll {
     display: flex;

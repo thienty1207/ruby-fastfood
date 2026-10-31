@@ -564,3 +564,57 @@
     transform: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   VISIT STRIP (merged into the footer)
+   Replaces the standalone #visit section.
+   ══════════════════════════════════════════════════════════════════════ */
+.rk-visit-strip {
+  background: var(--rk-charcoal);
+  padding-block: clamp(2.5rem, 6vw, 5rem);
+  border-top: 1px solid rgb(245 235 221 / 0.08);
+}
+
+.rk-visit-strip__inner {
+  display: grid;
+  gap: var(--rk-space-4);
+  padding-bottom: var(--rk-space-4);
+}
+
+.rk-visit-strip__title {
+  margin: var(--rk-space-1) 0 0;
+  font-size: clamp(2.2rem, 6.5vw, 5rem);
+  line-height: 0.92;
+  color: var(--rk-cream);
+}
+
+.rk-visit-strip__facts {
+  margin: 0;
+  display: grid;
+  gap: var(--rk-space-3);
+}
+
+.rk-visit-strip__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rk-space-2);
+  align-items: stretch;
+}
+
+.rk-visit-strip__band {
+  height: 14px;
+  --rk-checker-size: 14px;
+  opacity: 0.9;
+}
+
+@media (min-width: 760px) {
+  .rk-visit-strip__inner {
+    grid-template-columns: 1fr auto auto;
+    align-items: end;
+    gap: var(--rk-space-5);
+  }
+  .rk-visit-strip__facts {
+    grid-template-columns: auto auto;
+    gap: var(--rk-space-4);
+  }
+}
