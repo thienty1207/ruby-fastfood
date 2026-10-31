@@ -92,7 +92,9 @@ export function initJourney(): () => void {
   /* ══════════════════════════════════════════════════════════════════
      DESKTOP + motion allowed: the full 1:1 mechanism
      ══════════════════════════════════════════════════════════════════ */
-  mm.add('(min-width: 1025px) and (prefers-reduced-motion: no-preference)', () => {
+  // Runs on EVERY viewport with motion allowed — the crab must travel on mobile
+  // too. Only prefers-reduced-motion opts out.
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
     // ---------- inertial shove on pins and labels (unchanged) ----------
     const listeners: Array<() => void> = [];
     const attachInertia = (el: HTMLElement, vel: number, rotVel: number, resistance: number) => {
@@ -266,7 +268,7 @@ export function initJourney(): () => void {
   /* ══════════════════════════════════════════════════════════════════
      MOBILE / reduced motion: everything visible, no motionPath
      ══════════════════════════════════════════════════════════════════ */
-  mm.add('(max-width: 1024px), (prefers-reduced-motion: reduce)', () => {
+  mm.add('(prefers-reduced-motion: reduce)', () => {
     gsap.set(pins, { opacity: 1, scale: 1, rotate: 0, clearProps: 'transform' });
     return () => {
       gsap.set(pins, { clearProps: 'opacity,transform,scale,rotate' });

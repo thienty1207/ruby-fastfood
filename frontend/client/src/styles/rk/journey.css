@@ -210,7 +210,14 @@
       at fixed offsets so nothing overlaps the 375px measure. ══════════ */
 @media (max-width: 1024px) {
   .rk-jr__crab {
+    /* Matches the inner's mobile geometry; the image box is a square so the
+       motionPath transform cannot distort it. */
     width: 22vw;
+  }
+
+  .rk-jr__crab-img {
+    width: 22vw;
+    height: 22vw;
   }
 
   .rk-jr__inner {
@@ -239,8 +246,16 @@
     font-size: 0.95rem;
   }
 
+  /* Pins above the crab on mobile: the 300px-wide viewport leaves no room to
+     separate them, and a crab sitting on top of a dish photo reads as a
+     collision rather than a journey. */
   .rk-jr__pin {
     gap: 2.2vw;
+    z-index: 350;
+  }
+
+  .rk-jr__crab {
+    z-index: 300;
   }
 
   .rk-jr__thumb {
