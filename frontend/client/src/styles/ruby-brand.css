@@ -58,7 +58,10 @@ html:root {
   --rk-size-small: clamp(0.78rem, 0.9vw, 0.9rem);
   --rk-size-price: clamp(1.05rem, 1.5vw, 1.5rem);
 
-  --rk-leading-display: 0.82;
+  /* Anton has a tall cap-height and almost no descender space, so a 0.82
+     leading made consecutive lines collide (BIG / FLAVOR / RUBY / STYLE
+     visually merged). 0.9 keeps the tight poster feel without touching. */
+  --rk-leading-display: 0.9;
   --rk-leading-tight: 1.1;
   --rk-leading-body: 1.55;
 
@@ -161,23 +164,30 @@ html:root {
   background-color: var(--rk-checker-dark);
 }
 
-/* ── Buttons ──────────────���──────────────────────────────────────────── */
+/* ── Buttons ─────────────────────────────────────────────────────────── */
 .rk-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6em;
   font-family: var(--rk-font-text);
   font-size: var(--rk-size-small);
   font-weight: 700;
   letter-spacing: 0.12em;
+  line-height: 1.2;
   text-transform: uppercase;
+  /* 1px transparent border on the BASE, not only on --ghost: without it the
+     ghost variant was 2px taller than the flame one (visible mismatch in the
+     same row). Same box, different paint. */
+  border: 1px solid transparent;
   padding: 0.95em 1.6em;
   border-radius: var(--rk-radius-pill);
-  border: none;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
   transition:
     background-color var(--rk-dur-fast) var(--rk-ease-out),
+    border-color var(--rk-dur-fast) var(--rk-ease-out),
     color var(--rk-dur-fast) var(--rk-ease-out),
     transform var(--rk-dur-fast) var(--rk-ease-out);
 }
@@ -200,7 +210,7 @@ html:root {
 .rk-btn--ghost {
   background: transparent;
   color: var(--rk-cream);
-  border: var(--rk-border-strong);
+  border-color: rgb(245 235 221 / 0.28);
 }
 .rk-btn--ghost:hover {
   border-color: var(--rk-flame);

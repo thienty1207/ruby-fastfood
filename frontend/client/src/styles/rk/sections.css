@@ -1,0 +1,566 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — content sections
+   menu · burgers · chicken · combos · visit · footer
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.rk-wrap {
+  width: 100%;
+  max-width: var(--rk-max);
+  margin-inline: auto;
+  padding-inline: var(--rk-gutter);
+}
+
+/* ── Shared section shell ────────────────────────────────────────────── */
+.rk-sec {
+  position: relative;
+  /* Was --rk-space-section top AND bottom, which stacked into a ~250px dead
+     gap between sections. Half-height block padding keeps the rhythm. */
+  padding-block: calc(var(--rk-space-section) * 0.55);
+  background: var(--rk-charcoal);
+  isolation: isolate;
+}
+
+/* Menu needs room for the divider wave at the top. */
+.rk-menu {
+  padding-top: calc(var(--rk-space-section) * 0.55 + 60px);
+}
+
+/* The reused dividerMarkup() renders inside a `.z-99` wrapper (z-index 99).
+   It was painted on top of `.rk-wrap` content and — because its fill equals
+   the section background — it silently erased the first 300px of every
+   section (the headline and eyebrow of #menu disappeared).
+   Content sits above the divider now. */
+.rk-sec > .z-99 {
+  z-index: 0 !important;
+  pointer-events: none;
+}
+
+.rk-sec .rk-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.rk-sec + .rk-sec {
+  border-top: 1px solid rgb(245 235 221 / 0.07);
+}
+
+.rk-sec__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rk-space-2);
+  margin-bottom: var(--rk-space-5);
+}
+
+.rk-sec__head--split {
+  gap: var(--rk-space-4);
+}
+
+.rk-sec__title {
+  margin: 0;
+  font-size: var(--rk-size-h2);
+  color: var(--rk-cream);
+  /* The split-text wrapper turns each word into an inline-block that inherits
+     this line-height. At 0.9 the word box (108px) was shorter than Anton's
+     glyph height at 120px, so every word got sliced horizontally. Display
+     headings that carry [data-pop] need >= 1 and a little bottom room. */
+  line-height: 1.02;
+  padding-bottom: 0.06em;
+}
+
+/* Word spans created by buildSplitMarkup must never clip their own glyphs. */
+.rk-sec__title [data-pop],
+.rk-sec__title [data-split-inner] > span,
+.rk-visit__title [data-pop] {
+  line-height: inherit;
+  vertical-align: top;
+  padding-bottom: 0.04em;
+}
+
+.rk-sec__sub {
+  margin: 0;
+  max-width: 52ch;
+}
+
+/* ══ 03 — MENU ═════════════════════════════════════════════════════════ */
+.rk-cats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid rgb(245 235 221 / 0.12);
+}
+
+.rk-cat {
+  border-bottom: 1px solid rgb(245 235 221 / 0.12);
+}
+
+.rk-cat__link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--rk-space-3);
+  padding: clamp(1rem, 2.2vw, 1.7rem) 0;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--rk-dur-fast) var(--rk-ease-out);
+}
+
+.rk-cat__link:hover {
+  background: rgb(245 235 221 / 0.035);
+}
+
+.rk-cat__num {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--rk-ruby-bright);
+  min-width: 2.4em;
+}
+
+.rk-cat__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  min-width: 0;
+}
+
+.rk-cat__label {
+  font-family: var(--rk-font-display);
+  font-size: clamp(1.5rem, 4.2vw, 3rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  color: var(--rk-cream);
+  transition: color var(--rk-dur-fast) var(--rk-ease-out);
+}
+
+.rk-cat__link:hover .rk-cat__label {
+  color: var(--rk-flame);
+}
+
+.rk-cat__blurb {
+  font-size: var(--rk-size-small);
+  color: var(--rk-cream-dim);
+}
+
+.rk-cat__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+}
+
+.rk-cat__count {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--rk-cream-dim);
+  border: 1px solid rgb(245 235 221 / 0.2);
+  border-radius: var(--rk-radius-pill);
+  padding: 0.15em 0.7em;
+}
+
+.rk-cat__arrow {
+  color: var(--rk-flame);
+  transition: transform var(--rk-dur-fast) var(--rk-ease-out);
+}
+.rk-cat__link:hover .rk-cat__arrow {
+  transform: translateX(5px);
+}
+
+/* ══ 04 — BURGERS ══════════════════════════════════════════════════════ */
+.rk-burgers {
+  overflow: hidden;
+}
+
+/* checkerboard corner stamp — the diner motif, cheap and CSS-only */
+.rk-burgers__stamp {
+  position: absolute;
+  right: -6%;
+  top: 8%;
+  width: clamp(140px, 20vw, 260px);
+  aspect-ratio: 1;
+  transform: rotate(12deg);
+  opacity: 0.18;
+  --rk-checker-size: 22px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.rk-burgers .rk-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.rk-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rk-item {
+  display: grid;
+  /* minmax(0,1fr) lets the leader shrink instead of pushing the price out of
+     the row — that was clipping "140.000₫" at the right edge. */
+  grid-template-columns: auto minmax(0, 1fr) minmax(2rem, auto) auto;
+  align-items: baseline;
+  gap: clamp(0.6rem, 1.4vw, 1.2rem);
+  padding: clamp(0.9rem, 1.8vw, 1.35rem) 0;
+  border-bottom: 1px solid rgb(245 235 221 / 0.12);
+}
+
+.rk-item__idx {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--rk-ruby-bright);
+}
+
+.rk-item__name {
+  font-family: var(--rk-font-display);
+  font-size: clamp(1.05rem, 2.1vw, 1.6rem);
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--rk-cream);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* dotted leader between name and price */
+.rk-item__leader {
+  height: 1px;
+  min-width: 2rem;
+  align-self: center;
+  background-image: radial-gradient(circle, rgb(245 235 221 / 0.35) 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-repeat: repeat-x;
+  background-position: 0 center;
+}
+
+.rk-item__price {
+  justify-self: end;
+}
+
+/* ══ 05 — CHICKEN (kinetic type) ═══════════════════════════════════════ */
+.rk-chicken {
+  overflow: hidden;
+  background: var(--rk-charcoal-deep);
+}
+
+.rk-kinetic {
+  margin: var(--rk-space-3) 0 0;
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(3rem, 13vw, 11rem);
+  line-height: 0.86;
+  color: var(--rk-cream);
+}
+
+.rk-kinetic__line {
+  display: block;
+  overflow: hidden;
+}
+
+.rk-kinetic__line > span {
+  display: block;
+  will-change: transform;
+}
+
+/* alternate lines take the ruby, and pick up a checkerboard fill */
+.rk-kinetic__line:nth-child(even) > span {
+  color: var(--rk-ruby-bright);
+  -webkit-text-stroke: 0;
+}
+
+.rk-kinetic__line:nth-child(3) > span {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--rk-flame);
+}
+
+.rk-chicken__foot {
+  display: grid;
+  gap: var(--rk-space-2);
+  margin-top: var(--rk-space-5);
+  padding-top: var(--rk-space-3);
+  border-top: 1px solid rgb(245 235 221 / 0.12);
+  max-width: 62ch;
+}
+
+.rk-chicken__note {
+  color: var(--rk-gold);
+  font-size: var(--rk-size-small);
+}
+
+/* ══ 06 — COMBOS ═══════════════════════════════════════════════════════ */
+.rk-combos__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: rgb(245 235 221 / 0.12);
+  border: 1px solid rgb(245 235 221 / 0.12);
+}
+
+.rk-combo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rk-space-2);
+  padding: clamp(1.1rem, 2.4vw, 1.9rem);
+  background: var(--rk-charcoal);
+  transition: background-color var(--rk-dur-fast) var(--rk-ease-out);
+}
+
+.rk-combo:hover {
+  background: var(--rk-charcoal-raised);
+}
+
+.rk-combo__idx {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  font-weight: 700;
+  color: var(--rk-ruby-bright);
+}
+
+.rk-combo__name {
+  margin: 0;
+  font-family: var(--rk-font-display);
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
+  line-height: 1.08;
+  text-transform: uppercase;
+  color: var(--rk-cream);
+  flex: 1;
+}
+
+.rk-combo__price {
+  color: var(--rk-flame);
+}
+
+/* ══ 07 — VISIT ════════════════════════════════════════════════════════ */
+.rk-visit__grid {
+  display: grid;
+  gap: var(--rk-space-4);
+  padding-bottom: var(--rk-space-5);
+}
+
+.rk-visit__title {
+  margin: var(--rk-space-2) 0 0;
+  font-size: clamp(2.6rem, 8vw, 6rem);
+  line-height: 0.9;
+  color: var(--rk-cream);
+}
+
+.rk-visit__facts {
+  margin: 0;
+  display: grid;
+  gap: var(--rk-space-3);
+}
+
+.rk-fact {
+  padding-top: var(--rk-space-2);
+  border-top: 1px solid rgb(245 235 221 / 0.12);
+}
+
+.rk-fact dt {
+  font-family: var(--rk-font-text);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rk-flame);
+  margin-bottom: 0.4em;
+}
+
+.rk-fact dd {
+  margin: 0;
+  font-family: var(--rk-font-display);
+  font-size: clamp(1.15rem, 2.4vw, 1.8rem);
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: var(--rk-cream);
+  /* addresses and phones must be selectable — see shell.css */
+}
+
+.rk-fact dd a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgb(245 235 221 / 0.25);
+  transition: border-color var(--rk-dur-fast), color var(--rk-dur-fast);
+}
+.rk-fact dd a:hover {
+  color: var(--rk-flame);
+  border-color: var(--rk-flame);
+}
+
+.rk-visit__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rk-space-2);
+  align-content: start;
+}
+
+.rk-visit__band {
+  height: 16px;
+  --rk-checker-size: 16px;
+  opacity: 0.9;
+}
+
+/* ══ 08 — FOOTER ═══════════════════════════════════════════════════════ */
+.rk-foot {
+  background: var(--rk-charcoal-deep);
+  padding-block: var(--rk-space-6) var(--rk-space-4);
+  border-top: 1px solid rgb(245 235 221 / 0.1);
+}
+
+.rk-foot__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--rk-space-2);
+  padding-bottom: var(--rk-space-4);
+  border-bottom: 1px solid rgb(245 235 221 / 0.1);
+}
+
+.rk-foot__mark {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3em;
+  font-size: clamp(1.9rem, 5vw, 3.2rem);
+  line-height: 1;
+  color: var(--rk-flame);
+}
+
+.rk-foot__mark span {
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  color: var(--rk-cream);
+}
+
+.rk-foot__tag {
+  margin: 0;
+  font-size: var(--rk-size-small);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rk-cream-dim);
+}
+
+.rk-foot__cols {
+  display: grid;
+  gap: var(--rk-space-4);
+  padding-block: var(--rk-space-4);
+}
+
+.rk-foot__cols h3 {
+  margin: 0 0 0.8em;
+  font-family: var(--rk-font-text);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rk-flame);
+}
+
+.rk-foot__cols ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55em;
+}
+
+.rk-foot__cols a {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  color: var(--rk-cream-dim);
+  text-decoration: none;
+  transition: color var(--rk-dur-fast);
+}
+.rk-foot__cols a:hover {
+  color: var(--rk-flame);
+}
+
+.rk-foot__rights {
+  margin: 0;
+  padding-top: var(--rk-space-3);
+  border-top: 1px solid rgb(245 235 221 / 0.1);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(207 194 177 / 0.65);
+}
+
+/* ══ Breakpoints ═══════════════════════════════════════════════════════ */
+@media (min-width: 640px) {
+  .rk-sec__head--split {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--rk-space-5);
+  }
+  .rk-visit__grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .rk-visit__lead {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 900px) {
+  .rk-sec__head--split > div {
+    flex: 1 1 60%;
+  }
+  .rk-sec__head--split > .rk-sec__sub {
+    flex: 1 1 35%;
+    text-align: right;
+  }
+  .rk-combos__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .rk-visit__grid {
+    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-rows: auto auto;
+  }
+  .rk-visit__lead {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .rk-visit__facts {
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: 1fr 1fr;
+  }
+  .rk-visit__cta {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    align-self: start;
+  }
+  .rk-foot__cols {
+    grid-template-columns: repeat(2, minmax(0, 200px));
+    justify-content: space-between;
+  }
+}
+
+/* ══ Reduced motion ════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .rk-cat__link,
+  .rk-cat__arrow,
+  .rk-combo,
+  .rk-fact dd a,
+  .rk-foot__cols a {
+    transition: none !important;
+  }
+  .rk-kinetic__line > span {
+    transform: none !important;
+  }
+}

@@ -11,11 +11,12 @@
 import { ScrollTrigger } from '../motion/gsap';
 import { initRubyNav } from './nav';
 import { initRubyHero } from './hero';
+import { initRubySections } from './sections';
 
 const disposers: Array<() => void> = [];
 
 function boot(): void {
-  disposers.push(initRubyNav(), initRubyHero());
+  disposers.push(initRubyNav(), initRubyHero(), initRubySections());
 
   // Fonts change metrics; refresh once everything is measured.
   const refresh = () => ScrollTrigger.refresh();

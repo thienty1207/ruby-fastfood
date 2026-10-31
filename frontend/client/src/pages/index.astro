@@ -1,21 +1,20 @@
 ---
 /**
- * Ruby Kitchen 81 — homepage.
+ * Ruby Kitchen 81 homepage.
  *
- * CURRENT SCOPE: Nav + Hero only (step 3 of the agreed implementation order).
- * Remaining sections are added one at a time, each verified before the next:
- *   next → Explore Menu (#menu) → Burgers → Chicken → Combos → Visit → Footer
- *
- * The un-rebranded CRAV page remains at /clone for pixel comparison.
+ * Order: nav → hero → menu → burgers → chicken → combos → visit → footer
+ * The un-rebranded CRAV page remains at /clone for comparison.
  */
 import RubyBase from '../layouts/RubyBase.astro';
 import RubyNav from '../components/rk/RubyNav.astro';
 import RubyHero from '../components/rk/RubyHero.astro';
+import RubySections from '../components/rk/RubySections.astro';
 ---
 
 <RubyBase>
   <RubyNav />
-  <main class="rk-main">
+  <main class="rk-main" id="main">
     <RubyHero />
+    <RubySections />
   </main>
 </RubyBase>

@@ -65,11 +65,15 @@
   flex-direction: column;
 }
 
-/* Each line is its own clip mask so the rise is per-line, not per-block. */
+/* Each line is its own clip mask so the rise is per-line, not per-block.
+   Overflow must clip horizontally for the mask effect, but a 0.04em pad was
+   not enough for Anton's cap: lines are spaced by the display leading now and
+   the mask gets real breathing room. */
 .rk-hero__line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.04em; /* room for descenders inside the mask */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.06em;
 }
 
 .rk-hero__line-inner {
