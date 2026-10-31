@@ -61,6 +61,9 @@
 
 .rk-sig__line > span {
   display: block;
+}
+
+.rk-sig.is-animating .rk-sig__line > span {
   will-change: transform;
 }
 
@@ -144,6 +147,9 @@
   gap: clamp(1.2rem, 2.6vw, 2.2rem);
 }
 
+/* OUTER: paint only. No transform transition — GSAP writes transforms on the
+   inner shell, and having CSS transition the same property on the same node
+   made every scrub tick fight a 0.45s interpolation. */
 .rk-sig-card {
   position: relative;
   display: grid;
@@ -153,16 +159,34 @@
   border-radius: var(--rk-radius-m);
   border: 1px solid rgb(245 235 221 / 0.1);
   background: var(--rk-charcoal-raised);
-  transition:
-    border-color var(--rk-dur-mid) var(--rk-ease-out),
-    transform var(--rk-dur-mid) var(--rk-ease-out);
+  transition: border-color var(--rk-dur-mid) var(--rk-ease-out);
+}
+
+/* Active card: a warm edge, animated by CSS only — no layout shift because
+   border-width never changes, only its colour. */
+.rk-sig-card.is-current {
+  border-color: rgb(244 119 53 / 0.5);
+}
+
+/* INNER: geometry. GSAP owns y/opacity here; nothing in CSS touches them. */
+.rk-sig-card__shell {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* Promotion only while the section is actually on screen — see the
+   is-animating toggle in scripts/rk/signature.ts. */
+.rk-sig.is-animating .rk-sig-card__shell {
+  will-change: transform, opacity;
+}
+.rk-sig.is-animating .rk-sig__media-inner {
   will-change: transform;
 }
 
-/* Active card: a warm edge and a slightly lifted surface — the "premium"
-   hover state without any glow or shadow bloom. */
-.rk-sig-card.is-current {
-  border-color: rgb(244 119 53 / 0.5);
+@supports not (will-change: transform) {
+  .rk-sig-card__shell {
+    transform: translateZ(0);
+  }
 }
 
 /* ── Media ───────────────────────────────────────────────────────────── */
@@ -171,6 +195,15 @@
   overflow: hidden;
   aspect-ratio: 16 / 11;
   background: linear-gradient(135deg, #1d1512 0%, #120d0b 100%);
+}
+
+/* Parallax layer: GSAP scrubs scale + yPercent here. Kept as its own element so
+   the <img> keeps its own static object-fit geometry. */
+.rk-sig__media-inner {
+  position: absolute;
+  /* Overscan: the image starts at 1.08 scale and drifts up to 14% within the
+     box, so it needs headroom on every side or an edge would expose. */
+  inset: -8% 0;
 }
 
 .rk-sig__img {
@@ -182,8 +215,6 @@
   object-position: 50% 55%;
   display: block;
   transform-origin: 50% 55%;
-  /* Overscan so the hover scale never exposes an edge. */
-  will-change: transform;
 }
 
 /* Bottom fade so the card body always sits on a controlled ground. */
@@ -349,7 +380,9 @@
   .rk-sig__tick {
     transition: none !important;
   }
-  .rk-sig__img {
+  .rk-sig__line > span,
+  .rk-sig__media-inner,
+  .rk-sig-card__shell {
     will-change: auto;
   }
 }

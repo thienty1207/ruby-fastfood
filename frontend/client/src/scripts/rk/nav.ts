@@ -9,6 +9,7 @@
  *   - nav does NOT hide on scroll (client wants menu reachable at all times)
  */
 import { content } from '../../content/en';
+import { scrollToEl } from '../motion/lenis';
 
 export function rubyNavMarkup(): string {
   const { brand, nav } = content;
@@ -133,23 +134,31 @@ export function initRubyNav(): () => void {
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  // in-page links: smooth scroll with nav offset (Lenis-aware via native smooth)
+  // In-page links must scroll THROUGH Lenis when it is active. Calling
+  // window.scrollTo({ behavior:'smooth' }) while Lenis owns the scroll position
+  // starts a second animation on the same axis: the browser animates natively
+  // while Lenis keeps interpolating toward its own target, producing a stutter
+  // and sometimes a snap-back. scrollToEl() picks the right controller.
+  const anchorHandlers: Array<{ el: HTMLAnchorElement; fn: (e: Event) => void }> = [];
   document.querySelectorAll<HTMLAnchorElement>('[data-rk-nav-link]').forEach((a) => {
-    a.addEventListener('click', (e) => {
+    const fn = (e: Event) => {
       const href = a.getAttribute('href') ?? '';
       if (!href.startsWith('#')) return;
       const target = document.querySelector(href === '#top' ? 'body' : href);
       if (!target) return;
       e.preventDefault();
-      const y =
-        href === '#top'
-          ? 0
-          : target.getBoundingClientRect().top + window.scrollY - nav.offsetHeight - 8;
-      window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
-    });
+      if (href === '#top') {
+        scrollToEl(document.body, 0);
+        return;
+      }
+      scrollToEl(target, nav.offsetHeight + 8);
+    };
+    a.addEventListener('click', fn);
+    anchorHandlers.push({ el: a, fn });
   });
 
   return () => {
+    anchorHandlers.forEach(({ el, fn }) => el.removeEventListener('click', fn));
     burger.removeEventListener('click', onBurger);
     sheetLinks.forEach((a) => a.removeEventListener('click', onSheetLink));
     document.removeEventListener('keydown', onKey);
