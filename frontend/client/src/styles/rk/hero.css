@@ -1,0 +1,317 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — HERO
+   Concept D: dark diner, cinematic display type, checkerboard, mascot-led.
+   No food photography required.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.rk-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--rk-nav-h);
+  background: var(--rk-charcoal);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ── Checkerboard band along the top edge ────────────────────────────── */
+.rk-hero__checker {
+  position: absolute;
+  inset: var(--rk-nav-h) 0 auto 0;
+  height: 14px;
+  z-index: 2;
+  --rk-checker-size: 14px;
+  opacity: 0.85;
+}
+
+/* ── Ghost word ──────────────────────────────────────────────────────── */
+.rk-hero__ghost {
+  position: absolute;
+  right: -2vw;
+  bottom: -4vw;
+  font-size: clamp(9rem, 34vw, 34rem);
+  line-height: 0.72;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(245 235 221 / 0.09);
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+/* ── Layout ──────────────────────────────────────────────────────────── */
+.rk-hero__inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: var(--rk-max);
+  margin-inline: auto;
+  padding: var(--rk-space-6) var(--rk-gutter) var(--rk-space-7);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--rk-space-3);
+}
+
+.rk-hero__eyebrow {
+  margin: 0 0 var(--rk-space-2);
+}
+
+/* ── Headline ────────────────────────────────────────────────────────── */
+.rk-hero__title {
+  margin: 0;
+  font-size: var(--rk-size-hero);
+  color: var(--rk-cream);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each line is its own clip mask so the rise is per-line, not per-block. */
+.rk-hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.04em; /* room for descenders inside the mask */
+}
+
+.rk-hero__line-inner {
+  display: block;
+  will-change: transform;
+}
+
+/* Second line takes the ruby accent + a slight indent — signature pairing */
+.rk-hero__line--alt .rk-hero__line-inner {
+  color: var(--rk-ruby-bright);
+  margin-left: 0.06em;
+}
+
+/* ── Sticker badges ──────────────────────────────────────────────────── */
+.rk-hero__badge {
+  position: absolute;
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.6rem, 0.78vw, 0.74rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rk-charcoal);
+  background: var(--rk-gold);
+  padding: 0.5em 0.9em;
+  border-radius: var(--rk-radius-pill);
+  white-space: nowrap;
+  z-index: 4;
+  box-shadow: 0 6px 0 rgb(0 0 0 / 0.35);
+}
+
+.rk-hero__badge--l {
+  top: 3%;
+  right: 2%;
+  transform: rotate(-8deg);
+  background: var(--rk-gold);
+}
+
+/* On mobile the right badge used to sit at bottom:26% and landed on top of
+   the first paragraph. It is anchored next to the mascot instead. */
+.rk-hero__badge--r {
+  bottom: auto;
+  top: 47%;
+  left: 0;
+  transform: rotate(6deg);
+  background: var(--rk-ruby);
+  color: var(--rk-cream);
+}
+
+/* ── Mascot ──────────────────────────────────────────────────────────── */
+.rk-hero__mascot {
+  position: relative;
+  width: clamp(180px, 34vw, 430px);
+  aspect-ratio: 1;
+  justify-self: center;
+  margin-block: calc(var(--rk-space-4) * -1) 0;
+  z-index: 3;
+  will-change: transform;
+}
+
+.rk-hero__mascot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 24px 40px rgb(0 0 0 / 0.55));
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Blink lids sit over the mascot's eyes: two cream slivers that squash.
+   Coordinates are % of the mascot box so they track its size. */
+.rk-hero__mascot-eye {
+  position: absolute;
+  top: 47%;
+  width: 11%;
+  height: 12%;
+  background: var(--rk-charcoal-deep);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scaleY(0);
+  pointer-events: none;
+}
+
+.rk-hero__mascot-eye--l {
+  left: 38%;
+}
+.rk-hero__mascot-eye--r {
+  left: 55%;
+}
+
+/* ── Actions ─────────────────────────────────────────────────────────── */
+.rk-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rk-space-2);
+  margin-top: var(--rk-space-2);
+}
+
+/* ── Facts ───────────────────────────────────────────────────────────── */
+.rk-hero__facts {
+  display: grid;
+  gap: var(--rk-space-2);
+  margin-top: var(--rk-space-3);
+  padding-top: var(--rk-space-3);
+  border-top: 1px solid rgb(245 235 221 / 0.12);
+}
+
+.rk-hero__facts .rk-body {
+  margin: 0;
+  max-width: 46ch;
+}
+
+/* ── Scroll hint ─────────────────────────────────────────────────────── */
+.rk-hero__scroll {
+  position: absolute;
+  right: var(--rk-gutter);
+  bottom: var(--rk-space-4);
+  z-index: 4;
+  display: none;
+  align-items: center;
+  gap: 0.7em;
+}
+
+.rk-hero__scroll-label {
+  font-family: var(--rk-font-text);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rk-cream-dim);
+}
+
+.rk-hero__scroll-rail {
+  width: 1px;
+  height: 46px;
+  background: rgb(245 235 221 / 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.rk-hero__scroll-dot {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 14px;
+  background: var(--rk-flame);
+  animation: rk-scroll-dot 1.9s var(--rk-ease-out) infinite;
+}
+
+@keyframes rk-scroll-dot {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(340%);
+  }
+}
+
+/* ══ Tablet ═══════════════════════════════════════════════════════════ */
+@media (min-width: 640px) {
+  .rk-hero__facts {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--rk-space-4);
+  }
+  .rk-hero__fact-right {
+    text-align: right;
+    justify-self: end;
+  }
+}
+
+/* ══ Desktop ══════════════════════════════════════════════════════════ */
+@media (min-width: 900px) {
+  .rk-hero__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    /* 3 auto rows only. The facts block spans both columns on the LAST row so
+       it cannot push the title down past the viewport. */
+    grid-template-rows: auto auto auto;
+    align-items: center;
+    column-gap: var(--rk-space-5);
+    padding-block: var(--rk-space-5);
+  }
+
+  .rk-hero__eyebrow {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+    margin-bottom: var(--rk-space-1);
+  }
+
+  .rk-hero__title {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .rk-hero__actions {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: var(--rk-space-2);
+    align-self: start;
+  }
+
+  .rk-hero__facts {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    grid-template-columns: 1fr auto;
+    margin-top: var(--rk-space-2);
+    padding-top: var(--rk-space-2);
+  }
+
+  .rk-hero__mascot {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    justify-self: end;
+    margin: 0;
+    width: clamp(280px, 26vw, 400px);
+  }
+
+  /* Badges float in the empty right column, clear of the headline box.
+     right:46% put them on top of "STYLE." at 1440 — they now sit inside the
+     mascot column instead. */
+  .rk-hero__badge--l {
+    top: 22%;
+    right: 8%;
+  }
+
+  .rk-hero__badge--r {
+    bottom: 22%;
+    left: 52%;
+  }
+
+  .rk-hero__scroll {
+    display: flex;
+  }
+}
+
+/* ══ Reduced motion ═══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .rk-hero__scroll-dot {
+    animation: none;
+    transform: translateY(0);
+  }
+  .rk-hero__mascot-eye {
+    display: none;
+  }
+}

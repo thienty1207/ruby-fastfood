@@ -1,35 +1,21 @@
 ---
 /**
- * Homepage — the CRAV clone.
+ * Ruby Kitchen 81 — homepage.
  *
- * Section order matches the original DOM exactly:
- *   cursor → nav → hero → about → experience → photo band →
- *   ingredients → map (desktop|mobile) → cta → footer
+ * CURRENT SCOPE: Nav + Hero only (step 3 of the agreed implementation order).
+ * Remaining sections are added one at a time, each verified before the next:
+ *   next → Explore Menu (#menu) → Burgers → Chicken → Combos → Visit → Footer
+ *
+ * The un-rebranded CRAV page remains at /clone for pixel comparison.
  */
-import Base from '../layouts/Base.astro';
-import Cursor from '../components/chrome/Cursor.astro';
-import Nav from '../components/chrome/Nav.astro';
-import Hero from '../components/sections/Hero.astro';
-import About from '../components/sections/About.astro';
-import Experience from '../components/sections/Experience.astro';
-import PhotoBand from '../components/sections/PhotoBand.astro';
-import Ingredients from '../components/sections/Ingredients.astro';
-import MapDesktop from '../components/sections/MapDesktop.astro';
-import MapMobile from '../components/sections/MapMobile.astro';
-import Cta from '../components/sections/Cta.astro';
-import Footer from '../components/sections/Footer.astro';
+import RubyBase from '../layouts/RubyBase.astro';
+import RubyNav from '../components/rk/RubyNav.astro';
+import RubyHero from '../components/rk/RubyHero.astro';
 ---
 
-<Base>
-  <Cursor />
-  <Nav />
-  <Hero />
-  <About />
-  <Experience />
-  <PhotoBand />
-  <Ingredients />
-  <MapDesktop />
-  <MapMobile />
-  <Cta />
-  <Footer />
-</Base>
+<RubyBase>
+  <RubyNav />
+  <main class="rk-main">
+    <RubyHero />
+  </main>
+</RubyBase>

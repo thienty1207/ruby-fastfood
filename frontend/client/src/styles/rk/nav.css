@@ -1,0 +1,320 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — NAVIGATION
+   Replaces CRAV's nav entirely. Scoped to .rk-nav / .rk-sheet.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Bar ─────────────────────────────────────────────────────────────── */
+.rk-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--rk-z-nav);
+  height: var(--rk-nav-h);
+  display: flex;
+  align-items: center;
+  background: linear-gradient(to bottom, rgb(12 12 12 / 0.94), rgb(12 12 12 / 0.72));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition:
+    background var(--rk-dur-fast) var(--rk-ease-out),
+    border-color var(--rk-dur-fast) var(--rk-ease-out);
+}
+
+/* Solid once scrolled — keeps contrast over any section behind it. */
+.rk-nav.is-scrolled {
+  background: rgb(12 12 12 / 0.97);
+  border-bottom-color: rgb(245 235 221 / 0.1);
+}
+
+.rk-nav__inner {
+  width: 100%;
+  max-width: var(--rk-max);
+  margin-inline: auto;
+  padding-inline: var(--rk-gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--rk-space-4);
+}
+
+/* ── Wordmark ────────────────────────────────────────────────────────── */
+.rk-nav__brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.42em;
+  text-decoration: none;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.rk-nav__brand-ruby {
+  font-family: var(--rk-font-display);
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  letter-spacing: 0.01em;
+  color: var(--rk-flame);
+  text-transform: uppercase;
+}
+
+.rk-nav__brand-rest {
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.58rem, 0.78vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--rk-cream);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+}
+
+.rk-nav__brand-rest em {
+  font-style: normal;
+  color: var(--rk-ruby-bright);
+  letter-spacing: 0.06em;
+}
+
+/* ── Links ───────────────────────────────────────────────────────────── */
+.rk-nav__links {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--rk-space-3);
+  margin-inline-start: auto;
+}
+
+.rk-nav__link {
+  position: relative;
+  display: inline-block;
+  padding-block: 0.4em;
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rk-cream-dim);
+  text-decoration: none;
+  transition: color var(--rk-dur-fast) var(--rk-ease-out);
+}
+
+/* Flame underline sweeps in from the left on hover — not a rolling label. */
+.rk-nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--rk-flame);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--rk-dur-mid) var(--rk-ease-out);
+}
+
+.rk-nav__link:hover,
+.rk-nav__link:focus-visible {
+  color: var(--rk-cream);
+}
+.rk-nav__link:hover::after,
+.rk-nav__link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.rk-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--rk-space-2);
+  margin-inline-start: auto;
+}
+
+.rk-nav__cta {
+  display: none;
+}
+
+/* ── Hamburger ───────────────────────────────────────────────────────── */
+.rk-nav__burger {
+  --bar: 20px;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 1px solid rgb(245 235 221 / 0.2);
+  border-radius: var(--rk-radius-pill);
+  cursor: pointer;
+  padding: 0;
+  transition: border-color var(--rk-dur-fast) var(--rk-ease-out);
+}
+.rk-nav__burger:hover {
+  border-color: var(--rk-flame);
+}
+.rk-nav__burger:focus-visible {
+  outline: 2px solid var(--rk-flame);
+  outline-offset: 3px;
+}
+
+.rk-nav__burger span {
+  display: block;
+  position: absolute;
+  left: 50%;
+  width: var(--bar);
+  height: 2px;
+  margin-left: calc(var(--bar) / -2);
+  background: var(--rk-cream);
+  border-radius: 2px;
+  transition:
+    transform var(--rk-dur-mid) var(--rk-ease-snap),
+    opacity var(--rk-dur-fast) linear;
+}
+.rk-nav__burger span:nth-child(1) {
+  transform: translateY(-6px);
+}
+.rk-nav__burger span:nth-child(3) {
+  transform: translateY(6px);
+}
+
+.rk-nav.is-open .rk-nav__burger span:nth-child(1) {
+  transform: rotate(45deg);
+}
+.rk-nav.is-open .rk-nav__burger span:nth-child(2) {
+  opacity: 0;
+}
+.rk-nav.is-open .rk-nav__burger span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* ── Full-screen sheet (mobile) ──────────────────────────────────────── */
+.rk-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--rk-z-nav) - 1);
+  background: var(--rk-charcoal-deep);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition:
+    clip-path var(--rk-dur-slow) var(--rk-ease-snap),
+    visibility 0s linear var(--rk-dur-slow);
+}
+
+.rk-sheet.is-open {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition:
+    clip-path var(--rk-dur-slow) var(--rk-ease-snap),
+    visibility 0s;
+}
+
+/* Checkerboard strip along the top of the sheet — the diner signature. */
+.rk-sheet__checker {
+  height: 10px;
+  --rk-checker-size: 20px;
+}
+
+.rk-sheet__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--rk-space-6);
+  padding: var(--rk-space-6) var(--rk-gutter) var(--rk-space-7);
+  padding-top: calc(var(--rk-nav-h) + var(--rk-space-6));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.rk-sheet__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+}
+
+.rk-sheet__links a {
+  display: block;
+  font-family: var(--rk-font-display);
+  font-size: clamp(2.2rem, 11vw, 3.4rem);
+  line-height: 1.02;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--rk-cream);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--rk-dur-mid) var(--rk-ease-out),
+    transform var(--rk-dur-mid) var(--rk-ease-out),
+    color var(--rk-dur-fast);
+}
+
+.rk-sheet.is-open .rk-sheet__links a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rk-sheet__links a:hover {
+  color: var(--rk-flame);
+}
+
+.rk-sheet__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--rk-space-3);
+  padding-top: var(--rk-space-4);
+  border-top: 1px solid rgb(245 235 221 / 0.12);
+}
+
+.rk-sheet__phone {
+  font-family: var(--rk-font-text);
+  font-size: var(--rk-size-small);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--rk-cream-dim);
+  text-decoration: none;
+}
+.rk-sheet__phone:hover {
+  color: var(--rk-flame);
+}
+
+/* Lock page scroll while the sheet is open */
+.rk-locked,
+.rk-locked body {
+  overflow: hidden;
+}
+
+/* ── Desktop ─────────────────────────────────────────────────────────── */
+@media (min-width: 900px) {
+  .rk-nav__links {
+    display: flex;
+  }
+  .rk-nav__cta {
+    display: inline-flex;
+  }
+  .rk-nav__burger {
+    display: none;
+  }
+  .rk-sheet {
+    display: none;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .rk-nav,
+  .rk-nav__burger span,
+  .rk-nav__link::after,
+  .rk-sheet,
+  .rk-sheet__links a {
+    transition: none !important;
+  }
+  .rk-sheet__links a {
+    opacity: 1;
+    transform: none;
+  }
+  .rk-sheet {
+    transition: none;
+  }
+}
