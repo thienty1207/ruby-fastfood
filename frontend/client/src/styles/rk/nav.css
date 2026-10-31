@@ -4,6 +4,8 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* ── Bar ─────────────────────────────────────────────────────────────── */
+/* Transparent over the hero. It only gains a surface once the page scrolls,
+   so the photograph reads edge-to-edge at rest. */
 .rk-nav {
   position: fixed;
   inset: 0 0 auto 0;
@@ -11,18 +13,26 @@
   height: var(--rk-nav-h);
   display: flex;
   align-items: center;
-  background: linear-gradient(to bottom, rgb(12 12 12 / 0.94), rgb(12 12 12 / 0.72));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border-bottom: 1px solid transparent;
   transition:
-    background var(--rk-dur-fast) var(--rk-ease-out),
-    border-color var(--rk-dur-fast) var(--rk-ease-out);
+    background-color var(--rk-dur-mid) var(--rk-ease-out),
+    border-color var(--rk-dur-mid) var(--rk-ease-out),
+    backdrop-filter var(--rk-dur-mid) var(--rk-ease-out);
 }
 
-/* Solid once scrolled — keeps contrast over any section behind it. */
+/* Scrolled: solid charcoal + blur, so it stays legible over any section. */
+/* Scrolled: solid charcoal + a real blur. backdrop-filter only composites when
+   the element itself is not `transparent` — with a fully transparent
+   background the browser has nothing to sample behind, which is why blur read
+   as `none`. The 0.72 alpha leaves enough colour for the blur to bite while
+   still letting the hero glow through. */
 .rk-nav.is-scrolled {
-  background: rgb(12 12 12 / 0.97);
+  background-color: rgb(12 12 12 / 0.72);
+  -webkit-backdrop-filter: blur(18px) saturate(1.25);
+  backdrop-filter: blur(18px) saturate(1.25);
   border-bottom-color: rgb(245 235 221 / 0.1);
 }
 

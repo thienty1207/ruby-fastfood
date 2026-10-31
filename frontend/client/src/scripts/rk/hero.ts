@@ -31,7 +31,7 @@ export function rubyHeroMarkup(): string {
     <!-- Optional full-bleed photo. Falls back to a designed gradient. -->
     <div class="rk-hero__photo" data-rk-hero-photo aria-hidden="true">
       <img
-        src="/img/hero-bg.webp"
+        src="/img-webp/NewBackground-heroSection.webp"
         alt=""
         class="rk-hero__photo-img"
         data-rk-photo-img
@@ -87,15 +87,22 @@ export function initRubyHero(): () => void {
   const photo = root.querySelector<HTMLImageElement>('[data-rk-photo-img]');
   const photoWrap = root.querySelector<HTMLElement>('[data-rk-hero-photo]');
   if (photo && photoWrap) {
+    const markLoaded = () => photoWrap.classList.add('is-loaded');
     const markMissing = () => {
       photoWrap.classList.add('is-empty');
       photo.remove();
     };
-    if (photo.complete && photo.naturalWidth === 0) {
-      markMissing();
+
+    // Three cases, all handled: the image is already decoded by the time this
+    // module runs (very common — the file is preloaded in <head>, so `load`
+    // has already fired and adding a listener would never fire again), it
+    // fails, or it is still in flight.
+    if (photo.complete) {
+      if (photo.naturalWidth > 0) markLoaded();
+      else markMissing();
     } else {
+      photo.addEventListener('load', markLoaded, { once: true });
       photo.addEventListener('error', markMissing, { once: true });
-      photo.addEventListener('load', () => photoWrap.classList.add('is-loaded'), { once: true });
     }
   }
 
