@@ -45,15 +45,32 @@ const staged = (await run(['git', 'diff', '--cached', '--name-only'])).out
   .split('\n')
   .filter(Boolean);
 
+/** Push origin/main and report. Shared by both paths below. */
+async function pushToMain(): Promise<void> {
+  const push = await run(['git', 'push', 'origin', 'main']);
+  if (push.code !== 0) {
+    console.error('✖ push failed:\n' + (push.err || push.out));
+    process.exit(1);
+  }
+  const head = (await run(['git', 'log', '--oneline', '-1'])).out;
+  console.log(`✓ pushed to origin/main — ${head}`);
+}
+
+const aheadCount = async (): Promise<number> =>
+  Number((await run(['git', 'rev-list', '--count', 'origin/main..main'])).out || '0');
+
 if (!staged.length) {
-  console.log('✓ nothing to commit; working tree clean.');
-  const ahead = (await run(['git', 'rev-list', '--count', 'origin/main..main'])).out;
-  if (ahead && ahead !== '0') {
-    console.log(`  ${ahead} commit(s) ahead of origin/main — pushing.`);
-  } else {
-    console.log('  already up to date with origin/main.');
+  const ahead = await aheadCount();
+  if (ahead > 0) {
+    // There is nothing NEW to commit, but local main is ahead of the remote —
+    // push the existing commits instead of falling through to `git commit`
+    // (which fails with "nothing to commit" and exits non-zero).
+    console.log(`✓ working tree clean — ${ahead} commit(s) ahead, pushing.`);
+    await pushToMain();
     process.exit(0);
   }
+  console.log('✓ already up to date with origin/main; nothing to do.');
+  process.exit(0);
 }
 
 // blocked paths — never commit these, even if someone forces them in
@@ -104,10 +121,4 @@ if (commit.code !== 0) {
 console.log(`✓ committed ${staged.length} file(s): ${message}`);
 
 // ── push ──────────────────────────────────────────────────────────────────
-const push = await run(['git', 'push', 'origin', 'main']);
-if (push.code !== 0) {
-  console.error('✖ push failed:\n' + (push.err || push.out));
-  process.exit(1);
-}
-const head = (await run(['git', 'log', '--oneline', '-1'])).out;
-console.log(`✓ pushed to origin/main — ${head}`);
+await pushToMain();
