@@ -27,7 +27,10 @@ export function heroMarkup(): string {
 
     <div class="size-[40vw] z-20 absolute top-[60%] -translate-y-[60%] left-1/2 -translate-x-1/2 max-md:size-[80vw] max-md:top-[110vw] max-md:-translate-y-[50%]">
       <div data-hero-burger class="w-full h-full opacity-0">
-        <img alt="CRAV Artisan Smashed Burger with fresh ingredients" width="1000" height="1000" class="h-full w-full object-contain" src="/img-webp/burgerH.webp">
+        <!-- Hero mark. Was /img-webp/burgerH.webp (1538x1219); replaced with the
+             1254x1254 square logo, hence the matching width/height below so the
+             intrinsic ratio stays correct before decode. -->
+        <img alt="CRAV hero mark" width="1254" height="1254" class="h-full w-full object-contain" src="/img-webp/Newlogo-heroSection.webp">
       </div>
     </div>
 
