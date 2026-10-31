@@ -53,17 +53,26 @@ export const content = {
     tagline: 'Burgers · Fried Chicken · Cold Beer',
   },
 
+  /* Verified against the venue's own site (burgerphuquoc.com/contact-us) and its
+     Google Maps listing on 2026-10-31. Nothing here is inferred. */
   contact: {
-    address: '24, 30/4 Street, Dương Đông, Phú Quốc',
-    addressShort: 'Dương Đông, Phú Quốc',
-    phone: '0327 81 57 57',
+    address: '24 Đường 30/4, Dương Đông, Phú Quốc [Khu Chợ Đêm Phú Quốc]',
+    addressShort: 'Chợ Đêm, Dương Đông, Phú Quốc',
+    phone: '+84 327 81 57 57',
     phoneHref: 'tel:+84327815757',
-    /** Google Maps search URL — verified address, no place ID supplied. */
-    mapUrl:
-      'https://www.google.com/maps/search/?api=1&query=24+30%2F4+Street+Duong+Dong+Phu+Quoc+Vietnam',
-    hours: null as string | null, // B4 — not supplied; UI omits the row
+    email: 'customerservice@burgerphuquoc.com',
+    /** Google Maps place — CID decoded from the listing's place ID. Resolves. */
+    mapUrl: 'https://maps.google.com/?cid=6745606626681855021',
+    /** Exact listing coordinates, for directions links and structured data. */
+    geo: { lat: 10.2147067, lng: 103.9618995 },
+    hours: null as string | null, // not published by the venue; the row is omitted
+    socials: [
+      { label: 'Facebook', href: 'https://www.facebook.com/Rubyskitchen81/' },
+      { label: 'Instagram', href: 'https://www.instagram.com/rubykitchen81_phuquoc/' },
+      { label: 'TikTok', href: 'https://www.tiktok.com/@rubykitchen81' },
+    ],
+    website: 'https://burgerphuquoc.com/',
   },
-
   nav: {
     // Only anchors that exist on the page. The menu/burgers/chicken/combos/
     // visit sections were removed, so those links are gone rather than dead.

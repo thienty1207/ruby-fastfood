@@ -25,11 +25,17 @@ export function footerMarkup(): string {
           <dl class="rk-visit-strip__facts">
             <div class="rk-fact">
               <dt>${content.visit.labels.address}</dt>
-              <dd>${contact.address}</dd>
+              <dd>
+                <a href="${contact.mapUrl}" target="_blank" rel="noopener noreferrer">${contact.address}</a>
+              </dd>
             </div>
             <div class="rk-fact">
               <dt>${content.visit.labels.phone}</dt>
               <dd><a href="${contact.phoneHref}">${contact.phone}</a></dd>
+            </div>
+            <div class="rk-fact">
+              <dt>Email</dt>
+              <dd><a href="mailto:${contact.email}">${contact.email}</a></dd>
             </div>
           </dl>
 
@@ -61,6 +67,18 @@ export function footerMarkup(): string {
           <ul>
             <li><a href="${contact.mapUrl}" target="_blank" rel="noopener noreferrer">${contact.addressShort}</a></li>
             <li><a href="${contact.phoneHref}">${contact.phone}</a></li>
+            <li><a href="mailto:${contact.email}">${contact.email}</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Follow</h3>
+          <ul>
+            ${contact.socials
+              .map(
+                (s) =>
+                  `<li><a href="${s.href}" target="_blank" rel="noopener noreferrer">${s.label}</a></li>`,
+              )
+              .join('')}
           </ul>
         </div>
       </div>
