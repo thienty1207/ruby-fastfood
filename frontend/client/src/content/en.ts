@@ -70,8 +70,6 @@ export const content = {
     headlineBottom: 'RUBY STYLE.',
     /** Quiet one-liner under the headline (single-column editorial layout). */
     lede: 'Burgers, fried chicken and cold beer — made fresh to order in Dương Đông, Phú Quốc.',
-    /** Small caption beside the mascot illustration. */
-    illuNote: '24, 30/4 Street · Dương Đông',
     badges: {
       left: 'SMASHED DAILY',
     },

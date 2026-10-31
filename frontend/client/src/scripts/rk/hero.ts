@@ -57,7 +57,7 @@ export function rubyHeroMarkup(): string {
         <a class="rk-btn rk-btn--flame" href="${h.cta.href}" data-rk-hero-cta>${h.cta.label}</a>
       </div>
 
-      <!-- Mascot + badge as one small illustration row, aligned to the column -->
+      <!-- Mascot stacked ABOVE the badge, both left-aligned to the column -->
       <div class="rk-hero__illu" data-rk-illu>
         <div class="rk-hero__mascot" data-rk-mascot>
           <img
@@ -72,10 +72,7 @@ export function rubyHeroMarkup(): string {
           <span class="rk-hero__mascot-eye rk-hero__mascot-eye--l" data-rk-eye aria-hidden="true"></span>
           <span class="rk-hero__mascot-eye rk-hero__mascot-eye--r" data-rk-eye aria-hidden="true"></span>
         </div>
-        <div class="rk-hero__illu-text">
-          <span class="rk-hero__badge" data-rk-badge>${h.badges.left}</span>
-          <span class="rk-hero__illu-note">${h.illuNote}</span>
-        </div>
+        <span class="rk-hero__badge" data-rk-badge>${h.badges.left}</span>
       </div>
     </div>
   </section>`;
