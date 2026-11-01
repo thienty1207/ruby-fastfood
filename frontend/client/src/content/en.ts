@@ -53,8 +53,6 @@ export interface SignatureItem {
 export interface MenuPage {
   n: string;
   title: string;
-  /** Short descriptor shown under the title */
-  caption: string;
   src: string;
   alt: string;
 }
@@ -93,7 +91,6 @@ export const content = {
     links: [
       { label: 'Home', href: '#top' },
       { label: 'Menu', href: '#menu' },
-      { label: 'Full Menu', href: '/menu' },
       { label: 'Visit', href: '#visit' },
       { label: 'Contact', href: '#contact' },
     ],
@@ -317,7 +314,7 @@ export const content = {
   },
 
   /* ══════════════════════════════════════════════════════════════════
-     FULL MENU — homepage teaser + the /menu page.
+     FULL MENU — the interactive flipbook section on the homepage.
      Seven printed pages, supplied as artwork. Title/alt describe what each
      page actually contains; nothing here invents a dish or a price.
      ══════════════════════════════════════════════════════════════════ */
@@ -330,67 +327,47 @@ export const content = {
     nextLabel: 'Next page',
     closedLabel: 'Closed',
     hint: 'Drag a page corner, or use ← → to turn.',
-    /** Homepage section uses this one as the hero visual. */
-    cover: {
-      src: '/img-webp/Menu.webp',
-      alt: 'Ruby Kitchen 81 menu cover — western dinner menu',
-    },
-    page: {
-      title: 'FULL MENU',
-      intro:
-        'Seven pages, one kitchen. Burgers, combos, hotdogs and sausage, chicken and snacks, salads, pasta, and the full drinks list — exactly as printed at the diner.',
-      back: 'Back to home',
-      viewAll: 'All pages',
-      hint: 'Click a page to enlarge · use ← → to browse · Esc to close',
-    },
     /** Order matters: this is the printed order of the booklet. */
     pages: [
       {
         n: '01',
         title: 'Cover',
-        caption: 'Western dinner menu',
         src: '/img-webp/Menu.webp',
         alt: 'Ruby Kitchen 81 menu cover: western dinner menu with a double bacon burger, onion rings, fries, chicken and a cola.',
       },
       {
         n: '02',
         title: 'Signature Burgers',
-        caption: 'Five burgers, 65.000₫ – 140.000₫',
         src: '/img-webp/Menu1.webp',
         alt: 'Signature burgers page: Double Beef & Bacon 140.000, Cheese Burger 75.000, Crispy Chicken Burger 65.000, Garlic Chicken Cheese Burger 75.000, Vegetarian Burger 65.000.',
       },
       {
         n: '03',
         title: 'Classic Combo',
-        caption: 'Six combo sets, 85.000₫ – 169.000₫',
         src: '/img-webp/Menu2.webp',
         alt: 'Classic combo page: Double Beef & Bacon Deluxe Set 169.000, Cheese Burger Combo 105.000, Crispy Chicken Combo 85.000, Crispy Chicken Deluxe Set 109.000, Garlic Chicken Cheese Combo 99.000, Garlic Chicken Deluxe Set 119.000.',
       },
       {
         n: '04',
         title: 'Hotdog & Sausage',
-        caption: 'Sausages and plates, 20.000₫ – 109.000₫',
         src: '/img-webp/Menu3.webp',
         alt: 'Hotdog and sausage page: Classic Sausage 20.000, Premium Smoked Sausage 49.000, Smoked Sausage Plate 109.000, Bacon Fries Plate 95.000.',
       },
       {
         n: '05',
         title: 'Chicken & Snacks',
-        caption: 'Wings, popcorn chicken, fries, 50.000₫ – 149.000₫',
         src: '/img-webp/Menu4.webp',
         alt: 'Chicken and snacks page: Popcorn Chicken 8pcs 50.000, Chicken Mid Wings Combo 4pcs 69.000, Golden Crispy Chicken Wings Combo 11pcs 149.000, Popcorn Chicken & Fries 12pcs 75.000, French Fries 55.000, Onion Rings 60.000.',
       },
       {
         n: '06',
         title: 'Salads · Pasta · Extra',
-        caption: 'Salads, spaghetti, add-ons',
         src: '/img-webp/Menu5.webp',
         alt: 'Salads, pasta and extra page: Sesame Chicken Salad 75.000, Tuna Salad 69.000, Garden Mix Salad 55.000, Spaghetti Bolognese 69.000, Truffle Sauce 15.000, Garlic Sauce 15.000, Cheddar Cheese 10.000, Crispy Bacon 15.000.',
       },
       {
         n: '07',
         title: 'Drinks',
-        caption: 'Soft drinks, water, tea, beer',
         src: '/img-webp/Menu6.webp',
         alt: 'Drinks menu: soft drinks 20.000 each, Aquafina soda 20.000, Aquafina water 10.000, Oolong tea 15.000, Heineken Silver 25.000, Heineken Silver Can 30.000, Tiger 30.000, Bivina 20.000, Sai Gon Lager 20.000.',
       },
