@@ -299,19 +299,19 @@
      between stops. */
   .rk-jr__pin--0 {
     right: 4vw;
-    top: 9%;
+    top: 14%;
   }
   .rk-jr__pin--1 {
     left: 4vw;
-    top: 34%;
+    top: 37%;
   }
   .rk-jr__pin--2 {
     right: 4vw;
-    top: 52%;
+    top: 54%;
   }
   .rk-jr__pin--3 {
     left: 4vw;
-    top: 68%;
+    top: 69%;
   }
   .rk-jr__pin--4 {
     right: 4vw;
@@ -323,5 +323,29 @@
 @media (prefers-reduced-motion: reduce) {
   .rk-jr__crab {
     display: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   MOBILE FIX — route must start below the headline block.
+
+   The route's first dash sits at ~10% of the section box while the copy ends at
+   ~12%, so the crab crossed the last paragraph line (measured: crab bounding box
+   intersected .rk-jr__copy at scroll 0). z-index cannot help — the crab and the
+   text are painted in different stacking contexts and the crab travels by
+   transform, so it will always be "on top of" whatever it is geometrically over.
+
+   MotionPathPlugin reads the path's own geometry, so a transform on the svg does
+   not move the travel. The wrapper is inset instead: the route — and therefore
+   the whole path the crab follows — begins 13% down the box.
+
+   This block is deliberately last so it wins over the earlier mobile rules
+   without editing them again.
+   ══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .rk-jr__route-wrap {
+    top: 13%;
+    bottom: 0;
+    height: auto;
   }
 }
