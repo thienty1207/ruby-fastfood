@@ -108,8 +108,10 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
   // computed a 140px page.
   const stageBox = host.closest('.rk-fb__stage')?.getBoundingClientRect();
   // Subtract the two arrows and their gaps so the spread fits between them.
-  const arrowCol = 2 * 60;
-  const availW = Math.max(260, Math.round((stageBox?.width ?? 880) - arrowCol));
+  // On a phone the arrows are narrow and hug the edges; on desktop they are bigger
+  // and flank a wide spread.
+  const arrowCol = 2 * (window.innerWidth >= 1024 ? 60 : 46);
+  const availW = Math.max(140, Math.round((stageBox?.width ?? 880) - arrowCol));
   const isWide = window.innerWidth >= 1024;
   const PAGE_RATIO = 1491 / 1055; // height / width
 
@@ -118,12 +120,13 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
   // beside the book now rather than below it, so ~330 is enough on desktop.
   // The Open button sits in flow BELOW the book now, so it needs its own slice of
   // the budget: ~56px of button plus margin.
-  const budgetH = Math.max(240, window.innerHeight - (isWide ? 410 : 380));
+  // viewport - navbar - section head - open button - section padding.
+  const budgetH = Math.max(240, window.innerHeight - (isWide ? 300 : 320));
   // In landscape the width is the limit (two pages share it); in portrait the
   // height is, because a single page can be as wide as the column.
   const pageW = isWide
     ? Math.max(140, Math.min(Math.round(availW / 2), Math.round((budgetH / PAGE_RATIO))))
-    : Math.max(150, Math.min(Math.round(availW), Math.round(budgetH / PAGE_RATIO)));
+    : Math.max(140, Math.min(Math.round(availW), Math.round(budgetH / PAGE_RATIO)));
   const pageH = Math.round(pageW * PAGE_RATIO);
   /* StPageFlip replaces the host's children and, on init, writes its own inline
      min-width onto the host. Give the host an explicit width first, otherwise it

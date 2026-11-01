@@ -45,7 +45,7 @@ export function fullMenuMarkup(): string {
           <!-- Only visible while the book is closed. It sits BELOW the cover,
                not over it, so the closed state still reads as a cover. Clicking
                the cover itself also opens the book (see fullmenu.ts). -->
-          <button class="rk-fb__open" type="button" data-rk-fb-open hidden>
+          <button class="rk-fb__open is-hidden" type="button" data-rk-fb-open>
             ${fullMenu.openLabel}
           </button>
         </div>
@@ -89,12 +89,64 @@ export function initFullMenu(): () => void {
        book is closed (so the Open button is visible) and whether either arrow is
        at an end. Page numbers are deliberately not shown — the turned pages are
        the indicator. */
+    /* CENTRING A SINGLE VISIBLE BOARD.
+       StPageFlip always lays out a full spread, then shows only one board while
+       the book is closed or at its very end. That lone board sat 131px right of
+       the stage centre when closed and 132px left at the end (measured), which is
+       what made the cover look off-centre at both extremes.
+
+       Rather than compute the offset from a half/quarter of the wrapper — which
+       still drifted a few px because of the stage gaps and the library landing its
+       flip event before layout settles — this MEASURES the visible board against
+       the stage and translates the wrapper by exactly the difference. Runs twice:
+       once synchronously and once on the next frame. */
+    /* CENTRING A SINGLE VISIBLE BOARD.
+       StPageFlip always lays out a full spread, then shows only one board while
+       the book is closed or at its very end. That lone board sat 131px right of
+       the stage centre when closed and 132px left at the end (measured), so the
+       cover looked off-centre at both extremes.
+
+       The correction is applied as margin-left rather than transform: the library
+       rewrites the wrapper transform during a flip, which quietly undid a
+       translateX set from here. It is then run as a short converging loop, because
+       each measurement happens before the previous margin has been laid out — a
+       single pass left 5-6px of drift, a second pass closes it. */
+    const centreWrapper = () => {
+      const align = () => {
+        const wrap = host.querySelector<HTMLElement>('.stf__wrapper');
+        const stage = host.closest<HTMLElement>('.rk-fb__stage');
+        if (!wrap || !stage) return;
+
+        const board = [...host.querySelectorAll<HTMLElement>('.stf__item')].find(
+          (el) => getComputedStyle(el).display !== 'none',
+        );
+        if (!board) return;
+
+        // Converge: read the current offset, add it to the margin, repeat until
+        // the visible board is within half a pixel of the stage centre.
+        let margin = parseFloat(wrap.style.marginLeft || '0');
+        for (let pass = 0; pass < 4; pass++) {
+          const sr = stage.getBoundingClientRect();
+          const br = board.getBoundingClientRect();
+          const delta = sr.left + sr.width / 2 - (br.left + br.width / 2);
+          if (Math.abs(delta) < 0.5) break;
+          margin += delta;
+          wrap.style.marginLeft = `${margin}px`;
+        }
+      };
+
+      align();
+      requestAnimationFrame(align);
+      window.setTimeout(align, 300);
+    };
+
     const SYNC = (e: Event) => {
       const raw = (e as CustomEvent<{ page: number }>).detail?.page ?? 0;
       const open = raw >= 1;
-      if (openBtn) openBtn.hidden = open;
+      if (openBtn) openBtn.classList.toggle('is-hidden', open);
       if (prev) prev.disabled = raw <= 0;
       if (next) next.disabled = raw >= insideCount;
+      centreWrapper();
     };
     host.addEventListener('rk:flip', SYNC);
     cleanups.push(() => host.removeEventListener('rk:flip', SYNC));
@@ -134,6 +186,19 @@ export function initFullMenu(): () => void {
     };
     openBtn?.addEventListener('click', doOpen);
     cleanups.push(() => openBtn?.removeEventListener('click', doOpen));
+
+    /* Clicking the closed cover also opens the book. StPageFlip turns a page on a
+       click near the corners but does nothing on the middle of a closed book, so
+       the section felt unresponsive until the button was found. Gated on the
+       button still being hidden, which only happens while the book is closed. */
+    const onBookClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('[data-rk-fb-open]')) return;
+      if (!openBtn?.classList.contains('is-hidden')) return; // already open
+      doOpen();
+    };
+    host.addEventListener('click', onBookClick);
+    cleanups.push(() => host.removeEventListener('click', onBookClick));
 
     /* ── Keyboard ────────────────────────────────────────────────────── */
     const onKey = (e: KeyboardEvent) => {

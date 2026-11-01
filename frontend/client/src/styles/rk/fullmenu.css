@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: center;
   gap: clamp(0.5rem, 1.2vw, 0.9rem);
-  margin-bottom: clamp(1rem, 2vw, 1.6rem);
+  margin-bottom: clamp(0.7rem, 1.5vw, 1.1rem);
 }
 
 .rk-fb__eyebrow {
@@ -162,8 +162,12 @@
   transform: translateY(-2px);
 }
 
-.rk-fb__open[hidden] {
-  display: none;
+.rk-fb__open.is-hidden {
+  /* Keep the box, hide the paint. `display:none` made the section 60px shorter
+     the instant the book opened, which shifted everything and threw the scroll
+     position off by ~340px (measured: sectionH 896 -> 836, scrollY 6116 -> 6458). */
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .rk-fb__arrow {
