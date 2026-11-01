@@ -224,8 +224,33 @@
   }
 
   .rk-jr__inner {
-    /* Shorter travel on a narrow viewport — a 163vw route would be unreadable. */
-    height: 300vw;
+    /* The route SVG is 1728 x 2176 user units. On a 375px viewport, keeping the
+       native aspect ratio means the box must be 375 * (2176/1728) = 472px tall
+       per route-width. 300vw is 1125px, which squashed the path vertically and
+       stretched it horizontally under `object-fit: fill`.
+       Height is expressed from the same ratio so the path is never distorted:
+       the pins below use % of this box, so they travel with it. */
+    /* The route keeps its native 1728:2176 ratio so the path is never distorted.
+       On mobile the whole path only spans ~27% of the box height, so the box is
+       made tall enough (3.6x) that the five pins have visible gaps between them
+       and the crab has travel between each stop. */
+    aspect-ratio: 1728 / 2176;
+    height: auto;
+    min-height: 360vw;
+  }
+
+  /* The route path is 1948 x 2373 user units inside a 1728 x 2176 viewBox. With
+     `object-fit: cover` on a 375px-wide box the SVG was scaled to fill the width,
+     which cropped roughly two thirds of the path horizontally — the dashed line
+     appeared as disconnected fragments and the crab's travel was mostly
+     off-screen (measured: pathBBox 1948x2373 inside a 375x1125 box).
+     `contain` fits the whole route in view instead. */
+  /* The SVG keeps its own aspect ratio and fills the inner box; because pin
+     positions below are expressed in % of this same box, the dashed line and the
+     photographs now scale together. */
+  .rk-jr__route {
+    object-fit: fill;
+    object-position: 50% 0%;
   }
 
   .rk-jr__copy {
@@ -264,25 +289,29 @@
     font-size: clamp(0.95rem, 4.6vw, 1.4rem);
   }
 
+  /* Pin positions sampled from the ACTUAL rendered path with getPointAtLength
+     at 18/34/50/68/86% of its length, converted to % of the section box. The
+     desktop vw numbers could not be reused: the mobile route has a different
+     aspect ratio, so those values landed where the line is not drawn. */
   .rk-jr__pin--0 {
-    right: 6vw;
-    top: 96vw;
+    right: 3vw;
+    top: 44%;
   }
   .rk-jr__pin--1 {
-    left: 6vw;
-    top: 146vw;
+    left: 3vw;
+    top: 46%;
   }
   .rk-jr__pin--2 {
-    right: 6vw;
-    top: 196vw;
+    right: 3vw;
+    top: 52.5%;
   }
   .rk-jr__pin--3 {
-    left: 6vw;
-    top: 246vw;
+    left: 3vw;
+    top: 59%;
   }
   .rk-jr__pin--4 {
-    right: 6vw;
-    top: 296vw;
+    right: 3vw;
+    top: 67.5%;
   }
 }
 
