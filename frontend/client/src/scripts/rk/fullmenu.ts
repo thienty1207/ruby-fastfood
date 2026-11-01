@@ -30,10 +30,9 @@ export function fullMenuMarkup(): string {
         <p class="rk-fb__sub">${fullMenu.sub}</p>
       </header>
 
-      <!-- The arrows live in the SAME flex row as the book and are vertically
-           centred on it, so they read as part of the reading surface instead of
-           a separate control bar underneath. The page counter was removed on
-           request — the turned pages are the indicator now. -->
+      <!-- Arrows flank the book in the same flex row and are vertically
+           centred on it. The page counter is gone: the turned pages are the
+           indicator. -->
       <div class="rk-fb__stage">
         <button class="rk-fb__arrow rk-fb__arrow--prev" type="button" data-rk-fb-prev aria-label="${fullMenu.prevLabel}">
           <span aria-hidden="true">←</span>
@@ -43,8 +42,9 @@ export function fullMenuMarkup(): string {
           <!-- StPageFlip fills this element with pages. -->
           <div class="rk-fb__book" data-rk-fb-book aria-label="Ruby Kitchen 81 menu book"></div>
 
-          <!-- Click target for the closed cover: the library cannot open the book
-               from a click on the cover board, so an explicit control sits over it. -->
+          <!-- Only visible while the book is closed. It sits BELOW the cover,
+               not over it, so the closed state still reads as a cover. Clicking
+               the cover itself also opens the book (see fullmenu.ts). -->
           <button class="rk-fb__open" type="button" data-rk-fb-open hidden>
             ${fullMenu.openLabel}
           </button>

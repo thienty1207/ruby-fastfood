@@ -116,7 +116,9 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
   // Vertical room: viewport minus navbar, section head, controls and padding.
   // Room for the navbar, the section head and the drop shadow. The arrows sit
   // beside the book now rather than below it, so ~330 is enough on desktop.
-  const budgetH = Math.max(260, window.innerHeight - (isWide ? 330 : 300));
+  // The Open button sits in flow BELOW the book now, so it needs its own slice of
+  // the budget: ~56px of button plus margin.
+  const budgetH = Math.max(240, window.innerHeight - (isWide ? 410 : 380));
   // In landscape the width is the limit (two pages share it); in portrait the
   // height is, because a single page can be as wide as the column.
   const pageW = isWide
