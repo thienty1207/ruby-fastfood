@@ -1,0 +1,71 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   StPageFlip 2.0.7 — required layout CSS
+   Copied verbatim from node_modules/page-flip/src/Style/stPageFlip.css
+
+   The package ships this file under src/Style and does NOT export it through
+   package.json, so it cannot be imported by specifier. Without it `.stf__item`
+   stays `display: none` and `.stf__block` has no height, which makes the whole
+   book invisible while its controls still work — exactly the failure this
+   section had before the file was added here.
+   ═══════════════════════════════════════════════════════════════════════ */
+.stf__parent {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  transform: translateZ(0);
+
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+}
+
+.sft__wrapper {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.stf__parent canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.stf__block {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  perspective: 2000px;
+}
+
+.stf__item {
+  display: none;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.stf__outerShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.stf__innerShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.stf__hardShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.stf__hardInnerShadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+}

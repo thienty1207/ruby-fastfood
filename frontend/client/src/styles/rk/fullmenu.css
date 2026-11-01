@@ -1,148 +1,255 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   RUBY KITCHEN 81 — FULL MENU teaser + /menu page
+   RUBY KITCHEN 81 — THE RUBY MENU (interactive flipbook)
    ═══════════════════════════════════════════════════════════════════════ */
 
-/* ══ Homepage section ══════════════════════════════════════════════════ */
-.rk-fm {
+.rk-fb {
   position: relative;
   background: var(--rk-charcoal);
   border-top: 1px solid rgb(245 235 221 / 0.08);
-  padding-block: calc(var(--rk-space-section) * 0.55);
-  overflow: hidden;
+  padding-block: calc(var(--rk-space-section) * 0.6);
+  /* The book has its own perspective; the section must not clip it. */
+  overflow: visible;
 }
 
-.rk-fm__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
-}
-
-.rk-fm__copy {
+/* ── Head ────────────────────────────────────────────────────────────── */
+.rk-fb__head {
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(0.9rem, 1.6vw, 1.35rem);
-  min-width: 0;
+  align-items: center;
+  gap: clamp(0.5rem, 1.2vw, 0.9rem);
+  margin-bottom: clamp(1rem, 2vw, 1.6rem);
 }
 
-.rk-fm__eyebrow {
+.rk-fb__eyebrow {
   margin: 0;
   color: var(--rk-flame);
 }
 
-.rk-fm__title {
+.rk-fb__title {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
   line-height: 0.92;
   letter-spacing: -0.01em;
   color: var(--rk-cream);
 }
 
-.rk-fm__line {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.04em;
-}
-
-.rk-fm__line--alt > span {
-  color: var(--rk-ruby-bright);
-}
-
-.rk-fm__body {
+.rk-fb__sub {
   margin: 0;
   font-family: var(--rk-font-text);
-  font-size: clamp(0.95rem, 1.05vw, 1.08rem);
-  line-height: 1.6;
+  font-size: clamp(0.9rem, 1.05vw, 1.05rem);
   color: var(--rk-cream-dim);
-  max-width: 42ch;
 }
 
-.rk-fm__cta {
-  margin-top: clamp(0.4rem, 1vw, 0.8rem);
-}
-
-/* ── The cover, presented as a printed object ────────────────────────── */
-.rk-fm__cover {
+/* ── Stage ───────────────────────────────────────────────────────────── */
+.rk-fb__stage {
   position: relative;
-  display: block;
-  justify-self: center;
-  width: min(100%, 420px);
-  text-decoration: none;
-  /* Room for the sheet to tilt without clipping its shadow. */
-  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Room above/below for the shadow cast by the boards. */
+  padding-block: clamp(0.5rem, 2vw, 1.5rem);
+  filter: drop-shadow(0 30px 60px rgb(0 0 0 / 0.62));
 }
 
-/* Warm floor glow behind the booklet. */
-.rk-fm__cover-glow {
-  position: absolute;
-  inset: 8% -14% -8% -14%;
-  background: radial-gradient(closest-side, rgb(149 30 42 / 0.32), transparent 78%);
-  filter: blur(28px);
-  pointer-events: none;
+/* The host StPageFlip measures. Its size IS the book size — the library reads
+   this box (size: 'stretch') and derives every page from it.
+   The host is sized for the OPEN spread; the library shrinks the closed book to
+   a single board by itself because showCover marks the first page hard. */
+/* The host must NOT dictate geometry. StPageFlip writes inline min-width /
+   min-height onto it and positions its own .stf__wrapper inside; a CSS
+   aspect-ratio here made the host 1244px tall while the book inside it was
+   ~558px, so the visible cover fell far below the section.
+   Height is left to the library; only a max-width is imposed. */
+.rk-fb__book {
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  min-height: 420px;
 }
 
-.rk-fm__cover-sheet {
-  position: relative;
-  display: block;
-  transform-style: preserve-3d;
-  will-change: transform;
-  /* A paper edge: a 1px cream line plus a deep cast shadow sells "printed page"
-     without any texture asset. */
-  box-shadow:
-    0 0 0 1px rgb(245 235 221 / 0.12),
-    0 2px 4px rgb(0 0 0 / 0.5),
-    0 28px 60px -18px rgb(0 0 0 / 0.75);
+/* StPageFlip writes inline width/height onto its own inner blocks (.stf__block
+   and the wrapper it creates) from the settings it was given. Those inline
+   values are the source of truth for the book's geometry, so the host must not
+   also constrain them — and the library's own wrapper must be allowed to shrink
+   to a single board when the book is closed. */
+.rk-fb__book .stf__wrapper,
+.rk-fb__book .stf__block {
+  margin-inline: auto;
 }
 
-.rk-fm__cover-img {
+/* ── Pages injected by StPageFlip ────────────────────────────────────── */
+.rk-fb-page {
+  overflow: hidden;
+  background: #0d0b0a;
+}
+
+.rk-fb-page img {
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: 2px;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.rk-fm__cover-tag {
+/* Hard boards (front and back cover): a paper edge so the closed book reads as
+   a physical object rather than a lone image. */
+.rk-fb-page--hard {
+  box-shadow:
+    inset 0 0 0 1px rgb(245 235 221 / 0.14),
+    inset 0 -20px 40px -20px rgb(0 0 0 / 0.6);
+}
+
+/* Back board: dark board with the wordmark, so closing the book does not reveal
+   a blank white rectangle. */
+.rk-fb-page--back {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgb(149 30 42 / 0.35) 0%, transparent 60%),
+    linear-gradient(160deg, #17120f 0%, #0a0807 100%);
+}
+
+.rk-fb-backmark {
+  font-family: var(--rk-font-display);
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(245 235 221 / 0.22);
+  writing-mode: vertical-rl;
+}
+
+/* ── Open button, over the closed cover ──────────────────────────────── */
+.rk-fb__open {
   position: absolute;
-  right: -0.4rem;
-  bottom: -0.9rem;
-  padding: 0.4em 0.85em;
+  inset: auto auto clamp(1.4rem, 4vw, 2.6rem) 50%;
+  translate: -50% 0;
+  z-index: 40;
+  padding: 0.85em 1.5em;
   font-family: var(--rk-font-text);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--rk-charcoal);
-  background: var(--rk-gold);
+  background: var(--rk-flame);
+  border: 0;
   border-radius: var(--rk-radius-pill);
-  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -8px rgb(0 0 0 / 0.7);
+  transition:
+    background-color var(--rk-dur-fast),
+    transform var(--rk-dur-fast);
 }
 
-/* ══ Desktop: two columns, cover on the right ═════════════════════════ */
-@media (min-width: 900px) {
-  .rk-fm__inner {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: clamp(2.5rem, 5vw, 6rem);
-  }
+.rk-fb__open:hover {
+  background: var(--rk-flame-soft);
+  transform: translateY(-2px);
+}
 
-  .rk-fm__cover {
-    width: min(100%, 470px);
-    justify-self: end;
+.rk-fb__open[hidden] {
+  display: none;
+}
+
+/* ── Controls ────────────────────────────────────────────────────────── */
+.rk-fb__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.5vw, 1.8rem);
+  margin-top: clamp(1.2rem, 3vw, 2rem);
+}
+
+.rk-fb__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(2.8rem, 5vw, 3.4rem);
+  height: clamp(2.8rem, 5vw, 3.4rem);
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--rk-cream);
+  background: transparent;
+  border: 1px solid rgb(245 235 221 / 0.24);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color var(--rk-dur-fast),
+    border-color var(--rk-dur-fast),
+    color var(--rk-dur-fast),
+    opacity var(--rk-dur-fast);
+}
+
+.rk-fb__arrow:hover:not(:disabled) {
+  background: var(--rk-flame);
+  border-color: var(--rk-flame);
+  color: var(--rk-charcoal);
+}
+
+.rk-fb__arrow:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+
+.rk-fb__arrow:focus-visible,
+.rk-fb__open:focus-visible {
+  outline: 2px solid var(--rk-flame);
+  outline-offset: 3px;
+}
+
+.rk-fb__count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3em;
+  min-width: 8rem;
+  font-family: var(--rk-font-text);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+  color: var(--rk-cream);
+}
+
+.rk-fb__count-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgb(207 194 177 / 0.6);
+}
+
+.rk-fb__hint {
+  margin: clamp(0.8rem, 2vw, 1.2rem) 0 0;
+  text-align: center;
+  font-family: var(--rk-font-text);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(207 194 177 / 0.45);
+}
+
+/* ══ Desktop: wider spread so two pages read comfortably ═══════════════ */
+@media (min-width: 1024px) {
+  .rk-fb__book {
+    width: min(100%, 880px);
   }
 }
 
 /* ══ Reduced motion ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  .rk-fm__cover-sheet {
-    will-change: auto;
+  .rk-fb__open,
+  .rk-fb__arrow {
+    transition: none;
   }
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   /menu PAGE
+   LEGACY /menu PAGE STYLES
+   The dedicated page still exists and keeps its own viewer. Unused rules from
+   the previous teaser section were removed with it.
    ══════════════════════════════════════════════════════════════════════ */
 .rkm {
   background: var(--rk-charcoal-deep);
@@ -150,7 +257,6 @@
   padding-top: var(--rk-nav-h);
 }
 
-/* ── Head ────────────────────────────────────────────────────────────── */
 .rkm__head {
   border-bottom: 1px solid rgb(245 235 221 / 0.1);
   padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.6rem);
@@ -201,7 +307,6 @@
   color: rgb(207 194 177 / 0.55);
 }
 
-/* ── Viewer ──────────────────────────────────────────────────────────── */
 .rkm__body {
   padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(2.5rem, 5vw, 4rem);
 }
@@ -212,14 +317,7 @@
   place-items: center;
   background: #080706;
   border: 1px solid rgb(245 235 221 / 0.1);
-  /* NOT aspect-ratio: with a ratio the box keeps its proportions and the page
-     renders 518x732 inside a 613px box, so its bottom 119px were cut (measured).
-     The box now takes its height from the image, and the image itself is capped
-     by max-height so one whole page always fits beside the header, controls and
-     thumbnail rail. */
   margin-inline: auto;
-  /* The stage width is derived from the height cap so the page is never
-     cropped: 64svh of height at a 1055:1491 ratio is 71.8svh of width. */
   width: min(100%, calc(71.8svh), 620px);
   overflow: hidden;
   cursor: zoom-in;
@@ -229,13 +327,10 @@
   display: block;
   width: 100%;
   height: auto;
-  /* Capping the IMAGE (not the box) is what guarantees the whole page is
-     visible; 55svh leaves room for the header, controls and thumb rail. */
   max-height: min(64svh, 760px);
   object-fit: contain;
 }
 
-/* ── Controls ────────────────────────────────────────────────────────── */
 .rkm__bar {
   display: flex;
   align-items: center;
@@ -298,7 +393,6 @@
   color: rgb(207 194 177 / 0.6);
 }
 
-/* ── Thumbnails ──────────────────────────────────────────────────────── */
 .rkm__thumbs {
   display: flex;
   gap: clamp(0.5rem, 1.2vw, 0.9rem);
@@ -342,12 +436,10 @@
   transform: translateY(-2px);
 }
 
-/* ══ Lightbox ═════════════════════════════════════════════════════════ */
+/* ── Lightbox ────────────────────────────────────────────────────────── */
 .rkm-lb {
   position: fixed;
   inset: 0;
-  /* Above the fixed navbar (--rk-z-nav). At 900 the nav floated over the
-     overlay and the close button sat underneath it. */
   z-index: 1000;
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -474,10 +566,8 @@
   color: rgb(207 194 177 / 0.55);
 }
 
-/* ══ Mobile ═══════════════════════════════════════════════════════════ */
 @media (max-width: 1023px) {
   .rkm__stage {
-    max-height: none;
     width: 100%;
   }
 
@@ -486,7 +576,6 @@
   }
 }
 
-/* ══ Reduced motion ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   .rkm__nav,
   .rkm__thumb,

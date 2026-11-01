@@ -323,10 +323,13 @@ export const content = {
      ══════════════════════════════════════════════════════════════════ */
   fullMenu: {
     eyebrow: 'FULL MENU',
-    headingTop: 'MORE THAN',
-    headingBottom: 'BURGERS.',
-    body: 'Explore Ruby Kitchen 81’s full menu — burgers, combos, sausages, chicken, pasta, salads, drinks and more.',
-    cta: 'View Full Menu',
+    heading: 'THE RUBY MENU',
+    sub: 'Flip through our flavors.',
+    openLabel: 'Open the menu',
+    prevLabel: 'Previous page',
+    nextLabel: 'Next page',
+    closedLabel: 'Closed',
+    hint: 'Drag a page corner, or use ← → to turn.',
     /** Homepage section uses this one as the hero visual. */
     cover: {
       src: '/img-webp/Menu.webp',
