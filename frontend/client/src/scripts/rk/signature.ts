@@ -166,7 +166,10 @@ export function initSignature(): () => void {
         // so every photograph takes noticeably longer to travel than 1.375 did.
         // 4.8 viewports for 4 items: 1.2 viewport of scroll per item. Enough
         // travel for the slide to read, without making the reader wait.
-        end: () => `+=${window.innerHeight * (count + 0.8)}`,
+        // 2.4 viewports for 4 items (0.6 each). The pinned stretch is meant to
+        // be a beat, not a corridor: at 4.8 viewports the reader scrolled a long
+        // way before the section ended, which read as the page being stuck.
+        end: () => `+=${window.innerHeight * (count * 0.6)}`,
         pin: true,
         pinSpacing: true,
         // Damped rather than near-instant: the panel keeps easing for ~0.9s after
