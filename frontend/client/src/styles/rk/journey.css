@@ -234,9 +234,8 @@
        On mobile the whole path only spans ~27% of the box height, so the box is
        made tall enough (3.6x) that the five pins have visible gaps between them
        and the crab has travel between each stop. */
-    aspect-ratio: 1728 / 2176;
-    height: auto;
-    min-height: 360vw;
+    height: 470vw;
+    min-height: 470vw;    /* 470vw: measured minimum that keeps all five pins apart */
   }
 
   /* The route path is 1948 x 2373 user units inside a 1728 x 2176 viewBox. With
@@ -249,7 +248,11 @@
      positions below are expressed in % of this same box, the dashed line and the
      photographs now scale together. */
   .rk-jr__route {
+    width: 100%;
+    height: 100%;
     object-fit: fill;
+    transform: scale(0.94);
+    transform-origin: 50% 0%;
     object-position: 50% 0%;
   }
 
@@ -289,29 +292,30 @@
     font-size: clamp(0.95rem, 4.6vw, 1.4rem);
   }
 
-  /* Pin positions sampled from the ACTUAL rendered path with getPointAtLength
-     at 18/34/50/68/86% of its length, converted to % of the section box. The
-     desktop vw numbers could not be reused: the mobile route has a different
-     aspect ratio, so those values landed where the line is not drawn. */
+  /* Pin positions sampled from the ACTUAL rendered path with getPointAtLength at
+     10/28/46/64/82% of its length, converted to % of the section box. Spaced
+     ~20% of the box apart vertically — at 620vw that is ~460px, far more than the
+     ~127px each pin needs, so nothing overlaps and the crab has room to travel
+     between stops. */
   .rk-jr__pin--0 {
-    right: 3vw;
-    top: 44%;
+    right: 4vw;
+    top: 10%;
   }
   .rk-jr__pin--1 {
-    left: 3vw;
-    top: 46%;
+    left: 4vw;
+    top: 38%;
   }
   .rk-jr__pin--2 {
-    right: 3vw;
-    top: 52.5%;
+    right: 4vw;
+    top: 57%;
   }
   .rk-jr__pin--3 {
-    left: 3vw;
-    top: 59%;
+    left: 4vw;
+    top: 73%;
   }
   .rk-jr__pin--4 {
-    right: 3vw;
-    top: 67.5%;
+    right: 4vw;
+    top: 93%;
   }
 }
 
