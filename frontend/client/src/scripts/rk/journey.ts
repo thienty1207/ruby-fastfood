@@ -51,7 +51,7 @@ export function journeyMarkup(): string {
 
     <div class="rk-jr__inner" data-rk-jr-inner>
       <div class="rk-jr__route-wrap" aria-hidden="true">
-        <svg class="rk-jr__route" width="1728" height="2176" viewBox="0 0 1728 2176" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="rk-jr__route" width="1728" height="2176" viewBox="-40 -160 2010 2560" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path data-rk-jr-route d="${ROUTE_D}" stroke="var(--rk-gold)" stroke-opacity="0.5" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="42 42"></path>
         </svg>
       </div>
