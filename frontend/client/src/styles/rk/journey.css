@@ -23,9 +23,9 @@
   top: 0;
   /* Same 15vw footprint as the plane wrapper. */
   width: 15vw;
-  /* Above the route SVG and above the pins: the crab is the subject of this
-     section, so nothing may paint over it. (Measured: with z-index 2 the route
-     path and pin photos sat on top of the crab at every scroll position.) */
+  /* Above the route SVG (z-index 0 inside .rk-jr__inner) but BELOW the pins, so
+     it can never cover a guest's photo. Measured: at z-index 2 the route path
+     painted over the crab. */
   z-index: 300;
   pointer-events: none;
   backface-visibility: hidden;
@@ -116,7 +116,10 @@
 /* ── Pins: coordinates lifted 1:1 from the clone ─────────────────────── */
 .rk-jr__pin {
   position: absolute;
-  z-index: 200;
+  /* Above the crab. With product shots a crab crossing a photo was harmless;
+     now these are portraits of real guests and a cartoon sitting on someone's
+     face is not acceptable. */
+  z-index: 350;
   display: flex;
   flex-direction: column;
   gap: 1.5vw;
@@ -246,16 +249,10 @@
     font-size: 0.95rem;
   }
 
-  /* Pins above the crab on mobile: the 300px-wide viewport leaves no room to
-     separate them, and a crab sitting on top of a dish photo reads as a
-     collision rather than a journey. */
+  /* Stacking is already correct from the base rules (pins 350 > crab 300); the
+     mobile block only needs the tighter gap. */
   .rk-jr__pin {
     gap: 2.2vw;
-    z-index: 350;
-  }
-
-  .rk-jr__crab {
-    z-index: 300;
   }
 
   .rk-jr__thumb {

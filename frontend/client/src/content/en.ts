@@ -170,36 +170,46 @@ export const content = {
     headlineTop: 'BIG FLAVOR',
     headlineBottom: 'TRAVELS WITH YOU',
     sub: 'Freshly packed burgers and fried chicken, ready to go. Packed hot, wrapped tight, and built to survive the trip — wherever you are headed.',
-    /** Five slots, same order and coordinates as the clone's pins. */
+    /**
+     * Five slots, same order and coordinates as the clone's pins.
+     * Imagery is the venue's own guest photography (public/img-webp/khachhang*),
+     * supplied by the client. Labels describe the moment actually shown — no
+     * guest names are invented and no dish is claimed that is not in frame.
+     */
     pins: [
       {
-        label: 'CHEESE BURGER',
-        img: '/img-webp/Signature-MenuSection-CheeseBurger.webp',
-        alt: 'Ruby Kitchen 81 cheese burger packed to travel',
+        label: 'SMASH BURGER',
+        img: '/img-webp/khachhang1.webp',
+        alt: 'Guest holding a Ruby Kitchen 81 chicken burger, with pasta and fries on the table',
       },
       {
-        label: 'CRISPY CHICKEN',
-        img: '/img-webp/Signature-MenuSection-Chicken.webp',
-        alt: 'Ruby Kitchen 81 crispy chicken',
+        /* swapped: khachhang2 is 1.94:1 and the pin frame is 0.82:1, so cover
+           cropping removed 57% of its width and both faces were lost (verified).
+           This slot now uses the tall three-burger photo, which fits natively. */
+        label: 'THREE BURGERS',
+        img: '/img-webp/khachhang3.webp',
+        alt: 'Guest pointing at a plate of three burgers on a red gingham table',
       },
       {
-        label: 'PASTA',
-        img: '/img-webp/Signature-MenuSection-Pasta.webp',
-        alt: 'Ruby Kitchen 81 spaghetti bolognese',
+        label: 'DINNER FOR TWO',
+        img: '/img-webp/khachhang2.webp',
+        alt: 'Two guests smiling with burger baskets and salad at a Ruby Kitchen 81 table',
+        /* Kept last of the set: this is the widest photo (1.94:1), so its crop is
+           the most severe. Placed here it still reads as a group shot. */
+        focus: '50% 30%',
       },
       {
-        label: 'SAUSAGE',
-        img: '/img-webp/Signature-MenuSection-Sausage.webp',
-        alt: 'Ruby Kitchen 81 smoked sausage',
+        label: 'PASTA NIGHT',
+        img: '/img-webp/khachhang4.webp',
+        alt: 'Guest seated with pasta, fries and a burger in front of him',
       },
       {
-        label: 'THE DINER',
-        img: '/img-webp/NewBackground-heroSection.webp',
-        alt: 'Ruby Kitchen 81 diner interior',
+        label: 'BEST BURGER',
+        img: '/img-webp/khachhang5.webp',
+        alt: 'Guest holding the Ruby Kitchen 81 menu card beside the diner wall',
       },
     ],
   },
-
   signature: {
     id: 'menu',
     eyebrow: '01 / THE RUBY FAVORITES',

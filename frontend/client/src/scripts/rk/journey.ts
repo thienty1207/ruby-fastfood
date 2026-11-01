@@ -34,7 +34,9 @@ export function journeyMarkup(): string {
       <div class="rk-jr__pin rk-jr__pin--${i}" data-rk-jr-pin="${i}" style="cursor:pointer;will-change:transform">
         <p class="rk-jr__label rk-jr__label--${i}" data-rk-jr-label="${i}" style="will-change:transform;cursor:pointer">${p.label}</p>
         <div class="rk-jr__thumb">
-          <img src="${p.img}" alt="${p.alt}" width="1000" height="1000" class="rk-jr__img" draggable="false" loading="lazy" decoding="async">
+          <img src="${p.img}" alt="${p.alt}" width="1000" height="1000" class="rk-jr__img"${
+            p.focus ? ` style="object-position:${p.focus}"` : ''
+          } draggable="false" loading="lazy" decoding="async">
         </div>
       </div>`,
     )
