@@ -33,16 +33,21 @@ export interface MenuCategory {
 
 /** A card in the signature showcase. `imageUrl` is optional by design so the
  *  component keeps working before photography exists. */
-export interface SignatureCard {
+/** One chapter of the signature showcase. `imageUrl` is optional so the
+ *  component still works before photography exists. */
+export interface SignatureItem {
   n: string;
+  eyebrow: string;
+  heading: string;
+  body: string;
+  /** Small line under the body, e.g. "Cheese Burger · 75.000đ" */
+  meta: string;
   name: string;
-  /** null = no single published price (category card) */
-  price: number | null;
   priceLabel: string;
-  copy: string;
   imageUrl?: string;
   imageAlt?: string;
-  verified: boolean;
+  /** CSS object-position for the cinematic crop */
+  focus?: string;
 }
 export const content = {
   brand: {
@@ -210,57 +215,74 @@ export const content = {
       },
     ],
   },
+  /* ══════════════════════════════════════════════════════════════════
+     SIGNATURE SHOWCASE (#menu)
+     Pinned two-column chapter sequence: the left panel is a per-item story
+     panel, the right is one fixed image stage. Copy supplied by the client.
+     ══════════════════════════════════════════════════════════════════ */
   signature: {
     id: 'menu',
-    eyebrow: '01 / THE RUBY FAVORITES',
-    headlineTop: 'FOUR PICKS.',
-    headlineBottom: 'BIG FLAVOR.',
-    support:
-      'From juicy burgers to crispy chicken, hearty pasta and sausages — explore the flavors of Ruby Kitchen 81.',
     scrollHint: 'SCROLL TO EXPLORE',
-    cards: [
+    /** Shown only before the first item takes over (and on mobile as the intro). */
+    intro: {
+      eyebrow: '01 / THE RUBY FAVORITES',
+      headlineTop: 'FOUR PICKS.',
+      headlineBottom: 'BIG FLAVOR.',
+      support:
+        'From juicy burgers to crispy chicken, hearty pasta and sausages — explore the flavors of Ruby Kitchen 81.',
+    },
+    items: [
       {
         n: '01',
+        eyebrow: '01 / THE RUBY FAVORITES',
+        heading: 'CLASSIC BITE',
+        body: 'Juicy, cheesy and straight to the point — a Ruby classic built for bold cravings.',
+        meta: 'Cheese Burger · 75.000đ',
         name: 'CHEESE BURGER',
-        price: 75000,
-        priceLabel: '75.000₫',
-        copy: 'The classic burger experience.',
+        priceLabel: '75.000đ',
         imageUrl: '/img-webp/Signature-MenuSection-CheeseBurger.webp',
         imageAlt: 'Ruby Kitchen 81 cheese burger with fries',
-        verified: true,
+        /** Cinematic crop focal point (object-position). */
+        focus: '50% 52%',
       },
       {
         n: '02',
+        eyebrow: '02 / THE RUBY FAVORITES',
+        heading: 'SMOKY HEAT',
+        body: 'Grilled, savory and full of character — a bold sausage plate with diner attitude.',
+        meta: 'Premium Smoked Sausage · 49.000đ',
         name: 'PREMIUM SMOKED SAUSAGE',
-        price: 49000,
-        priceLabel: '49.000₫',
-        copy: 'A smoky Western diner favorite.',
+        priceLabel: '49.000đ',
         imageUrl: '/img-webp/Signature-MenuSection-Sausage.webp',
         imageAlt: 'Ruby Kitchen 81 premium smoked sausage',
-        verified: true,
+        focus: '50% 58%',
       },
       {
         n: '03',
+        eyebrow: '03 / THE RUBY FAVORITES',
+        heading: 'COMFORT PLATE',
+        body: 'Rich bolognese, satisfying texture and warm Ruby flavor in every bite.',
+        meta: 'Spaghetti Bolognese · 69.000đ',
         name: 'SPAGHETTI BOLOGNESE',
-        price: 69000,
-        priceLabel: '69.000₫',
-        copy: 'Comfort food, Ruby style.',
+        priceLabel: '69.000đ',
         imageUrl: '/img-webp/Signature-MenuSection-Pasta.webp',
         imageAlt: 'Ruby Kitchen 81 spaghetti bolognese',
-        verified: true,
+        focus: '50% 48%',
       },
       {
         n: '04',
+        eyebrow: '04 / THE RUBY FAVORITES',
+        heading: 'GOLDEN CRUNCH',
+        body: 'Crisp on the outside, juicy inside — a go-to favorite made for sharing.',
+        meta: 'Crispy Chicken · Chicken & Snacks',
         name: 'CRISPY CHICKEN',
-        /** Category card — no single-item price is published, so none is shown. */
-        price: null,
-        priceLabel: 'CHICKEN & SNACKS',
-        copy: 'Golden, crunchy, made for sharing.',
+        /** Category item — no single published price, so the label is a category. */
+        priceLabel: 'Chicken & Snacks',
         imageUrl: '/img-webp/Signature-MenuSection-Chicken.webp',
         imageAlt: 'Ruby Kitchen 81 crispy fried chicken',
-        verified: true,
+        focus: '50% 55%',
       },
-    ] as SignatureCard[],
+    ] as SignatureItem[],
   },
   visit: {
     eyebrow: 'FIND US',

@@ -1,22 +1,22 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   RUBY KITCHEN 81 — SIGNATURE MENU (#menu)
+   RUBY KITCHEN 81 — SIGNATURE SHOWCASE (#menu)
 
-   PINNED STACK TRANSITION.
+   Editorial chapter sequence. The image stage dominates; the left panel is a
+   story panel that swaps per item.
 
-   Desktop structure:
-     .rk-sig                pinned by ScrollTrigger (NOT css sticky)
-       .rk-sig__inner       40 / 60 grid, one viewport tall
-         .rk-sig__left      static intro column
-         .rk-sig__right     contains the stage
-           .rk-sig__stage   fixed-size, overflow hidden, position relative
-             .rk-sig__layer 4x, position absolute, inset 0, stacked
+   DESKTOP
+     .rk-sig__inner        37 / 63 grid, one viewport tall
+       .rk-sig__left       chapters stacked in one cell + progress
+       .rk-sig__right      contains the stage
+         .rk-sig__stage    fixed frame, overflow hidden
+           .rk-sig__panel  4x absolute, inset 0, newest on top
+             .rk-sig__media + .rk-sig__caption (overlay strip)
 
-   Layers 2-4 start at translateY(100%) and GSAP slides them to 0, so each one
-   rises from below and covers the previous photo. Nothing scrolls inside the
-   stage; the whole stage is replaced in place.
+   The caption is an OVERLAY inside the panel, not a block under the photo —
+   that is what stops the section reading like a menu card.
 
-   Tablet/mobile: the layers become normal blocks in flow (see the media query at
-   the bottom) — no pin, no absolute stacking.
+   MOBILE
+     Chapters and panels become ordinary blocks; no pin, no absolute stacking.
    ═══════════════════════════════════════════════════════════════════════ */
 
 .rk-sig {
@@ -37,50 +37,87 @@
   align-content: start;
 }
 
-/* ── LEFT: static intro ──────────────────────────────────────────────── */
+/* ── LEFT: story panel ───────────────────────────────────────────────── */
 .rk-sig__left {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: clamp(0.8rem, 1.5vw, 1.25rem);
+  justify-content: center;
+  gap: clamp(1.2rem, 2.4vw, 2rem);
   padding-block: clamp(3rem, 7vw, 6rem);
+  min-width: 0;
+}
+
+.rk-sig__chapters {
+  display: grid;
+  width: 100%;
+}
+
+/* All chapters occupy the same grid cell. Only opacity changes, so swapping
+   cannot alter the height of the pinned column. */
+.rk-sig__chapter {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.7rem, 1.3vw, 1.1rem);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition:
+    opacity 320ms var(--rk-ease-out),
+    transform 320ms var(--rk-ease-out),
+    visibility 0s linear 320ms;
+}
+
+/* The only driver of chapter visibility. GSAP must not touch these nodes —
+   mixing an inline opacity with this class produced a blank panel at 48%. */
+.rk-sig__chapter.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity 320ms var(--rk-ease-out),
+    transform 320ms var(--rk-ease-out),
+    visibility 0s;
 }
 
 .rk-sig__eyebrow {
   margin: 0;
+  color: var(--rk-flame);
+  letter-spacing: 0.22em;
 }
 
-.rk-sig__title {
+.rk-sig__heading {
   margin: 0;
-  font-size: clamp(2.2rem, 4.6vw, 4rem);
-  line-height: 0.94;
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
   color: var(--rk-cream);
-  display: flex;
-  flex-direction: column;
+  text-transform: uppercase;
 }
 
-.rk-sig__line {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.04em;
-}
-
-.rk-sig__line > span {
-  display: block;
-}
-
-.rk-sig__line--alt > span {
-  color: var(--rk-ruby-bright);
-}
-
-.rk-sig__support {
+.rk-sig__body {
   margin: 0;
   font-family: var(--rk-font-text);
-  font-size: clamp(0.9rem, 1vw, 1.02rem);
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
   line-height: 1.6;
   color: var(--rk-cream-dim);
-  max-width: 40ch;
+  max-width: 38ch;
+}
+
+.rk-sig__meta {
+  margin: 0;
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.78rem, 0.9vw, 0.88rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rk-gold);
+  padding-top: clamp(0.5rem, 1vw, 0.9rem);
+  border-top: 1px solid rgb(245 235 221 / 0.16);
+  width: 100%;
+  max-width: 30rem;
 }
 
 /* ── Progress ────────────────────────────────────────────────────────── */
@@ -88,11 +125,8 @@
   display: flex;
   align-items: center;
   gap: clamp(0.7rem, 1.2vw, 1.1rem);
-  margin-top: clamp(0.5rem, 1.4vw, 1.2rem);
-  padding-top: clamp(0.7rem, 1.4vw, 1.1rem);
-  border-top: 1px solid rgb(245 235 221 / 0.14);
   width: 100%;
-  max-width: 32rem;
+  max-width: 30rem;
 }
 
 .rk-sig__counter {
@@ -143,7 +177,7 @@
   white-space: nowrap;
 }
 
-/* ── RIGHT: the stage ────────────────────────────────────────────────── */
+/* ── RIGHT: the image stage ──────────────────────────────────────────── */
 .rk-sig__right {
   min-width: 0;
 }
@@ -151,34 +185,24 @@
 .rk-sig__stage {
   position: relative;
   width: 100%;
-  /* One aspect ratio for every layer, so all four photos share the frame. */
-  aspect-ratio: 16 / 11;
+  /* Taller than a menu thumbnail: the photograph should dominate the column. */
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--rk-charcoal-deep);
 }
 
-/* A layer fills the stage exactly. Layers 2-4 are pushed below by GSAP. */
-.rk-sig__layer {
+.rk-sig__panel {
   position: absolute;
   inset: 0;
   background: var(--rk-charcoal-deep);
   will-change: transform;
 }
 
-/* The layer is now a single image block (the info block moved out), so the
-   media simply fills it. `flex: 1 1 auto` was left over from when the layer was
-   a flex column holding media + info, and it collapsed the image to 0px. */
+/* ── Media: cinematic crop ───────────────────────────────────────────── */
 .rk-sig__media {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #1d1512 0%, #120d0b 100%);
-}
-
-.rk-sig__media-inner {
-  position: absolute;
-  /* Overscan so a future scale/parallax never exposes an edge. */
-  inset: -2% 0;
 }
 
 .rk-sig__img {
@@ -187,21 +211,30 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 55%;
   display: block;
+  /* Slight push-in so the dish fills the frame instead of sitting in a tray
+     surrounded by table. Cropping is the main tool here — no image edits. */
+  transform: scale(1.12);
+  transform-origin: 50% 55%;
 }
 
-/* Type-only fallback when a card has no imageUrl (or the file failed). */
+/* Bottom veil: guarantees the caption is legible over any photograph and
+   blends the image edge into the charcoal frame. */
+.rk-sig__media-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgb(10 9 8 / 0.94) 0%, rgb(10 9 8 / 0.55) 26%, transparent 58%),
+    linear-gradient(to bottom, rgb(10 9 8 / 0.45) 0%, transparent 22%);
+  pointer-events: none;
+}
+
 .rk-sig__media--type {
   display: grid;
   place-items: center;
   background:
     radial-gradient(80% 90% at 20% 15%, rgb(149 30 42 / 0.5) 0%, transparent 60%),
     linear-gradient(135deg, #1c1310 0%, #0e0a09 100%);
-}
-
-.rk-sig__media.is-missing .rk-sig__img {
-  display: none;
 }
 
 .rk-sig__watermark {
@@ -212,185 +245,140 @@
   -webkit-text-stroke: 1px rgb(245 235 221 / 0.16);
 }
 
-/* ── Info: one block under the stage, rows swapped by class ──────────
-   Outside the stage so it is always readable, even mid-transition when a new
-   layer is still sliding. Rows are stacked in the same grid cell; only the
-   .is-active one is opaque, so the block keeps a stable height. */
-.rk-sig__info {
-  display: grid;
-  background: var(--rk-charcoal-raised);
-}
-
-.rk-sig__info-row {
-  grid-area: 1 / 1;
+/* ── Caption: overlay strip inside the panel ─────────────────────────── */
+.rk-sig__caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
   display: flex;
-  flex-direction: column;
-  gap: clamp(0.5rem, 1vw, 0.8rem);
-  padding: clamp(0.9rem, 1.6vw, 1.4rem) clamp(1rem, 1.6vw, 1.5rem) clamp(1rem, 1.8vw, 1.5rem);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(6px);
-  transition:
-    opacity 260ms var(--rk-ease-out),
-    transform 260ms var(--rk-ease-out),
-    visibility 0s linear 260ms;
+  align-items: baseline;
+  gap: clamp(0.6rem, 1.4vw, 1.2rem);
+  padding: clamp(1rem, 2vw, 1.8rem) clamp(1.1rem, 2vw, 2rem);
 }
 
-.rk-sig__info-row.is-active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  transition:
-    opacity 260ms var(--rk-ease-out),
-    transform 260ms var(--rk-ease-out),
-    visibility 0s;
-}
-
-.rk-sig__name {
-  margin: 0;
-  font-size: clamp(1.3rem, 2.2vw, 1.9rem);
-  line-height: 1;
-  color: var(--rk-cream);
-  text-transform: none;
-  letter-spacing: -0.01em;
-}
-
-.rk-sig__meta {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: start;
-  gap: clamp(0.7rem, 1.6vw, 1.6rem);
-  padding-top: clamp(0.5rem, 1vw, 0.75rem);
-  border-top: 1px solid rgb(245 235 221 / 0.16);
-}
-
-.rk-sig__n {
+.rk-sig__caption-n {
   font-family: var(--rk-font-text);
-  font-size: 0.68rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  color: rgb(245 235 221 / 0.5);
-  padding-top: 0.15em;
-}
-
-.rk-sig__copy {
-  margin: 0;
-  font-family: var(--rk-font-text);
-  font-size: clamp(0.78rem, 0.88vw, 0.9rem);
-  line-height: 1.45;
-  color: var(--rk-cream-dim);
-  max-width: 34ch;
-}
-
-.rk-sig__price {
-  font-family: var(--rk-font-text);
-  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  font-size: 0.66rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+  color: rgb(245 235 221 / 0.55);
+}
+
+.rk-sig__caption-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: clamp(1.1rem, 1.9vw, 1.65rem);
+  line-height: 1;
   color: var(--rk-cream);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.rk-sig__caption-price {
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.78rem, 0.95vw, 0.9rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--rk-flame);
   white-space: nowrap;
-  text-align: right;
 }
 
-.rk-sig__price--cat {
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  color: var(--rk-gold);
-}
-
-/* ══ TABLET / MOBILE: layers become ordinary blocks ═════════════════════
-   Must match the matchMedia breakpoint in signature.ts exactly (< 1024px),
-   otherwise GSAP would leave one layout's transforms applied to the other. */
+/* ══ TABLET / MOBILE: ordinary blocks, no pin ══════════════════════════
+   Breakpoint must match signature.ts exactly (< 1024px). */
 @media (max-width: 1023px) {
+  .rk-sig__chapters {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.6rem, 5vw, 2.4rem);
+  }
+
+  .rk-sig__chapter {
+    grid-area: auto;
+    /* Every chapter is visible in flow; the pinned cross-fade does not exist. */
+    opacity: 1 !important;
+    visibility: visible !important;
+    padding-bottom: clamp(0.6rem, 2vw, 1rem);
+    border-bottom: 1px solid rgb(245 235 221 / 0.1);
+  }
+
+  .rk-sig__heading {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+
   .rk-sig__stage {
     aspect-ratio: auto;
     overflow: visible;
     display: flex;
     flex-direction: column;
-    gap: clamp(1.4rem, 4vw, 2.4rem);
+    gap: clamp(1.6rem, 5vw, 2.4rem);
   }
 
-  .rk-sig__layer {
+  .rk-sig__panel {
     position: relative;
     inset: auto;
-    /* Give the block its own height: the media inside is absolutely positioned
-       for the pinned layout, so without this the layer measured 0px tall and the
-       photos were invisible (measured at 375 and 768). */
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
-    /* Reset anything GSAP may have written for the pinned layout. */
     transform: none !important;
     will-change: auto;
   }
-
-  .rk-sig__layer + .rk-sig__layer {
-    margin-top: 0;
-  }
-
-
 
   .rk-sig__right {
     padding-bottom: clamp(2rem, 6vw, 4rem);
   }
 }
 
-/* ══ Desktop grid + pinned sizing ═══════════════════════════════════════ */
+/* ══ Desktop layout ════════════════════════════════════════════════════ */
 @media (min-width: 1024px) {
   .rk-sig__inner {
-    grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+    /* 37 / 63: the stage leads, the story panel supports it. */
+    grid-template-columns: minmax(0, 0.37fr) minmax(0, 0.63fr);
     align-items: center;
-    gap: clamp(2.5rem, 4vw, 5rem);
-    /* The pinned scene is one viewport tall. */
+    gap: clamp(2.5rem, 4.5vw, 5.5rem);
     min-height: 100svh;
-    padding-block: calc(var(--rk-nav-h) + 1.5rem) 1.5rem;
+    padding-block: calc(var(--rk-nav-h) + 1.25rem) 1.25rem;
   }
 
   .rk-sig__left {
     padding-block: 0;
   }
 
-  /* Cap the stage by BOTH width and viewport height so the whole layer
-     (photo + info) always fits without a second scroll. */
+  /* The stage is bounded by the viewport height so a single panel always fits
+     without internal scrolling. */
   .rk-sig__stage {
-    max-height: calc(100svh - var(--rk-nav-h) - 4rem);
-    margin-inline: auto;
+    aspect-ratio: auto;
+    height: calc(100svh - var(--rk-nav-h) - 3.5rem);
+    max-height: 860px;
   }
 }
 
-/* ══ Reduced motion ═════════════════════════════════════════════════════ */
+/* ══ Reduced motion at any width: no pin, no stacking ═════════════════ */
 @media (prefers-reduced-motion: reduce) {
   .rk-sig__tick {
     transition: none;
   }
-  .rk-sig__layer {
-    will-change: auto;
-  }
-}
 
-/* ══ Reduced motion at ANY width ════════════════════════════════════════
-   The JS never pins under reduced motion, so the layers must always be laid
-   out as ordinary blocks — including above 1024px, where the base rules would
-   otherwise keep them absolutely stacked on top of each other. */
-@media (prefers-reduced-motion: reduce) {
   .rk-sig__stage {
     aspect-ratio: auto;
     overflow: visible;
     display: flex;
     flex-direction: column;
-    gap: clamp(1.4rem, 4vw, 2.4rem);
+    gap: clamp(1.6rem, 5vw, 2.4rem);
+    height: auto;
+    max-height: none;
   }
 
-  .rk-sig__layer {
+  .rk-sig__panel {
     position: relative;
     inset: auto;
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
     transform: none !important;
     will-change: auto;
   }
 
-  .rk-sig__info-row {
-    transition: none;
+  .rk-sig__chapter {
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }

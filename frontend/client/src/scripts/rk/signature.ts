@@ -1,23 +1,25 @@
 /**
- * SIGNATURE MENU — pinned stack transition.
+ * Ruby Kitchen 81 — SIGNATURE SHOWCASE (#menu)
  *
- * STRUCTURE (desktop):
- *   .rk-sig                      section, pinned by ScrollTrigger
- *     .rk-sig__inner             two columns
- *       .rk-sig__left            static intro: eyebrow, headline, support, 01/04
+ * Editorial chapter sequence, modelled on premium automotive service sections:
+ * a pinned scene where the LEFT panel is a per-item story panel and the RIGHT is
+ * ONE fixed image stage. Each next photograph slides up over the previous one.
+ *
+ * DESKTOP STRUCTURE
+ *   .rk-sig                       pinned by ScrollTrigger
+ *     .rk-sig__inner              40 / 60 grid, one viewport tall
+ *       .rk-sig__left
+ *         .rk-sig__chapters        x4 stacked in one grid cell, only .is-active shows
+ *         .rk-sig__progress        01/04 counter + ticks
  *       .rk-sig__right
- *         .rk-sig__stage         ONE fixed-size stage
- *           .rk-sig__layer x4    absolutely stacked, newest on top
+ *         .rk-sig__stage           fixed frame, overflow hidden
+ *           .rk-sig__panel x4      absolute, inset 0, newest on top
  *
- * Behaviour: layer 1 is visible; layers 2-4 start translated one full stage
- * height below (yPercent 100) and slide up to 0 as the user scrolls, each
- * covering the previous one. One ScrollTrigger, one timeline, pinned.
+ * Chapters and panels share the same index, so the text and the photograph can
+ * never disagree: both the indicator and the visible chapter are derived from
+ * the same timeline progress value.
  *
- * Why not CSS sticky: the requirement is that the LEFT column and the STAGE
- * both stay put while the page keeps scrolling for ~3 viewport heights. sticky
- * can only pin against a scrolling ancestor and cannot release on a scroll
- * budget; pin + scrub gives exact control over how much scroll each transition
- * consumes. Nothing here mixes sticky with pin on the same element.
+ * MOBILE — no pin. Chapters and photographs become ordinary blocks in order.
  */
 import { gsap, ScrollTrigger } from '../motion/gsap';
 import { content } from '../../content/en';
@@ -25,56 +27,70 @@ import { content } from '../../content/en';
 const { signature } = content;
 
 export function signatureMarkup(): string {
-  const total = String(signature.cards.length).padStart(2, '0');
+  const total = String(signature.items.length).padStart(2, '0');
 
-  const layers = signature.cards
-    .map((c, i) => {
-      const media = c.imageUrl
-        ? `<div class="rk-sig__media" data-rk-sig-media>
-             <div class="rk-sig__media-inner" data-rk-sig-media-inner>
-               <img
-                 src="${c.imageUrl}"
-                 alt="${c.imageAlt}"
-                 width="1448"
-                 height="1086"
-                 class="rk-sig__img"
-                 data-rk-sig-img
-                 loading="${i === 0 ? 'eager' : 'lazy'}"
-                 decoding="async"
-                 draggable="false"
-               />
-             </div>
+  const panels = signature.items
+    .map((it, i) => {
+      const media = it.imageUrl
+        ? `<div class="rk-sig__media">
+             <img
+               src="${it.imageUrl}"
+               alt="${it.imageAlt ?? it.name}"
+               width="1448"
+               height="1086"
+               class="rk-sig__img"
+               data-rk-sig-img
+               loading="${i === 0 ? 'eager' : 'lazy'}"
+               decoding="async"
+               draggable="false"
+               ${it.focus ? `style="object-position:${it.focus}"` : ''}
+             />
+             <span class="rk-sig__media-veil" aria-hidden="true"></span>
            </div>`
         : `<div class="rk-sig__media rk-sig__media--type" aria-hidden="true">
-             <span class="rk-sig__watermark">${c.n}</span>
+             <span class="rk-sig__watermark">${it.n}</span>
            </div>`;
 
       return `
-        <article class="rk-sig__layer${i === 0 ? ' is-active' : ''}" data-rk-sig-layer="${i}" data-rk-sig-card>
+        <article class="rk-sig__panel${i === 0 ? ' is-active' : ''}" data-rk-sig-panel="${i}">
           ${media}
+          <div class="rk-sig__caption">
+            <span class="rk-sig__caption-n">${it.n}</span>
+            <span class="rk-sig__caption-name rk-display">${it.name}</span>
+            <span class="rk-sig__caption-price">${it.priceLabel}</span>
+          </div>
         </article>`;
     })
     .join('');
 
-  const ticks = signature.cards
-    .map((c, i) => `<li class="rk-sig__tick${i === 0 ? ' is-active' : ''}" data-rk-sig-tick="${i}"></li>`)
+  // One chapter per item: eyebrow, big heading, body, meta. Stacked so the swap
+  // cannot change the panel height (which would shift the pinned layout).
+  const chapters = signature.items
+    .map(
+      (it, i) => `
+        <div class="rk-sig__chapter${i === 0 ? ' is-active' : ''}" data-rk-sig-chapter="${i}">
+          <p class="rk-eyebrow rk-sig__eyebrow">${it.eyebrow}</p>
+          <h2 class="rk-sig__heading rk-display">${it.heading}</h2>
+          <p class="rk-sig__body">${it.body}</p>
+          <p class="rk-sig__meta">${it.meta}</p>
+        </div>`,
+    )
+    .join('');
+
+  const ticks = signature.items
+    .map((_, i) => `<li class="rk-sig__tick${i === 0 ? ' is-active' : ''}" data-rk-sig-tick="${i}"></li>`)
     .join('');
 
   return `
   <section class="rk-sig" id="${signature.id}" data-rk-sig>
     <div class="rk-sig__inner">
-      <!-- LEFT: static intro column (never moves) -->
+      <!-- LEFT: per-item story panel -->
       <div class="rk-sig__left">
-        <p class="rk-eyebrow rk-sig__eyebrow" data-rk-sig-eyebrow>${signature.eyebrow}</p>
+        <div class="rk-sig__chapters" data-rk-sig-chapters>
+          ${chapters}
+        </div>
 
-        <h2 class="rk-sig__title rk-display">
-          <span class="rk-sig__line"><span data-rk-sig-line>${signature.headlineTop}</span></span>
-          <span class="rk-sig__line rk-sig__line--alt"><span data-rk-sig-line>${signature.headlineBottom}</span></span>
-        </h2>
-
-        <p class="rk-sig__support" data-rk-sig-support>${signature.support}</p>
-
-        <div class="rk-sig__progress" data-rk-sig-progress aria-hidden="true">
+        <div class="rk-sig__progress" data-rk-sig-progress>
           <span class="rk-sig__counter">
             <span data-rk-sig-current>01</span><span class="rk-sig__slash">/</span><span>${total}</span>
           </span>
@@ -83,152 +99,165 @@ export function signatureMarkup(): string {
         </div>
       </div>
 
-      <!-- RIGHT: one fixed stage, four stacked layers -->
+      <!-- RIGHT: one fixed stage, layered panels -->
       <div class="rk-sig__right">
         <div class="rk-sig__stage" data-rk-sig-stage>
-          ${layers}
+          ${panels}
         </div>
-
-        <div class="rk-sig__info" data-rk-sig-info>
-          ${signature.cards
-            .map(
-              (c, i) => `
-            <div class="rk-sig__info-row${i === 0 ? ' is-active' : ''}" data-rk-sig-info-row="${i}">
-              <h3 class="rk-sig__name rk-display">${c.name}</h3>
-              <div class="rk-sig__meta">
-                <span class="rk-sig__n">${c.n}</span>
-                <p class="rk-sig__copy">${c.copy}</p>
-                <span class="rk-sig__price ${c.price === null ? 'rk-sig__price--cat' : ''}">${c.priceLabel}</span>
-              </div>
-            </div>`,
-            )
-            .join('')}
-        </div>
-      </div>    </div>
+      </div>
+    </div>
   </section>`;
 }
 
-/**
- * Motion. One branch for the pinned desktop experience, one for tablet/mobile
- * flow, one for reduced motion. gsap.matchMedia() tears down whichever branch
- * stops matching, so resizing across the breakpoint cannot leave a stale pin.
- */
 export function initSignature(): () => void {
   const root = document.querySelector<HTMLElement>('[data-rk-sig]');
   if (!root) return () => {};
 
-  const layers = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-layer]')];
+  const panels = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-panel]')];
+  const chapters = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-chapter]')];
   const ticks = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-tick]')];
   const counter = root.querySelector<HTMLElement>('[data-rk-sig-current]');
-  const infoRows = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-info-row]')];
   const stage = root.querySelector<HTMLElement>('[data-rk-sig-stage]');
-  if (!stage || !layers.length) return () => {};
+  if (!stage || !panels.length) return () => {};
 
+  const count = panels.length;
   const mm = gsap.matchMedia();
 
-  /* Indicator: one call per transition, driven by timeline progress rather than
-     by per-layer triggers, so it can never disagree with the visible layer. */
+  /* Single source of truth for "which item is showing". Called from the master
+     timeline only, so text, image and counter are always on the same index. */
   const setActive = (idx: number) => {
-    if (counter) counter.textContent = String(idx + 1).padStart(2, '0');
-    ticks.forEach((t, i) => t.classList.toggle('is-active', i === idx));
-    layers.forEach((l, i) => l.classList.toggle('is-active', i === idx));
-    infoRows.forEach((r, i) => r.classList.toggle('is-active', i === idx));
+    const i = Math.max(0, Math.min(count - 1, idx));
+    if (counter) counter.textContent = String(i + 1).padStart(2, '0');
+    ticks.forEach((t, k) => t.classList.toggle('is-active', k === i));
+    panels.forEach((p, k) => p.classList.toggle('is-active', k === i));
+    chapters.forEach((c, k) => c.classList.toggle('is-active', k === i));
   };
 
   /* ══════════════════════════════════════════════════════════════════════
-     DESKTOP — pinned stack transition
+     DESKTOP — pinned chapter sequence
      ══════════════════════════════════════════════════════════════════════ */
   mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
     setActive(0);
 
-    // Layer 0 is in place; the rest start exactly one stage below.
-    layers.forEach((layer, i) => {
-      gsap.set(layer, {
-        yPercent: i === 0 ? 0 : 100,
-        zIndex: i + 1,
-        transformOrigin: '50% 100%',
-      });
+    // Panel 0 is in place; the rest wait exactly one stage below.
+    panels.forEach((p, i) => {
+      gsap.set(p, { yPercent: i === 0 ? 0 : 100, zIndex: i + 1 });
     });
 
-    const leftBits = '[data-rk-sig-eyebrow], [data-rk-sig-line], [data-rk-sig-support], [data-rk-sig-progress]';
-    gsap.set(leftBits, { opacity: 0, y: 18 });
+    // Chapters are handled entirely by CSS (.is-active + opacity transition).
+    // Deliberately no GSAP autoAlpha here — see the note in the timing block.
+
+    // Fraction of each item's slice spent settled before the next slides in.
+    const HOLD = 0.62;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
         trigger: root,
         start: 'top top',
-        end: () => `+=${window.innerHeight * (layers.length + 0.6)}`,
+        // One viewport of dwell per item, plus a short hold at the end so the
+        // last chapter is readable before the pin releases.
+        // +1 full viewport of dwell: the last item needs its own settled window
+        // after the final slide, otherwise the pin releases the instant the fourth
+        // photograph lands (measured: panel 4 still 765px below at 83% progress).
+        end: () => `+=${window.innerHeight * (count + 1.5)}`,
         pin: true,
         pinSpacing: true,
-        scrub: 0.7,
+        scrub: 0.6,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          // Only report the layer that is at least half-way in.
-          const p = self.progress;
-          const seg = 1 / (layers.length - 1);
-          const idx = Math.min(layers.length - 1, Math.round((p - 0.12) / seg));
-          setActive(Math.max(0, idx));
+          // The active item changes when the NEXT photograph starts sliding,
+          // not at a plain equal-slice boundary. Using floor(progress * count)
+          // switched the counter while the previous item was still fully
+          // visible (measured: counter 02 with item 1's photo still on top).
+          // Timeline units -> progress. Unit i spans [i, i+1) of count units.
+          const units = self.progress * count;
+          let idx = 0;
+          for (let i = 1; i < count; i++) {
+            if (units >= i - 1 + HOLD) idx = i;
+          }
+          setActive(idx);
         },
       },
     });
 
-    // 0.00 - 0.12  intro fades up (left column only; it never moves)
-    tl.to('[data-rk-sig-eyebrow]', { opacity: 1, y: 0, duration: 0.05 }, 0);
-    tl.to('[data-rk-sig-line]', { opacity: 1, y: 0, duration: 0.06, stagger: 0.015 }, 0.02);
-    tl.to('[data-rk-sig-support]', { opacity: 1, y: 0, duration: 0.05 }, 0.05);
-    tl.to('[data-rk-sig-progress]', { opacity: 1, y: 0, duration: 0.04 }, 0.07);
+    // Timing model. Each item owns an equal slice of the timeline. Inside its
+    // slice the item HOLDS first, then the next photograph slides in during the
+    // last stretch. Without that hold the very first frame was already
+    // mid-transition (measured: item 1 showed "SMOKY HEAT" at 23% scroll), so
+    // no item was ever readable on its own.
+    //
+    // Chapters are NOT animated here. They are swapped by the .is-active class
+    // from setActive(); GSAP autoAlpha on the same nodes fought the CSS class
+    // (inline style always wins) and produced a blank panel at 48%.
+    // Each item owns one unit; the slide into item i happens inside unit i-1.
+    // Timings are in whole units (not fractions of 1) so totalDuration is exactly
+    // `count` and there is no dead tail. The previous version put the last slide
+    // at 0.6575 of a 1.0 timeline while the pin still had 34% travel left, so
+    // item 4 never finished arriving (measured: panel 4 at 765px, 83% progress).
+    for (let i = 1; i < count; i++) {
+      const slideAt = i - 1 + HOLD;
+      const slideDur = 1 - HOLD;
 
-    // 0.12 - 1.00  the stack: each incoming layer slides up over the last.
-    // The 12% head start means the user sees the intro finish before the first
-    // photo starts moving, instead of both competing at once.
-    const startAt = 0.12;
-    const segLen = (1 - startAt) / (layers.length - 1);
-
-    for (let i = 1; i < layers.length; i++) {
-      const at = startAt + segLen * (i - 1);
       tl.fromTo(
-        layers[i],
+        panels[i],
         { yPercent: 100 },
-        { yPercent: 0, duration: segLen },
-        at,
+        { yPercent: 0, duration: slideDur },
+        slideAt,
       );
     }
 
+
+    // Hold the final item for a full unit. Without this the timeline ends the
+    // moment the fourth photograph lands, so the pin released instantly and the
+    // last chapter was never readable on its own (measured: panel 4 still 765px
+    // below at 85% of the pin). This empty tween extends totalDuration by 1 unit,
+    // which the scroll distance is derived from.
+    tl.to({}, { duration: 1 }, `+=0`);
     return () => {
-      gsap.set(layers, { clearProps: 'transform,opacity,zIndex' });
-      gsap.set(leftBits, { clearProps: 'opacity,transform' });
+      gsap.set(panels, { clearProps: 'transform,opacity,visibility,zIndex' });
+      gsap.set(chapters, { clearProps: 'opacity,visibility,transform' });
     };
   });
 
   /* ══════════════════════════════════════════════════════════════════════
-     FLOW — tablet and mobile, and reduced motion
-     Layers become normal stacked blocks; a short fade-up each, no pin.
+     FLOW — tablet, mobile, reduced motion
      ══════════════════════════════════════════════════════════════════════ */
   mm.add('(max-width: 1023px), (prefers-reduced-motion: reduce)', () => {
     setActive(0);
 
-    gsap.set(layers, { clearProps: 'transform,opacity,zIndex' });
-    gsap.set('[data-rk-sig-eyebrow], [data-rk-sig-line], [data-rk-sig-support], [data-rk-sig-progress]', {
-      clearProps: 'opacity,transform',
-    });
+    // Undo any pinned-state transforms, then everything is simply visible.
+    gsap.set(panels, { clearProps: 'transform,opacity,visibility,zIndex' });
+    gsap.set(chapters, { clearProps: 'opacity,visibility,transform' });
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) return;
 
-    layers.forEach((layer) => {
-      gsap.from(layer, {
-        opacity: 0,
-        y: 32,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: layer, start: 'top 90%', once: true },
-      });
+    // Short, restrained fade-up per block. No pin, no long storytelling.
+    // gsap.from() with once:true stranded the panels at opacity 0: when an
+    // element was already past its trigger point at measure time the tween
+    // never played (measured: all four panels reported 0.00 at 375 and 768
+    // while the chapters were visible). Explicit set + fromTo is order-safe.
+    root.querySelectorAll<HTMLElement>('.rk-sig__chapter, .rk-sig__panel').forEach((el) => {
+      gsap.set(el, { opacity: 1 });
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 26 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
+          ease: 'power2.out',
+          immediateRender: false,
+          scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+        },
+      );
     });
 
     return () => {
-      gsap.set(layers, { clearProps: 'transform,opacity,zIndex' });
+      gsap.set(panels, { clearProps: 'transform,opacity,visibility,zIndex' });
+      gsap.set(chapters, { clearProps: 'opacity,visibility,transform' });
     };
   });
 
