@@ -103,20 +103,33 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
        <  1024px  portrait, one page at a time (spread = 1 x pageW)
      The page is sized from whichever dimension is scarce, so a phone gets a
      tall readable page instead of a wide, uselessly short one. */
-  const parentBox = host.parentElement?.getBoundingClientRect();
-  const availW = Math.max(260, Math.round(parentBox?.width ?? 880));
-  const PAGE_RATIO = 1491 / 1055; // height / width
+  // Measure the STAGE, not the immediate parent: the parent is the flex item
+  // that shrinks around the host, so reading it produced 136px and the book
+  // computed a 140px page.
+  const stageBox = host.closest('.rk-fb__stage')?.getBoundingClientRect();
+  // Subtract the two arrows and their gaps so the spread fits between them.
+  const arrowCol = 2 * 60;
+  const availW = Math.max(260, Math.round((stageBox?.width ?? 880) - arrowCol));
   const isWide = window.innerWidth >= 1024;
+  const PAGE_RATIO = 1491 / 1055; // height / width
 
   // Vertical room: viewport minus navbar, section head, controls and padding.
-  const budgetH = Math.max(260, window.innerHeight - (isWide ? 440 : 300));
-
+  // Room for the navbar, the section head and the drop shadow. The arrows sit
+  // beside the book now rather than below it, so ~330 is enough on desktop.
+  const budgetH = Math.max(260, window.innerHeight - (isWide ? 330 : 300));
   // In landscape the width is the limit (two pages share it); in portrait the
   // height is, because a single page can be as wide as the column.
   const pageW = isWide
     ? Math.max(140, Math.min(Math.round(availW / 2), Math.round((budgetH / PAGE_RATIO))))
     : Math.max(150, Math.min(Math.round(availW), Math.round(budgetH / PAGE_RATIO)));
   const pageH = Math.round(pageW * PAGE_RATIO);
+  /* StPageFlip replaces the host's children and, on init, writes its own inline
+     min-width onto the host. Give the host an explicit width first, otherwise it
+     collapses to that min-width and the book renders at page size instead of
+     spread size. */
+  host.style.width = `${isWide ? pageW * 2 : pageW}px`;
+  host.style.height = `${pageH}px`;
+
   const settings: Partial<FlipSetting> = {
     // 0 = closed on the cover. The book opens on the first flip.
     startPage: 0,
