@@ -13,42 +13,12 @@ const { brand, contact, footer } = content;
 
 export function footerMarkup(): string {
   return `
-  <footer class="rk-foot" id="visit" data-rk-foot>
-    <div class="rk-visit-strip" id="contact">
-      <div class="rk-wrap">
-        <div class="rk-visit-strip__inner">
-          <div class="rk-visit-strip__col">
-            <p class="rk-eyebrow">${content.visit.eyebrow}</p>
-            <h2 class="rk-visit-strip__title rk-display">${content.visit.headline}</h2>
-          </div>
-
-          <dl class="rk-visit-strip__facts">
-            <div class="rk-fact">
-              <dt>${content.visit.labels.address}</dt>
-              <dd>
-                <a href="${contact.mapUrl}" target="_blank" rel="noopener noreferrer">${contact.address}</a>
-              </dd>
-            </div>
-            <div class="rk-fact">
-              <dt>${content.visit.labels.phone}</dt>
-              <dd><a href="${contact.phoneHref}">${contact.phone}</a></dd>
-            </div>
-            <div class="rk-fact">
-              <dt>Email</dt>
-              <dd><a href="mailto:${contact.email}">${contact.email}</a></dd>
-            </div>
-          </dl>
-
-          <div class="rk-visit-strip__cta">
-            <a class="rk-btn rk-btn--flame" href="${contact.mapUrl}" target="_blank" rel="noopener noreferrer">
-              ${content.visit.labels.map}
-            </a>
-            <a class="rk-btn rk-btn--ghost" href="${contact.phoneHref}">${content.visit.labels.call}</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
+  ${/* The find-us strip was removed on request; its content already lives in the
+       footer columns below (address, phone, email, socials). The two anchors the
+       navbar points at are kept so #visit and #contact still resolve. */ ''}
+  <footer class="rk-foot" data-rk-foot>
+    <span id="visit" class="rk-anchor" aria-hidden="true"></span>
+    <span id="contact" class="rk-anchor" aria-hidden="true"></span>
 
     <div class="rk-wrap">
       <div class="rk-foot__top">
@@ -87,7 +57,7 @@ export function footerMarkup(): string {
   </footer>`;
 }
 
-/** Footer only: the visit strip band draws in, the wordmark rises. */
+/** Footer only: the wordmark rises on entry. */
 export function initRubySections(): () => void {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const ctx = gsap.context(() => {
@@ -100,17 +70,6 @@ export function initRubySections(): () => void {
       duration: 0.8,
       ease: 'power3.out',
       scrollTrigger: { trigger: '[data-rk-foot]', start: 'top 92%', once: true },
-    });
-
-    gsap.utils.toArray<HTMLElement>('.rk-visit-strip__facts .rk-fact').forEach((el, i) => {
-      gsap.from(el, {
-        opacity: 0,
-        y: 18,
-        duration: 0.5,
-        delay: i * 0.08,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 95%', once: true },
-      });
     });
   });
 
