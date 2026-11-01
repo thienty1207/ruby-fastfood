@@ -58,16 +58,12 @@ export function initHeroMenuTransition(): () => void {
       tl.to(content, { y: -60, opacity: 0, duration: 0.72, ease: 'power1.in' }, 0);
     }
 
-    // The menu intro is handled by initSignature()'s own entry timeline, which
-    // is scrubbed against the same section. Here we only nudge the section's
-    // own top edge so there is no dead frame: it slides up slightly as the hero
-    // clears, creating overlap instead of a gap.
-    tl.fromTo(
-      menu,
-      { y: 40 },
-      { y: 0, duration: 1, ease: 'power1.out' },
-      0,
-    );
+    // NOTE: the menu section is NOT transformed here.
+    // It used to get a small `y: 40 -> 0` nudge for overlap, but [data-rk-sig]
+    // is now the element ScrollTrigger pins. A transform on a pinned element
+    // fights the pin's own transform and corrupts its start/end measurements,
+    // so the nudge is gone. The overlap now comes from the hero content fading
+    // out while the pinned scene is already in position.
 
     // Keep the hero content readable at the very start: only begin the fade
     // once the section is genuinely on its way out.

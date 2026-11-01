@@ -1,17 +1,23 @@
 /**
- * Ruby Kitchen 81 — Signature Menu Showcase (#menu)
+ * SIGNATURE MENU — pinned stack transition.
  *
- * Sticky split-screen scrollytelling: a 40% left column that stays put while a
- * 60% right column of four cards scrolls past it. Pinning is done with CSS
- * `position: sticky` — NOT ScrollTrigger.pin — so there is no spacer injection,
- * no layout shift, and the column releases naturally at the section boundary.
+ * STRUCTURE (desktop):
+ *   .rk-sig                      section, pinned by ScrollTrigger
+ *     .rk-sig__inner             two columns
+ *       .rk-sig__left            static intro: eyebrow, headline, support, 01/04
+ *       .rk-sig__right
+ *         .rk-sig__stage         ONE fixed-size stage
+ *           .rk-sig__layer x4    absolutely stacked, newest on top
  *
- * ScrollTrigger is used only to observe:
- *   - which card is currently in view  -> updates the 01/04 indicator
- *   - individual card reveals          -> subtle y / opacity / scale
+ * Behaviour: layer 1 is visible; layers 2-4 start translated one full stage
+ * height below (yPercent 100) and slide up to 0 as the user scrolls, each
+ * covering the previous one. One ScrollTrigger, one timeline, pinned.
  *
- * Cards are image-ready: `imageUrl` is optional, and a card with no image falls
- * back to a composed type + checkerboard treatment instead of an empty box.
+ * Why not CSS sticky: the requirement is that the LEFT column and the STAGE
+ * both stay put while the page keeps scrolling for ~3 viewport heights. sticky
+ * can only pin against a scrolling ancestor and cannot release on a scroll
+ * budget; pin + scrub gives exact control over how much scroll each transition
+ * consumes. Nothing here mixes sticky with pin on the same element.
  */
 import { gsap, ScrollTrigger } from '../motion/gsap';
 import { content } from '../../content/en';
@@ -21,46 +27,32 @@ const { signature } = content;
 export function signatureMarkup(): string {
   const total = String(signature.cards.length).padStart(2, '0');
 
-  const cards = signature.cards
+  const layers = signature.cards
     .map((c, i) => {
       const media = c.imageUrl
         ? `<div class="rk-sig__media" data-rk-sig-media>
              <div class="rk-sig__media-inner" data-rk-sig-media-inner>
-             <img
-               src="${c.imageUrl}"
-               alt="${c.imageAlt}"
-               width="1448"
-               height="1086"
-               class="rk-sig__img"
-               data-rk-sig-img
-               loading="${i === 0 ? 'eager' : 'lazy'}"
-               decoding="async"
-               draggable="false"
-             />
+               <img
+                 src="${c.imageUrl}"
+                 alt="${c.imageAlt}"
+                 width="1448"
+                 height="1086"
+                 class="rk-sig__img"
+                 data-rk-sig-img
+                 loading="${i === 0 ? 'eager' : 'lazy'}"
+                 decoding="async"
+                 draggable="false"
+               />
              </div>
            </div>`
         : `<div class="rk-sig__media rk-sig__media--type" aria-hidden="true">
              <span class="rk-sig__watermark">${c.n}</span>
            </div>`;
 
-      // Layout follows the reference: photo on top with no text over it, then
-      // the dish name, a hairline, and one row holding 01 | description | price.
       return `
-      <article class="rk-sig-card" data-rk-sig-card data-index="${i}">
-        <div class="rk-sig-card__shell" data-rk-sig-shell>
+        <article class="rk-sig__layer${i === 0 ? ' is-active' : ''}" data-rk-sig-layer="${i}" data-rk-sig-card>
           ${media}
-          <div class="rk-sig-card__body" data-rk-sig-body>
-            <h3 class="rk-sig-card__name rk-display" data-rk-sig-el="name">${c.name}</h3>
-            <div class="rk-sig-card__meta">
-              <span class="rk-sig-card__n" data-rk-sig-el="n">${c.n}</span>
-              <p class="rk-sig-card__copy" data-rk-sig-el="copy">${c.copy}</p>
-              <span class="rk-sig-card__price ${c.price === null ? 'rk-sig-card__price--cat' : ''}" data-rk-sig-el="price">
-                ${c.priceLabel}
-              </span>
-            </div>
-          </div>
-        </div>
-      </article>`;
+        </article>`;
     })
     .join('');
 
@@ -71,233 +63,174 @@ export function signatureMarkup(): string {
   return `
   <section class="rk-sig" id="${signature.id}" data-rk-sig>
     <div class="rk-sig__inner">
-      <!-- LEFT: sticky intro column -->
+      <!-- LEFT: static intro column (never moves) -->
       <div class="rk-sig__left">
-        <div class="rk-sig__sticky">
-          <p class="rk-eyebrow rk-sig__eyebrow" data-rk-sig-eyebrow>${signature.eyebrow}</p>
+        <p class="rk-eyebrow rk-sig__eyebrow" data-rk-sig-eyebrow>${signature.eyebrow}</p>
 
-          <h2 class="rk-sig__title rk-display">
-            <span class="rk-sig__line"><span data-rk-sig-line>${signature.headlineTop}</span></span>
-            <span class="rk-sig__line rk-sig__line--alt"><span data-rk-sig-line>${signature.headlineBottom}</span></span>
-          </h2>
+        <h2 class="rk-sig__title rk-display">
+          <span class="rk-sig__line"><span data-rk-sig-line>${signature.headlineTop}</span></span>
+          <span class="rk-sig__line rk-sig__line--alt"><span data-rk-sig-line>${signature.headlineBottom}</span></span>
+        </h2>
 
-          <p class="rk-sig__support" data-rk-sig-support>${signature.support}</p>
+        <p class="rk-sig__support" data-rk-sig-support>${signature.support}</p>
 
-          <div class="rk-sig__progress" data-rk-sig-progress aria-hidden="true">
-            <span class="rk-sig__counter">
-              <span data-rk-sig-current>01</span><span class="rk-sig__slash">/</span><span>${total}</span>
-            </span>
-            <span class="rk-sig__track">${ticks}</span>
-            <span class="rk-sig__hint">${signature.scrollHint}</span>
-          </div>
+        <div class="rk-sig__progress" data-rk-sig-progress aria-hidden="true">
+          <span class="rk-sig__counter">
+            <span data-rk-sig-current>01</span><span class="rk-sig__slash">/</span><span>${total}</span>
+          </span>
+          <span class="rk-sig__track">${ticks}</span>
+          <span class="rk-sig__hint">${signature.scrollHint}</span>
         </div>
       </div>
 
-      <!-- RIGHT: scrolling card column -->
+      <!-- RIGHT: one fixed stage, four stacked layers -->
       <div class="rk-sig__right">
-        ${cards}
-      </div>
-    </div>
+        <div class="rk-sig__stage" data-rk-sig-stage>
+          ${layers}
+        </div>
+
+        <div class="rk-sig__info" data-rk-sig-info>
+          ${signature.cards
+            .map(
+              (c, i) => `
+            <div class="rk-sig__info-row${i === 0 ? ' is-active' : ''}" data-rk-sig-info-row="${i}">
+              <h3 class="rk-sig__name rk-display">${c.name}</h3>
+              <div class="rk-sig__meta">
+                <span class="rk-sig__n">${c.n}</span>
+                <p class="rk-sig__copy">${c.copy}</p>
+                <span class="rk-sig__price ${c.price === null ? 'rk-sig__price--cat' : ''}">${c.priceLabel}</span>
+              </div>
+            </div>`,
+            )
+            .join('')}
+        </div>
+      </div>    </div>
   </section>`;
 }
 
 /**
- * Rewritten motion block for the signature section.
- *
- * Confirmed problems in the previous version:
- *   B. GSAP targeted [data-rk-sig-progress] but the markup only had the CLASS
- *      .rk-sig__progress, so the progress reveal silently never ran.
- *   C. .rk-sig-card carried `transition: transform` in CSS while GSAP also
- *      wrote `transform` on the same node — the two fought, and every scrub
- *      tick was fought by a 0.45s CSS interpolation.
- *   D. Card reveals used `once: true`, so scrolling backwards left cards
- *      stuck in their end state and the motion was not reversible at all.
- *
- * The rewrite separates the three concerns onto three different elements:
- *   .rk-sig-card          geometry only — CSS owns its border/background
- *   .rk-sig-card__shell   y-translate + opacity (scrubbed)
- *   .rk-sig__media-inner  image scale + parallax (scrubbed)
- *   .rk-sig-card__body    text stagger (scrubbed)
- * Nothing writes `transform` on an element that CSS also transitions.
+ * Motion. One branch for the pinned desktop experience, one for tablet/mobile
+ * flow, one for reduced motion. gsap.matchMedia() tears down whichever branch
+ * stops matching, so resizing across the breakpoint cannot leave a stale pin.
  */
 export function initSignature(): () => void {
   const root = document.querySelector<HTMLElement>('[data-rk-sig]');
   if (!root) return () => {};
 
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile = window.matchMedia('(max-width: 1023px)').matches;
-  const cards = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-card]')];
+  const layers = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-layer]')];
   const ticks = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-tick]')];
   const counter = root.querySelector<HTMLElement>('[data-rk-sig-current]');
+  const infoRows = [...root.querySelectorAll<HTMLElement>('[data-rk-sig-info-row]')];
+  const stage = root.querySelector<HTMLElement>('[data-rk-sig-stage]');
+  if (!stage || !layers.length) return () => {};
 
-  const ctx = gsap.context(() => {
-    /* ── Image fallback ─────────────────────────────────────────────── */
-    root.querySelectorAll<HTMLElement>('[data-rk-sig-media]').forEach((media) => {
-      const img = media.querySelector<HTMLImageElement>('[data-rk-sig-img]');
-      if (!img) return;
-      const fail = () => media.classList.add('is-missing');
-      if (img.complete && img.naturalWidth === 0) fail();
-      else img.addEventListener('error', fail, { once: true });
-    });
+  const mm = gsap.matchMedia();
 
-    /* ── Reduced motion: everything immediately readable, no scrub ──── */
-    if (reduced) {
-      gsap.set(
-        '[data-rk-sig-eyebrow], [data-rk-sig-line], [data-rk-sig-support], [data-rk-sig-progress]',
-        { opacity: 1, y: 0, clearProps: 'transform' },
-      );
-      gsap.set('[data-rk-sig-shell], [data-rk-sig-body] > *', { opacity: 1, y: 0, clearProps: 'transform' });
-      gsap.set('[data-rk-sig-media-inner]', { scale: 1, y: 0 });
-      // No clip mask under reduced motion: the image must be fully visible
-      // immediately, not revealed by scroll.
-      gsap.set('[data-rk-sig-media]', { clipPath: 'none' });
-    } else {
-      /* ── LEFT COLUMN: scrubbed intro ──────────────────────────────── */
-      // Scrubbed rather than once-only so reversing the scroll rebuilds the
-      // intro instead of leaving it in a half-state.
-      const introTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start: 'top 88%',
-          end: 'top 38%',
-          scrub: 0.7,
-          invalidateOnRefresh: true,
-        },
-      });
+  /* Indicator: one call per transition, driven by timeline progress rather than
+     by per-layer triggers, so it can never disagree with the visible layer. */
+  const setActive = (idx: number) => {
+    if (counter) counter.textContent = String(idx + 1).padStart(2, '0');
+    ticks.forEach((t, i) => t.classList.toggle('is-active', i === idx));
+    layers.forEach((l, i) => l.classList.toggle('is-active', i === idx));
+    infoRows.forEach((r, i) => r.classList.toggle('is-active', i === idx));
+  };
 
-      introTl
-        .fromTo(
-          '[data-rk-sig-eyebrow]',
-          { opacity: 0, y: 14 },
-          { opacity: 1, y: 0, ease: 'none', duration: 0.25 },
-          0,
-        )
-        .fromTo(
-          '[data-rk-sig-line]',
-          { yPercent: 108, opacity: 0 },
-          { yPercent: 0, opacity: 1, stagger: 0.06, ease: 'none', duration: 0.5 },
-          0.04,
-        )
-        .fromTo(
-          '[data-rk-sig-support]',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, ease: 'none', duration: 0.28 },
-          0.42,
-        )
-        .fromTo(
-          '[data-rk-sig-progress]',
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, ease: 'none', duration: 0.22 },
-          0.62,
-        );
-
-      /* ── CARDS: one scrubbed timeline per card ────────────────────── */
-      // start/end are RELATIVE to the card, never absolute document pixels.
-      // Mobile gets a shorter travel so the section does not feel sluggish on
-      // touch where scroll events arrive less densely.
-      const travel = isMobile ? 40 : 64;
-      const parallax = isMobile ? 6 : 14;
-
-      cards.forEach((card) => {
-        const shell = card.querySelector<HTMLElement>('[data-rk-sig-shell]');
-        const media = card.querySelector<HTMLElement>('[data-rk-sig-media]');
-        const mediaInner = card.querySelector<HTMLElement>('[data-rk-sig-media-inner]');
-        const bodyEls = [...card.querySelectorAll<HTMLElement>('[data-rk-sig-el]')];
-
-        // Initial state is applied with gsap.set(), NOT with fromTo inside the
-        // timeline. A fromTo that starts at a later timeline position does not
-        // render its "from" values before its start time, so the text was
-        // visible at progress 0, vanished at 0.35, then came back — measured
-        // name opacity 1.00 -> 0.71 -> 1.00. Setting the state up front and
-        // animating with .to() removes the flicker entirely.
-        if (shell) gsap.set(shell, { y: travel, opacity: 0.25 });
-        if (mediaInner) gsap.set(mediaInner, { scale: 1.08, yPercent: parallax });
-        // Clip reveal: the photo's top edge starts 14% down and slides open as
-        // the card settles, so the image "enters" the frame instead of just
-        // scaling. Applied to the media BOX (not the parallax layer) so the
-        // mask stays put while the image drifts inside it.
-        if (media) gsap.set(media, { clipPath: 'inset(14% 0% 0% 0%)' });
-        if (bodyEls.length) gsap.set(bodyEls, { y: 22, opacity: 0 });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 92%', // begins while the card is still below the fold
-            end: 'top 42%', // settles when the card reaches the upper area
-            scrub: 0.8,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        // 1. Card entrance — geometry on the shell, so the card keeps its CSS
-        //    border/background transitions intact.
-        if (shell) {
-          tl.to(shell, { y: 0, opacity: 1, ease: 'power1.out', duration: 0.55 }, 0);
-        }
-
-        // 2. Image: clip opens, then settles from 1.08 to 1 while drifting
-        //    upward inside the media box (parallax, no exposed edges).
-        if (media) {
-          tl.to(media, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power1.out', duration: 0.62 }, 0);
-        }
-        if (mediaInner) {
-          tl.to(mediaInner, { scale: 1, yPercent: 0, ease: 'none', duration: 0.85 }, 0);
-        }
-
-        // 3. Text: number -> title -> copy -> price, sequential.
-        if (bodyEls.length) {
-          tl.to(bodyEls, { y: 0, opacity: 1, ease: 'power1.out', stagger: 0.06, duration: 0.4 }, 0.18);
-        }
-      });
-    }
-
-    /* ── will-change is scoped to "section is on screen" ────────────────
-       Four shells + four media layers permanently promoted is wasteful GPU
-       memory for a section that is off-screen most of the time. The class is
-       toggled by ScrollTrigger so the promotion exists only while scrubbing. */
-    if (!reduced) {
-      ScrollTrigger.create({
-        trigger: root,
-        start: 'top bottom',
-        end: 'bottom top',
-        onToggle: (self) => root.classList.toggle('is-animating', self.isActive),
-      });
-    }
-
-    /* ── Active-card indicator ──────────────────────────────────────── */
-    const setActive = (idx: number) => {
-      if (counter) counter.textContent = String(idx + 1).padStart(2, '0');
-      ticks.forEach((t, i) => t.classList.toggle('is-active', i === idx));
-      cards.forEach((c, i) => c.classList.toggle('is-current', i === idx));
-    };
-
-    // onEnter AND onEnterBack keep the counter correct in both directions.
-    // The 50% line is the "is this the card I am looking at" test.
-    cards.forEach((card, i) => {
-      ScrollTrigger.create({
-        trigger: card,
-        start: 'top 55%',
-        end: 'bottom 55%',
-        onEnter: () => setActive(i),
-        onEnterBack: () => setActive(i),
-      });
-    });
-
+  /* ══════════════════════════════════════════════════════════════════════
+     DESKTOP — pinned stack transition
+     ══════════════════════════════════════════════════════════════════════ */
+  mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
     setActive(0);
 
-    /* ── Hover: subtle image push-in ──────────────────────────────────
-       Writes to a separate wrapper (.rk-sig__media-hover inside the media box)
-       so it can never fight the scrubbed scale/parallax on .rk-sig__media-inner,
-       and it only runs on devices that actually have a pointer. */
-    if (!reduced && window.matchMedia('(hover: hover)').matches) {
-      cards.forEach((card) => {
-        const img = card.querySelector<HTMLElement>('[data-rk-sig-img]');
-        if (!img) return;
-        const push = gsap.quickTo(img, 'scale', { duration: 0.55, ease: 'power2.out' });
-        card.addEventListener('pointerenter', () => push(1.045));
-        card.addEventListener('pointerleave', () => push(1));
+    // Layer 0 is in place; the rest start exactly one stage below.
+    layers.forEach((layer, i) => {
+      gsap.set(layer, {
+        yPercent: i === 0 ? 0 : 100,
+        zIndex: i + 1,
+        transformOrigin: '50% 100%',
       });
-    }  }, root);
+    });
 
-  return () => ctx.revert();
+    const leftBits = '[data-rk-sig-eyebrow], [data-rk-sig-line], [data-rk-sig-support], [data-rk-sig-progress]';
+    gsap.set(leftBits, { opacity: 0, y: 18 });
+
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: {
+        trigger: root,
+        start: 'top top',
+        end: () => `+=${window.innerHeight * (layers.length + 0.6)}`,
+        pin: true,
+        pinSpacing: true,
+        scrub: 0.7,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          // Only report the layer that is at least half-way in.
+          const p = self.progress;
+          const seg = 1 / (layers.length - 1);
+          const idx = Math.min(layers.length - 1, Math.round((p - 0.12) / seg));
+          setActive(Math.max(0, idx));
+        },
+      },
+    });
+
+    // 0.00 - 0.12  intro fades up (left column only; it never moves)
+    tl.to('[data-rk-sig-eyebrow]', { opacity: 1, y: 0, duration: 0.05 }, 0);
+    tl.to('[data-rk-sig-line]', { opacity: 1, y: 0, duration: 0.06, stagger: 0.015 }, 0.02);
+    tl.to('[data-rk-sig-support]', { opacity: 1, y: 0, duration: 0.05 }, 0.05);
+    tl.to('[data-rk-sig-progress]', { opacity: 1, y: 0, duration: 0.04 }, 0.07);
+
+    // 0.12 - 1.00  the stack: each incoming layer slides up over the last.
+    // The 12% head start means the user sees the intro finish before the first
+    // photo starts moving, instead of both competing at once.
+    const startAt = 0.12;
+    const segLen = (1 - startAt) / (layers.length - 1);
+
+    for (let i = 1; i < layers.length; i++) {
+      const at = startAt + segLen * (i - 1);
+      tl.fromTo(
+        layers[i],
+        { yPercent: 100 },
+        { yPercent: 0, duration: segLen },
+        at,
+      );
+    }
+
+    return () => {
+      gsap.set(layers, { clearProps: 'transform,opacity,zIndex' });
+      gsap.set(leftBits, { clearProps: 'opacity,transform' });
+    };
+  });
+
+  /* ══════════════════════════════════════════════════════════════════════
+     FLOW — tablet and mobile, and reduced motion
+     Layers become normal stacked blocks; a short fade-up each, no pin.
+     ══════════════════════════════════════════════════════════════════════ */
+  mm.add('(max-width: 1023px), (prefers-reduced-motion: reduce)', () => {
+    setActive(0);
+
+    gsap.set(layers, { clearProps: 'transform,opacity,zIndex' });
+    gsap.set('[data-rk-sig-eyebrow], [data-rk-sig-line], [data-rk-sig-support], [data-rk-sig-progress]', {
+      clearProps: 'opacity,transform',
+    });
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    layers.forEach((layer) => {
+      gsap.from(layer, {
+        opacity: 0,
+        y: 32,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: layer, start: 'top 90%', once: true },
+      });
+    });
+
+    return () => {
+      gsap.set(layers, { clearProps: 'transform,opacity,zIndex' });
+    };
+  });
+
+  return () => mm.revert();
 }

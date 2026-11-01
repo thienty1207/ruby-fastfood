@@ -602,11 +602,15 @@
 }
 
 
-@media (min-width: 760px) {
+/* Raised from 760px: at 768 the three-column `1fr auto auto` plus the 5× space
+   gap measured 794px of content in a 768px viewport (26px of horizontal
+   overflow, confirmed with a per-element sweep). 900px leaves room for the
+   title, the fact list and two buttons on one row. */
+@media (min-width: 900px) {
   .rk-visit-strip__inner {
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: end;
-    gap: var(--rk-space-5);
+    gap: var(--rk-space-4);
   }
   .rk-visit-strip__facts {
     grid-template-columns: auto auto;
