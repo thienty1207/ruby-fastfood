@@ -84,3 +84,14 @@ body.rk-page {
 html {
   scroll-padding-top: calc(var(--rk-nav-h) + 1rem);
 }
+
+/* ── No horizontal scrollbar, guaranteed ─────────────────────────────────
+   body already has overflow-x:hidden, but that only hides the bar: the
+   document still reported scrollWidth 1477 for a 1475 viewport because the
+   journey pins (their thumbs are sized in vw) and the footer each spilled
+   2-3px. `clip` on the root actually stops the overflow from propagating,
+   and unlike `hidden` it does not create a scroll container that would break
+   the sticky navbar or ScrollTrigger's measurements. */
+html:root {
+  overflow-x: clip;
+}

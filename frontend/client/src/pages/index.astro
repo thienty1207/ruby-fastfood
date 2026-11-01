@@ -2,8 +2,12 @@
 /**
  * Ruby Kitchen 81 homepage.
  *
- * Order: nav → hero → signature showcase (#menu) → journey → full menu teaser
- * → footer.
+ * Order: nav → hero → signature showcase (#menu) → full menu flipbook → journey
+ * (the crab route) → footer.
+ *
+ * The flipbook sits ABOVE the journey deliberately: the crab travels through the
+ * guest photos and is the page's closing spectacle, so the menu book hands off to
+ * it rather than interrupting it.
  *
  * The un-rebranded CRAV page remains at /clone for comparison.
  */
@@ -21,8 +25,8 @@ import RubyFooter from '../components/rk/RubyFooter.astro';
   <main class="rk-main" id="main">
     <RubyHero />
     <RubySignature />
-    <RubyJourney />
     <RubyFullMenu />
+    <RubyJourney />
   </main>
   <RubyFooter />
 </RubyBase>
