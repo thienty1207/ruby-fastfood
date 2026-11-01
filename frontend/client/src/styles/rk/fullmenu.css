@@ -1,0 +1,498 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   RUBY KITCHEN 81 — FULL MENU teaser + /menu page
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ══ Homepage section ══════════════════════════════════════════════════ */
+.rk-fm {
+  position: relative;
+  background: var(--rk-charcoal);
+  border-top: 1px solid rgb(245 235 221 / 0.08);
+  padding-block: calc(var(--rk-space-section) * 0.55);
+  overflow: hidden;
+}
+
+.rk-fm__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.rk-fm__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.9rem, 1.6vw, 1.35rem);
+  min-width: 0;
+}
+
+.rk-fm__eyebrow {
+  margin: 0;
+  color: var(--rk-flame);
+}
+
+.rk-fm__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  color: var(--rk-cream);
+}
+
+.rk-fm__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.04em;
+}
+
+.rk-fm__line--alt > span {
+  color: var(--rk-ruby-bright);
+}
+
+.rk-fm__body {
+  margin: 0;
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.95rem, 1.05vw, 1.08rem);
+  line-height: 1.6;
+  color: var(--rk-cream-dim);
+  max-width: 42ch;
+}
+
+.rk-fm__cta {
+  margin-top: clamp(0.4rem, 1vw, 0.8rem);
+}
+
+/* ── The cover, presented as a printed object ────────────────────────── */
+.rk-fm__cover {
+  position: relative;
+  display: block;
+  justify-self: center;
+  width: min(100%, 420px);
+  text-decoration: none;
+  /* Room for the sheet to tilt without clipping its shadow. */
+  perspective: 1200px;
+}
+
+/* Warm floor glow behind the booklet. */
+.rk-fm__cover-glow {
+  position: absolute;
+  inset: 8% -14% -8% -14%;
+  background: radial-gradient(closest-side, rgb(149 30 42 / 0.32), transparent 78%);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.rk-fm__cover-sheet {
+  position: relative;
+  display: block;
+  transform-style: preserve-3d;
+  will-change: transform;
+  /* A paper edge: a 1px cream line plus a deep cast shadow sells "printed page"
+     without any texture asset. */
+  box-shadow:
+    0 0 0 1px rgb(245 235 221 / 0.12),
+    0 2px 4px rgb(0 0 0 / 0.5),
+    0 28px 60px -18px rgb(0 0 0 / 0.75);
+}
+
+.rk-fm__cover-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+.rk-fm__cover-tag {
+  position: absolute;
+  right: -0.4rem;
+  bottom: -0.9rem;
+  padding: 0.4em 0.85em;
+  font-family: var(--rk-font-text);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rk-charcoal);
+  background: var(--rk-gold);
+  border-radius: var(--rk-radius-pill);
+  white-space: nowrap;
+}
+
+/* ══ Desktop: two columns, cover on the right ═════════════════════════ */
+@media (min-width: 900px) {
+  .rk-fm__inner {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2.5rem, 5vw, 6rem);
+  }
+
+  .rk-fm__cover {
+    width: min(100%, 470px);
+    justify-self: end;
+  }
+}
+
+/* ══ Reduced motion ═══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .rk-fm__cover-sheet {
+    will-change: auto;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   /menu PAGE
+   ══════════════════════════════════════════════════════════════════════ */
+.rkm {
+  background: var(--rk-charcoal-deep);
+  min-height: 100svh;
+  padding-top: var(--rk-nav-h);
+}
+
+/* ── Head ────────────────────────────────────────────────────────────── */
+.rkm__head {
+  border-bottom: 1px solid rgb(245 235 221 / 0.1);
+  padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.6rem);
+}
+
+.rkm__crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--rk-font-text);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rk-cream-dim);
+  text-decoration: none;
+  margin-bottom: clamp(0.6rem, 1.5vw, 1rem);
+  transition: color var(--rk-dur-fast);
+}
+
+.rkm__crumb:hover {
+  color: var(--rk-flame);
+}
+
+.rkm__title {
+  margin: 0;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  line-height: 0.9;
+  color: var(--rk-cream);
+}
+
+.rkm__intro {
+  margin: clamp(0.9rem, 2vw, 1.4rem) 0 0;
+  max-width: 62ch;
+  font-family: var(--rk-font-text);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  line-height: 1.65;
+  color: var(--rk-cream-dim);
+}
+
+.rkm__hint {
+  margin: clamp(1rem, 2vw, 1.6rem) 0 0;
+  font-family: var(--rk-font-text);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(207 194 177 / 0.55);
+}
+
+/* ── Viewer ──────────────────────────────────────────────────────────── */
+.rkm__body {
+  padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(2.5rem, 5vw, 4rem);
+}
+
+.rkm__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  background: #080706;
+  border: 1px solid rgb(245 235 221 / 0.1);
+  /* NOT aspect-ratio: with a ratio the box keeps its proportions and the page
+     renders 518x732 inside a 613px box, so its bottom 119px were cut (measured).
+     The box now takes its height from the image, and the image itself is capped
+     by max-height so one whole page always fits beside the header, controls and
+     thumbnail rail. */
+  margin-inline: auto;
+  /* The stage width is derived from the height cap so the page is never
+     cropped: 64svh of height at a 1055:1491 ratio is 71.8svh of width. */
+  width: min(100%, calc(71.8svh), 620px);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.rkm__stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Capping the IMAGE (not the box) is what guarantees the whole page is
+     visible; 55svh leaves room for the header, controls and thumb rail. */
+  max-height: min(64svh, 760px);
+  object-fit: contain;
+}
+
+/* ── Controls ────────────────────────────────────────────────────────── */
+.rkm__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.8rem, 2vw, 1.5rem);
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+.rkm__nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7em 1.1em;
+  font-family: var(--rk-font-text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rk-cream);
+  background: transparent;
+  border: 1px solid rgb(245 235 221 / 0.22);
+  border-radius: var(--rk-radius-pill);
+  cursor: pointer;
+  transition:
+    background-color var(--rk-dur-fast),
+    border-color var(--rk-dur-fast),
+    color var(--rk-dur-fast);
+}
+
+.rkm__nav:hover:not(:disabled) {
+  background: var(--rk-flame);
+  border-color: var(--rk-flame);
+  color: var(--rk-charcoal);
+}
+
+.rkm__nav:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.rkm__counter {
+  font-family: var(--rk-font-text);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+  color: var(--rk-cream);
+  text-align: center;
+}
+
+.rkm__page-title {
+  display: block;
+  margin-top: 0.25em;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgb(207 194 177 / 0.6);
+}
+
+/* ── Thumbnails ──────────────────────────────────────────────────────── */
+.rkm__thumbs {
+  display: flex;
+  gap: clamp(0.5rem, 1.2vw, 0.9rem);
+  margin-top: clamp(1.2rem, 2.5vw, 2rem);
+  padding-bottom: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scroll-snap-type: x proximity;
+}
+
+.rkm__thumb {
+  flex: 0 0 auto;
+  width: clamp(64px, 8vw, 96px);
+  padding: 0;
+  background: none;
+  border: 1px solid rgb(245 235 221 / 0.14);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.55;
+  scroll-snap-align: start;
+  transition:
+    opacity var(--rk-dur-fast),
+    border-color var(--rk-dur-fast),
+    transform var(--rk-dur-fast);
+}
+
+.rkm__thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.rkm__thumb:hover {
+  opacity: 0.85;
+}
+
+.rkm__thumb[aria-current='true'] {
+  opacity: 1;
+  border-color: var(--rk-flame);
+  transform: translateY(-2px);
+}
+
+/* ══ Lightbox ═════════════════════════════════════════════════════════ */
+.rkm-lb {
+  position: fixed;
+  inset: 0;
+  /* Above the fixed navbar (--rk-z-nav). At 900 the nav floated over the
+     overlay and the close button sat underneath it. */
+  z-index: 1000;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: rgb(6 5 5 / 0.97);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 260ms var(--rk-ease-out),
+    visibility 0s linear 260ms;
+}
+
+.rkm-lb.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 260ms var(--rk-ease-out),
+    visibility 0s;
+}
+
+.rkm-lb__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(0.8rem, 2vw, 1.4rem);
+}
+
+.rkm-lb__label {
+  font-family: var(--rk-font-text);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rk-cream-dim);
+}
+
+.rkm-lb__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--rk-cream);
+  background: transparent;
+  border: 1px solid rgb(245 235 221 / 0.24);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color var(--rk-dur-fast),
+    color var(--rk-dur-fast);
+}
+
+.rkm-lb__close:hover {
+  background: var(--rk-flame);
+  border-color: var(--rk-flame);
+  color: var(--rk-charcoal);
+}
+
+.rkm-lb__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-inline: clamp(2.6rem, 6vw, 5rem);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.rkm-lb__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.rkm-lb__arrow {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1rem;
+  color: var(--rk-cream);
+  background: rgb(20 18 16 / 0.8);
+  border: 1px solid rgb(245 235 221 / 0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  transition:
+    background-color var(--rk-dur-fast),
+    color var(--rk-dur-fast);
+}
+
+.rkm-lb__arrow:hover:not(:disabled) {
+  background: var(--rk-flame);
+  color: var(--rk-charcoal);
+}
+
+.rkm-lb__arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.rkm-lb__arrow--prev {
+  left: clamp(0.4rem, 1.5vw, 1.2rem);
+}
+
+.rkm-lb__arrow--next {
+  right: clamp(0.4rem, 1.5vw, 1.2rem);
+}
+
+.rkm-lb__foot {
+  padding: 0 clamp(1rem, 3vw, 2rem) clamp(1rem, 2vw, 1.6rem);
+  text-align: center;
+  font-family: var(--rk-font-text);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(207 194 177 / 0.55);
+}
+
+/* ══ Mobile ═══════════════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .rkm__stage {
+    max-height: none;
+    width: 100%;
+  }
+
+  .rkm__bar {
+    max-width: none;
+  }
+}
+
+/* ══ Reduced motion ═══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .rkm__nav,
+  .rkm__thumb,
+  .rkm-lb,
+  .rkm-lb__close,
+  .rkm-lb__arrow {
+    transition: none;
+  }
+}

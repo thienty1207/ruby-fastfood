@@ -2,8 +2,8 @@
 /**
  * Ruby Kitchen 81 homepage.
  *
- * Order: nav → hero → signature menu (#menu) → footer (with visit strip).
- * The hero CTA and the nav "MENU" link both scroll to #menu.
+ * Order: nav → hero → signature showcase (#menu) → journey → full menu teaser
+ * → footer.
  *
  * The un-rebranded CRAV page remains at /clone for comparison.
  */
@@ -12,6 +12,7 @@ import RubyNav from '../components/rk/RubyNav.astro';
 import RubyHero from '../components/rk/RubyHero.astro';
 import RubySignature from '../components/rk/RubySignature.astro';
 import RubyJourney from '../components/rk/RubyJourney.astro';
+import RubyFullMenu from '../components/rk/RubyFullMenu.astro';
 import RubyFooter from '../components/rk/RubyFooter.astro';
 ---
 
@@ -21,6 +22,7 @@ import RubyFooter from '../components/rk/RubyFooter.astro';
     <RubyHero />
     <RubySignature />
     <RubyJourney />
+    <RubyFullMenu />
   </main>
   <RubyFooter />
 </RubyBase>
