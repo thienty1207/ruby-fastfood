@@ -245,6 +245,12 @@
   -webkit-text-stroke: 1px rgb(245 235 221 / 0.16);
 }
 
+/* Mobile-only story block. Hidden on desktop, where the text lives in the
+   pinned left column instead. */
+.rk-sig__panel-story {
+  display: none;
+}
+
 /* ── Caption: overlay strip inside the panel ─────────────────────────── */
 .rk-sig__caption {
   position: absolute;
@@ -287,23 +293,25 @@
 /* ══ TABLET / MOBILE: ordinary blocks, no pin ══════════════════════════
    Breakpoint must match signature.ts exactly (< 1024px). */
 @media (max-width: 1023px) {
+  /* The separate chapter list is replaced by per-panel story overlays: the text
+     must sit ON the photograph, not as a bulleted list above it. The desktop
+     chapters stay in the DOM (hidden) so the pinned branch still has its nodes
+     when a resize crosses the breakpoint. */
   .rk-sig__chapters {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(1.6rem, 5vw, 2.4rem);
+    display: none;
   }
 
   .rk-sig__chapter {
-    grid-area: auto;
-    /* Every chapter is visible in flow; the pinned cross-fade does not exist. */
-    opacity: 1 !important;
-    visibility: visible !important;
-    padding-bottom: clamp(0.6rem, 2vw, 1rem);
-    border-bottom: 1px solid rgb(245 235 221 / 0.1);
+    display: none;
   }
 
-  .rk-sig__heading {
-    font-size: clamp(2rem, 8vw, 2.8rem);
+  .rk-sig__left {
+    padding-block: clamp(1.2rem, 4vw, 2rem) 0;
+    gap: clamp(0.8rem, 2vw, 1.2rem);
+  }
+
+  .rk-sig__progress {
+    margin-top: 0;
   }
 
   .rk-sig__stage {
@@ -325,6 +333,76 @@
 
   .rk-sig__right {
     padding-bottom: clamp(2rem, 6vw, 4rem);
+  }
+
+  /* ── The mobile card: photograph with the story ON it ──────────────
+     Structure per panel: media (absolute, fills the card) + story overlay
+     (bottom-anchored) + caption strip (the small name/price line).
+     This mirrors the reference where the copy sits inside the image, not in a
+     separate text column above it. */
+  .rk-sig__panel {
+    aspect-ratio: 4 / 5;
+    display: block;
+  }
+
+  .rk-sig__panel-story {
+    display: flex;
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 3;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: clamp(1rem, 4vw, 1.5rem);
+    /* The card is 4:5; the story block occupies roughly the lower 40%. The veil
+       below is tuned to that band so the copy never sits on a bright plate. */
+    padding-bottom: clamp(1.1rem, 4vw, 1.6rem);
+  }
+
+  .rk-sig__panel-story .rk-sig__heading {
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
+    line-height: 0.95;
+  }
+
+  .rk-sig__panel-story .rk-sig__body {
+    font-size: clamp(0.82rem, 3.4vw, 0.95rem);
+    line-height: 1.5;
+    max-width: 30ch;
+    /* The photograph is busy; a soft shadow keeps body copy readable without
+       adding another panel behind it. */
+    text-shadow: 0 1px 8px rgb(0 0 0 / 0.75);
+  }
+
+  .rk-sig__panel-story .rk-sig__meta {
+    padding-top: clamp(0.4rem, 1.6vw, 0.7rem);
+    border-top: 1px solid rgb(245 235 221 / 0.28);
+    font-size: clamp(0.68rem, 2.6vw, 0.8rem);
+    max-width: 30ch;
+    text-shadow: 0 1px 8px rgb(0 0 0 / 0.75);
+  }
+
+  /* The caption strip is redundant on mobile: the story block already ends with
+     the "name · price" meta line, so showing both repeated the burger name and
+     the price twice inside one card (visible in a capture). Desktop keeps it as
+     the overlay strip on the image. */
+  .rk-sig__caption {
+    display: none;
+  }
+
+  /* Deeper veil on mobile: the story block covers roughly the lower half of the
+     card, so the desktop veil (which only darkens the bottom 26%) left body copy
+     sitting on a bright part of the photograph. */
+  .rk-sig__media-veil {
+    background:
+      linear-gradient(
+        to top,
+        rgb(9 8 7 / 0.97) 0%,
+        rgb(9 8 7 / 0.94) 26%,
+        rgb(9 8 7 / 0.82) 40%,
+        rgb(9 8 7 / 0.5) 55%,
+        transparent 74%
+      ),
+      linear-gradient(to bottom, rgb(9 8 7 / 0.35) 0%, transparent 18%);
   }
 }
 

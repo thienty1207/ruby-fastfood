@@ -54,7 +54,12 @@ export function signatureMarkup(): string {
       return `
         <article class="rk-sig__panel${i === 0 ? ' is-active' : ''}" data-rk-sig-panel="${i}">
           ${media}
-          <div class="rk-sig__caption">
+          <div class="rk-sig__panel-story" data-rk-sig-panel-story>
+            <p class="rk-eyebrow rk-sig__eyebrow">${it.eyebrow}</p>
+            <h2 class="rk-sig__heading rk-display">${it.heading}</h2>
+            <p class="rk-sig__body">${it.body}</p>
+            <p class="rk-sig__meta">${it.meta}</p>
+          </div>          <div class="rk-sig__caption">
             <span class="rk-sig__caption-n">${it.n}</span>
             <span class="rk-sig__caption-name rk-display">${it.name}</span>
             <span class="rk-sig__caption-price">${it.priceLabel}</span>
