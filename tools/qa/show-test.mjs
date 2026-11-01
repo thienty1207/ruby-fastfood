@@ -10,7 +10,7 @@ const OUT = path.join(process.cwd(), 'qa-show');
 fs.mkdirSync(OUT, { recursive: true });
 
 const COUNT = 4;
-const HOLD = 0.62;
+const HOLD = 0.58;
 const SLICE = 1 / COUNT;
 
 /** Middle of item i's settled window. */

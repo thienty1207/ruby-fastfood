@@ -148,7 +148,9 @@ export function initSignature(): () => void {
     // Deliberately no GSAP autoAlpha here — see the note in the timing block.
 
     // Fraction of each item's slice spent settled before the next slides in.
-    const HOLD = 0.62;
+    // Fraction of each unit spent settled. Lower = longer slide, shorter settle.
+    // 0.58 gives a 0.42-unit slide: ~41% more scroll per transition than 0.62.
+    const HOLD = 0.58;
 
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
@@ -160,10 +162,19 @@ export function initSignature(): () => void {
         // +1 full viewport of dwell: the last item needs its own settled window
         // after the final slide, otherwise the pin releases the instant the fourth
         // photograph lands (measured: panel 4 still 765px below at 83% progress).
-        end: () => `+=${window.innerHeight * (count + 1.5)}`,
+        // 7 viewports of pin for 4 items: each unit is 1.75 viewport of scroll,
+        // so every photograph takes noticeably longer to travel than 1.375 did.
+        // 4.8 viewports for 4 items: 1.2 viewport of scroll per item. Enough
+        // travel for the slide to read, without making the reader wait.
+        end: () => `+=${window.innerHeight * (count + 0.8)}`,
         pin: true,
         pinSpacing: true,
-        scrub: 0.6,
+        // Damped rather than near-instant: the panel keeps easing for ~0.9s after
+        // the wheel stops, which is what makes the move read as slow motion.
+        // `true` = strictly 1:1 with the scroll position. The 0.9 here was a
+        // damped follow that made every move feel laggy: the panel kept easing
+        // for ~0.9s after the wheel stopped, so it arrived late.
+        scrub: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
