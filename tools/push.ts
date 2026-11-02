@@ -123,11 +123,21 @@ async function verifyPublishable(opts: {
   const forbidden: string[] = [];
   const leaks: Array<{ path: string; where: string }> = [];
 
+  /**
+   * Files that legitimately CONTAIN secret-shaped text because they define the
+   * detection patterns themselves. Scanning them is a guaranteed false positive —
+   * this script was refused by its own guard the first time it ran after the
+   * patterns were broadened. The exemption is by exact path and is limited to
+   * pattern-definition files, not a general escape hatch.
+   */
+  const PATTERN_SOURCES = new Set(['tools/push.ts']);
+
   const check = async (path: string, where: string, body: () => Promise<string>) => {
     if (FORBIDDEN_PATH.test(path)) {
       forbidden.push(`${path}  (${where})`);
       return;
     }
+    if (PATTERN_SOURCES.has(path)) return;
     if (!looksScannable(path)) return;
     const text = await body().catch(() => '');
     if (!text) return;
