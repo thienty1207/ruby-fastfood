@@ -411,8 +411,7 @@
 }
 
 /* ══ 08 — FOOTER ═══════════════════════════════════════════════════════ */
-/* Zero-height anchor targets. Needed because the visit strip that used to carry
-   #visit / #contact is gone, and the navbar still links to them. */
+/* The Contact navigation link targets the footer. Visit opens Google Maps. */
 .rk-anchor {
   display: block;
   height: 0;
@@ -424,42 +423,6 @@
   background: var(--rk-charcoal-deep);
   padding-block: var(--rk-space-6) var(--rk-space-4);
   border-top: 1px solid rgb(245 235 221 / 0.1);
-}
-
-.rk-foot__top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--rk-space-2);
-  padding-bottom: var(--rk-space-4);
-  border-bottom: 1px solid rgb(245 235 221 / 0.1);
-}
-
-.rk-foot__mark {
-  margin: 0;
-  display: flex;
-  align-items: baseline;
-  gap: 0.3em;
-  font-size: clamp(1.9rem, 5vw, 3.2rem);
-  line-height: 1;
-  color: var(--rk-flame);
-}
-
-.rk-foot__mark span {
-  font-family: var(--rk-font-text);
-  font-size: clamp(0.6rem, 0.9vw, 0.78rem);
-  font-weight: 700;
-  letter-spacing: 0.26em;
-  color: var(--rk-cream);
-}
-
-.rk-foot__tag {
-  margin: 0;
-  font-size: var(--rk-size-small);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--rk-cream-dim);
 }
 
 .rk-foot__cols {

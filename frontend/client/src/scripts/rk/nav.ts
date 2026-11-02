@@ -13,11 +13,13 @@ import { scrollToEl } from '../motion/lenis';
 
 export function rubyNavMarkup(): string {
   const { brand, nav } = content;
+  const externalAttrs = (href: string) =>
+    href.startsWith('https://') ? ' target="_blank" rel="noopener noreferrer"' : '';
 
   const links = nav.links
     .map(
       (l) => `<li class="rk-nav__li">
-        <a class="rk-nav__link" href="${l.href}" data-rk-nav-link>
+        <a class="rk-nav__link" href="${l.href}"${externalAttrs(l.href)} data-rk-nav-link>
           <span>${l.label}</span>
         </a>
       </li>`,
@@ -58,7 +60,7 @@ export function rubyNavMarkup(): string {
         ${nav.links
           .map(
             (l, i) =>
-              `<li style="--i:${i}"><a href="${l.href}" data-rk-sheet-link>${l.label}</a></li>`,
+              `<li style="--i:${i}"><a href="${l.href}"${externalAttrs(l.href)} data-rk-sheet-link>${l.label}</a></li>`,
           )
           .join('')}
       </ul>

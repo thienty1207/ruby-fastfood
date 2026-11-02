@@ -20,7 +20,6 @@ import { initHeroMenuTransition } from './transition';
 import { initSignature } from './signature';
 import { initJourney } from './journey';
 import { initFullMenu } from './fullmenu';
-import { initRubySections } from './sections';
 
 const disposers: Array<() => void> = [];
 let booted = false;
@@ -40,7 +39,6 @@ function boot(): void {
     initSignature(),
     initJourney(),
     initFullMenu(),
-    initRubySections(),
   );
 
   // 3. measurement refreshes

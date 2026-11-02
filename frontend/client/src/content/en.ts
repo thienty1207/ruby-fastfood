@@ -56,6 +56,9 @@ export interface MenuPage {
   src: string;
   alt: string;
 }
+
+const googleMapsUrl = 'https://maps.app.goo.gl/Syb4rqcaeq6BEZYu8';
+
 export const content = {
   brand: {
     name: 'RUBY KITCHEN 81',
@@ -73,8 +76,8 @@ export const content = {
     phone: '+84 327 81 57 57',
     phoneHref: 'tel:+84327815757',
     email: 'customerservice@burgerphuquoc.com',
-    /** Google Maps place — CID decoded from the listing's place ID. Resolves. */
-    mapUrl: 'https://maps.google.com/?cid=6745606626681855021',
+    /** Google Maps link supplied by the owner. */
+    mapUrl: googleMapsUrl,
     /** Exact listing coordinates, for directions links and structured data. */
     geo: { lat: 10.2147067, lng: 103.9618995 },
     hours: null as string | null, // not published by the venue; the row is omitted
@@ -86,12 +89,11 @@ export const content = {
     website: 'https://burgerphuquoc.com/',
   },
   nav: {
-    // Only anchors that exist on the page. The menu/burgers/chicken/combos/
-    // visit sections were removed, so those links are gone rather than dead.
+    // Visit opens the supplied Google Maps location; the other links are anchors.
     links: [
       { label: 'Home', href: '#top' },
       { label: 'Menu', href: '#menu' },
-      { label: 'Visit', href: '#visit' },
+      { label: 'Visit', href: googleMapsUrl },
       { label: 'Contact', href: '#contact' },
     ],
     cta: { label: 'Call Us', href: 'tel:+84327815757' },
@@ -305,11 +307,9 @@ export const content = {
   },
 
   footer: {
-    wordmark: 'RUBY KITCHEN 81',
-    tagline: 'Burgers · Fried Chicken · Cold Beer',
     navHeading: 'Explore',
     contactHeading: 'Find us',
-    rights: `© ${new Date().getFullYear()} RUBY KITCHEN 81 — All rights reserved`,
+    rights: `© ${new Date().getFullYear()} All rights reserved`,
     /** Nothing about CRAV, 1997 or Navarra survives here. */
   },
 
