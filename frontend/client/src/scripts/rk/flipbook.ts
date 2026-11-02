@@ -33,6 +33,8 @@ export interface FlipbookHandle {
   next: () => void;
   /** Turn back one page/spread. */
   prev: () => void;
+  /** Load and decode a page before showing it. */
+  preparePage: (page: number) => Promise<void>;
   /** Index of the page currently on the left of the spread. */
   current: () => number;
   destroy: () => void;
@@ -107,8 +109,6 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
   if (!host) return null;
 
   const nodes = buildPages();
-  // StPageFlip wants the pages in the DOM before loadFromHTML.
-  host.replaceChildren(...nodes);
 
   const stageBox = host.closest('.rk-fb__stage')?.getBoundingClientRect();
   /* Geometry is computed here instead of `size: 'stretch'`: with stretch the
@@ -155,6 +155,50 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
   host.style.width = `${isWide ? pageW * 2 : pageW}px`;
   host.style.height = `${pageH}px`;
 
+  if (!isWide) {
+    /* On phones, StPageFlip's continuous render loop and 3D page geometry are
+       too costly for a static menu. Keep one image in the host and let the
+       caller animate the host with a small composited slide/fade instead. */
+    const mobilePages = nodes.slice(0, pages.length);
+    if (!mobilePages.length) return null;
+
+    let currentPage = 0;
+    const showPage = (page: number) => {
+      const nextPage = Math.max(0, Math.min(page, mobilePages.length - 1));
+      if (nextPage === currentPage && host.firstElementChild) return;
+
+      currentPage = nextPage;
+      host.replaceChildren(mobilePages[currentPage]!);
+      host.dispatchEvent(
+        new CustomEvent('rk:flip', { detail: { page: currentPage, total: pages.length } }),
+      );
+    };
+    const preparePage = async (page: number) => {
+      const image = mobilePages[page]?.querySelector<HTMLImageElement>('img');
+      if (!image) return;
+
+      image.loading = 'eager';
+      try {
+        await image.decode();
+      } catch {
+        // A failed image should not prevent menu navigation.
+      }
+    };
+
+    host.replaceChildren(mobilePages[currentPage]!);
+
+    return {
+      next: () => showPage(currentPage + 1),
+      prev: () => showPage(currentPage - 1),
+      preparePage,
+      current: () => currentPage,
+      destroy: () => {
+        host.replaceChildren();
+        host.removeAttribute('style');
+      },
+    };
+  }
+
   const settings: Partial<FlipSetting> = {
     // 0 = closed on the cover. The book opens on the first flip.
     startPage: 0,
@@ -194,6 +238,9 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
     disableFlipByClick: false,
   };
 
+  // StPageFlip wants the pages in the DOM before loadFromHTML.
+  host.replaceChildren(...nodes);
+
   let flip: Flip;
   try {
     flip = new PageFlip(host, settings);
@@ -217,6 +264,7 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
   return {
     next: () => flip.flipNext(),
     prev: () => flip.flipPrev(),
+    preparePage: async () => {},
     current: () => flip.getCurrentPageIndex(),
     destroy: () => {
       /* PageFlip.destroy() calls block.remove() — it takes the HOST element out of

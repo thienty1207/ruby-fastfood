@@ -232,11 +232,16 @@
     gap: 0;
     display: block;
     position: relative;
+    filter: none;
   }
 
   .rk-fb__bookwrap {
     max-width: 100%;
     margin-inline: auto;
+  }
+
+  .rk-fb__book {
+    box-shadow: 0 18px 32px rgb(0 0 0 / 0.42);
   }
 
   .rk-fb__arrow {

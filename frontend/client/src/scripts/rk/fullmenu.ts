@@ -165,6 +165,13 @@ export function initFullMenu(): () => void {
       window.setTimeout(align, 300);
     };
 
+    /* Match the one-page threshold used by createFlipbook. */
+    const isMobileBook = () => {
+      const stage = host.closest<HTMLElement>('.rk-fb__stage');
+      return (stage?.getBoundingClientRect().width ?? window.innerWidth) < 720;
+    };
+    const primePageImage = (page: number) => handle?.preparePage(page) ?? Promise.resolve();
+
     const SYNC = (e: Event) => {
       const raw = (e as CustomEvent<{ page: number }>).detail?.page ?? 0;
       const open = raw >= 1;
@@ -172,6 +179,10 @@ export function initFullMenu(): () => void {
       if (prev) prev.disabled = raw <= 0;
       if (next) next.disabled = raw >= insideCount;
       centreWrapper();
+      if (isMobileBook()) {
+        void primePageImage(raw);
+        void primePageImage(raw + 1);
+      }
     };
     host.addEventListener('rk:flip', SYNC);
     cleanups.push(() => host.removeEventListener('rk:flip', SYNC));
@@ -182,17 +193,43 @@ export function initFullMenu(): () => void {
 
     /* ── Controls ────────────────────────────────────────────────────── */
 
+    const animateMobileTurn = (direction: 'next' | 'prev') => {
+      if (reduced || typeof host.animate !== 'function') return;
+
+      const offset = direction === 'next' ? 14 : -14;
+      host.animate(
+        [
+          { opacity: 0.55, transform: `translate3d(${offset}px, 0, 0)` },
+          { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+        ],
+        { duration: 180, easing: 'ease-out' },
+      );
+    };
+    const startTurn = (direction: 'next' | 'prev') => {
+      const mobile = isMobileBook();
+      const turn = () => {
+        if (direction === 'next') handle?.next();
+        else handle?.prev();
+
+        if (mobile) animateMobileTurn(direction);
+        window.setTimeout(() => (animating = false), reduced ? 30 : mobile ? 220 : 720);
+      };
+
+      if (mobile && direction === 'next') {
+        void primePageImage((handle?.current() ?? 0) + 1).then(turn);
+      } else {
+        turn();
+      }
+    };
     const doNext = () => {
       if (animating) return;
       animating = true;
-      handle?.next();
-      window.setTimeout(() => (animating = false), reduced ? 30 : 720);
+      startTurn('next');
     };
     const doPrev = () => {
       if (animating) return;
       animating = true;
-      handle?.prev();
-      window.setTimeout(() => (animating = false), reduced ? 30 : 720);
+      startTurn('prev');
     };
 
     next?.addEventListener('click', doNext);
@@ -206,8 +243,7 @@ export function initFullMenu(): () => void {
     const doOpen = () => {
       if (animating) return;
       animating = true;
-      handle?.next();
-      window.setTimeout(() => (animating = false), reduced ? 30 : 720);
+      startTurn('next');
     };
     openBtn?.addEventListener('click', doOpen);
     cleanups.push(() => openBtn?.removeEventListener('click', doOpen));
