@@ -111,24 +111,49 @@ export function initFullMenu(): () => void {
        translateX set from here. It is then run as a short converging loop, because
        each measurement happens before the previous margin has been laid out — a
        single pass left 5-6px of drift, a second pass closes it. */
+    /* CENTRING THE VISIBLE PAGE GROUP.
+       StPageFlip always lays out a full two-page spread inside .stf__wrapper.
+       Closed and at the very end only ONE board is visible, so the wrapper needs
+       shifting; while reading, TWO boards are visible and the spread already fills
+       the wrapper.
+
+       The correction must therefore measure the UNION of whatever boards are
+       showing, not the first one. Measuring boards[0] centred the LEFT page while a
+       spread was open and pushed the whole spread 179px to the right (measured:
+       group centre 908 vs stage centre 729). Taking the min-left / max-right of all
+       visible boards is correct for one board and for two.
+
+       margin-left rather than transform: the library rewrites the wrapper transform
+       during a flip and silently undid a translateX set here. It converges in a
+       short loop because each measurement lands before the previous margin has been
+       laid out (a single pass left 5-6px). */
     const centreWrapper = () => {
       const align = () => {
         const wrap = host.querySelector<HTMLElement>('.stf__wrapper');
         const stage = host.closest<HTMLElement>('.rk-fb__stage');
         if (!wrap || !stage) return;
 
-        const board = [...host.querySelectorAll<HTMLElement>('.stf__item')].find(
+        const boards = [...host.querySelectorAll<HTMLElement>('.stf__item')].filter(
           (el) => getComputedStyle(el).display !== 'none',
         );
-        if (!board) return;
+        if (!boards.length) return;
 
-        // Converge: read the current offset, add it to the margin, repeat until
-        // the visible board is within half a pixel of the stage centre.
         let margin = parseFloat(wrap.style.marginLeft || '0');
         for (let pass = 0; pass < 4; pass++) {
           const sr = stage.getBoundingClientRect();
-          const br = board.getBoundingClientRect();
-          const delta = sr.left + sr.width / 2 - (br.left + br.width / 2);
+
+          // Union of every visible board — one page, or the whole spread.
+          let left = Infinity;
+          let right = -Infinity;
+          for (const el of boards) {
+            const r = el.getBoundingClientRect();
+            if (r.width === 0) continue;
+            if (r.left < left) left = r.left;
+            if (r.right > right) right = r.right;
+          }
+          if (!Number.isFinite(left) || !Number.isFinite(right)) return;
+
+          const delta = sr.left + sr.width / 2 - (left + right) / 2;
           if (Math.abs(delta) < 0.5) break;
           margin += delta;
           wrap.style.marginLeft = `${margin}px`;
@@ -187,14 +212,19 @@ export function initFullMenu(): () => void {
     openBtn?.addEventListener('click', doOpen);
     cleanups.push(() => openBtn?.removeEventListener('click', doOpen));
 
-    /* Clicking the closed cover also opens the book. StPageFlip turns a page on a
-       click near the corners but does nothing on the middle of a closed book, so
-       the section felt unresponsive until the button was found. Gated on the
-       button still being hidden, which only happens while the book is closed. */
+    /* Clicking the closed COVER opens the book. StPageFlip's own click handling is
+       switched off (disableFlipByClick), so without this the only way in is the
+       button.
+
+       The guard is the button's own class: SYNC removes `is-hidden` while the book
+       is closed and adds it once reading starts, so the book may only be opened
+       while that class is ABSENT. This condition was inverted, which meant a click
+       or a drag anywhere on an OPEN book called flipNext() and turned a page — the
+       "drag to flip" that was supposed to be off. */
     const onBookClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.closest('[data-rk-fb-open]')) return;
-      if (!openBtn?.classList.contains('is-hidden')) return; // already open
+      if (target.closest('[data-rk-fb-open]')) return; // the button handles itself
+      if (openBtn?.classList.contains('is-hidden')) return; // already open
       doOpen();
     };
     host.addEventListener('click', onBookClick);

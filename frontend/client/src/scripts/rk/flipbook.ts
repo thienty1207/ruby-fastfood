@@ -157,13 +157,16 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
     // back cover we constructed above.
     showCover: true,
     mobileScrollSupport: true,
-    clickEventForward: false,
-    // Drag-to-peel with the pointer, plus corner hover.
-    useMouseEvents: true,
+    /* Pointer interaction is OFF by design. The section is driven by the two
+       arrow buttons and the Open button, so the extra affordances were noise:
+       corner-hover peeled a page whenever the cursor crossed the book, and
+       drag-to-flip let a stray drag turn a page while reading. With both off,
+       StPageFlip only moves when flipNext()/flipPrev() is called. */
+    useMouseEvents: false,
     swipeDistance: 24,
-    showPageCorners: true,
-    // Let a click anywhere flip; the controls are separate buttons outside.
-    disableFlipByClick: false,
+    showPageCorners: false,
+    // A click anywhere on the book must NOT flip it either — only the arrows do.
+    disableFlipByClick: true,
   };
 
   let flip: Flip;
