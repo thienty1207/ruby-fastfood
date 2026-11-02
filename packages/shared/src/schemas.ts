@@ -34,6 +34,29 @@ export const EmailSchema = v.pipe(
   v.maxLength(254, 'Email is too long'),
 );
 
+/**
+ * A storage key for an uploaded image.
+ *
+ * `types.ts` documents this as "Storage key (S3/R2), not a local path", but the
+ * old schema accepted ANY string up to 500 characters — including
+ * `javascript:alert(1)`, `//evil.example/x`, or a value carrying a quote. Those
+ * values end up interpolated into a `src` attribute by the renderers, so an
+ * unconstrained key is a stored-XSS precondition waiting for the first admin
+ * renderer to exist.
+ *
+ * Restricted to a relative object key: path segments of letters, digits, dash,
+ * underscore and dot, joined by single slashes, with an image extension. That
+ * refuses every URL scheme, protocol-relative form and parent segment.
+ */
+export const ImageKeySchema = v.pipe(
+  v.string('Image key is required'),
+  v.maxLength(500, 'Image key is too long'),
+  v.regex(
+    /^(?![a-zA-Z][a-zA-Z0-9+.-]*:)(?!\/)(?!.*\.\.)(?:\/?[A-Za-z0-9._-]+\/)*[A-Za-z0-9._-]+\.(?:webp|png|jpe?g|avif|gif)$/,
+    'Image key must be a relative object key ending in webp, png, jpg, jpeg, avif or gif',
+  ),
+);
+
 // ── Auth ──────────────────────────────────────────────────────
 
 export const PasswordSchema = v.pipe(
@@ -57,7 +80,7 @@ export const MenuItemCreateSchema = v.object({
   description: v.optional(v.nullable(v.pipe(v.string(), v.maxLength(2000))), null),
   priceCents: PriceCentsSchema,
   currency: CurrencySchema,
-  imageKey: v.optional(v.nullable(v.pipe(v.string(), v.maxLength(500))), null),
+  imageKey: v.optional(v.nullable(ImageKeySchema), null),
   category: v.optional(v.nullable(v.pipe(v.string(), v.maxLength(60))), null),
   available: v.optional(v.boolean(), true),
   sortOrder: v.optional(v.pipe(v.number(), v.integer()), 0),
@@ -73,7 +96,7 @@ export type MenuItemUpdateInput = v.InferOutput<typeof MenuItemUpdateSchema>;
 export const CampaignCreateSchema = v.object({
   title: v.pipe(v.string('Title is required'), v.trim(), v.minLength(1), v.maxLength(160)),
   body: v.optional(v.nullable(v.pipe(v.string(), v.maxLength(4000))), null),
-  imageKey: v.optional(v.nullable(v.pipe(v.string(), v.maxLength(500))), null),
+  imageKey: v.optional(v.nullable(ImageKeySchema), null),
   startsAt: v.optional(v.nullable(v.pipe(v.string(), v.isoDate('Use YYYY-MM-DD'))), null),
   endsAt: v.optional(v.nullable(v.pipe(v.string(), v.isoDate('Use YYYY-MM-DD'))), null),
   active: v.optional(v.boolean(), true),

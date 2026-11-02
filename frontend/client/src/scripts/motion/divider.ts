@@ -27,16 +27,49 @@ function buildPath(p: typeof DESKTOP, flip: boolean): string {
 }
 
 /**
+ * Allowlist for the SVG `fill` attribute.
+ *
+ * `fill` lands in an attribute of a fragment assigned to innerHTML, so an
+ * unconstrained value such as `var(--bg)" onload="…` could break out. Only a
+ * CSS custom property reference or a plain colour token is ever legitimate here,
+ * so anything else falls back to the default instead of being interpolated.
+ *
+ * Today the only callers pass `var(--bg)` and `var(--gold)`, which both match —
+ * this changes nothing rendered, it just closes the attribute.
+ */
+const FILL_RE = /^(?:var\(--[a-zA-Z0-9-]+\)|#[0-9a-fA-F]{3,8}|[a-zA-Z]{3,20}|(?:rgb|hsl)a?\([0-9.,%\s/]+\))$/;
+
+function safeFill(fill: string): string {
+  return FILL_RE.test(fill) ? fill : 'var(--bg)';
+}
+
+/**
+ * Class names are appended into the wrapper's class attribute. Restrict them to
+ * the characters a utility class actually uses — letters, digits, and the
+ * Tailwind punctuation set including `!` for important and `[]` for arbitrary
+ * values — so a quote or angle bracket cannot close the attribute.
+ *
+ * No caller passes className today (both live call sites pass only `fill` and
+ * `flip`), so this branch is defensive rather than load-bearing.
+ */
+const CLASSNAME_RE = /^[A-Za-z0-9 _.:/[\]%()!-]*$/;
+
+function safeClassName(className: string): string {
+  return CLASSNAME_RE.test(className) ? className : '';
+}
+
+/**
  * Render the divider markup.
  * The wrapper class list is the original's, including the max-md offsets.
  */
 export function dividerMarkup({ fill = 'var(--bg)', flip = false, className = '' }: DividerOptions): string {
   const p = flip ? FLIPPED : DESKTOP;
+  const safeCls = safeClassName(className);
   return `<div class="z-99 w-full absolute left-0 right-0 overflow-x-clip max-md:left-0 max-md:right-0 ${
     flip ? 'bottom-[-.5vw] max-md:bottom-0 max-md:!bottom-[-7vw]' : 'top-0'
-  } ${className}">
+  } ${safeCls}">
     <svg class="jelly pointer-events-none block w-full max-w-[100vw] h-[300px] max-md:h-auto" width="100%" viewBox="0 0 1536 300" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
-      <path d="${buildPath(p, flip)}" fill="${fill}"></path>
+      <path d="${buildPath(p, flip)}" fill="${safeFill(fill)}"></path>
     </svg>
   </div>`;
 }

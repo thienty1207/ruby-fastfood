@@ -217,7 +217,11 @@ export function initNav(): void {
         e.preventDefault();
         setOpen(false);
         const sel = href === '#map' ? (window.matchMedia('(max-width: 1025px)').matches ? '#map-mobile' : '#map-desktop') : href;
-        const target = document.querySelector(sel);
+        // Resolve by id rather than passing the fragment to querySelector, so a
+        // generated anchor cannot be interpreted as a selector (uncaught
+        // SyntaxError, or a match against the wrong element).
+        const id = sel.slice(1);
+        const target = id ? document.getElementById(id) : null;
         if (target) {
           const offset = (nav?.offsetHeight ?? 0) + 12;
           import('./lenis').then(({ scrollToEl }) => scrollToEl(target, offset));

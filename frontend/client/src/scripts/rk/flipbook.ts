@@ -38,44 +38,60 @@ export interface FlipbookHandle {
   destroy: () => void;
 }
 
+/**
+ * Build one page element.
+ *
+ * The <img> is assembled with createElement + property assignment rather than
+ * string interpolation into innerHTML. Both produce the same node today — the
+ * values are literals in content/en.ts — but property assignment has no parse
+ * step, so a future value containing `"` or `><script>` cannot break out of the
+ * attribute or inject a sibling node. src/alt are never interpreted as markup.
+ */
+function makePage(cls: string, img: { src: string; alt: string; lazy: boolean }): HTMLElement {
+  const el = document.createElement('div');
+  el.className = `rk-fb-page ${cls}`;
+
+  const im = document.createElement('img');
+  im.src = img.src;
+  im.alt = img.alt;
+  im.width = 1055;
+  im.height = 1491;
+  im.decoding = 'async';
+  im.draggable = false;
+  if (img.lazy) im.loading = 'lazy';
+
+  el.appendChild(im);
+  return el;
+}
+
 /** Build the page elements StPageFlip will consume. */
 function buildPages(): HTMLElement[] {
-  const make = (cls: string, inner: string) => {
-    const el = document.createElement('div');
-    el.className = `rk-fb-page ${cls}`;
-    el.innerHTML = inner;
-    return el;
-  };
-
   const out: HTMLElement[] = [];
 
-  // Front cover — the printed cover artwork, full bleed.
-  out.push(
-    make(
-      'rk-fb-page--cover rk-fb-page--hard',
-      `<img src="${pages[0].src}" alt="${pages[0].alt}" width="1055" height="1491" decoding="async" draggable="false" />`,
-    ),
-  );
+  // Front cover — the printed cover artwork, full bleed. Never lazy: it is the
+  // first thing the reader sees.
+  const cover = pages[0];
+  if (cover) {
+    out.push(makePage('rk-fb-page--cover rk-fb-page--hard', { src: cover.src, alt: cover.alt, lazy: false }));
+  }
 
   // Six inside pages. `lazy` after the first so the cover is never delayed.
   for (let i = 1; i < pages.length; i++) {
     const p = pages[i];
     if (!p) continue;
-    out.push(
-      make(
-        'rk-fb-page--inner',
-        `<img src="${p.src}" alt="${p.alt}" width="1055" height="1491" loading="lazy" decoding="async" draggable="false" />`,
-      ),
-    );
+    out.push(makePage('rk-fb-page--inner', { src: p.src, alt: p.alt, lazy: true }));
   }
 
-  // Back cover — a structural board, not a menu page.
-  out.push(
-    make(
-      'rk-fb-page--back rk-fb-page--hard',
-      `<span class="rk-fb-backmark" aria-hidden="true">RUBY KITCHEN 81</span>`,
-    ),
-  );
+  // Back cover — a structural board, not a menu page. Built as nodes for the
+  // same reason as the images: no HTML parse for static chrome.
+  const back = document.createElement('div');
+  back.className = 'rk-fb-page rk-fb-page--back rk-fb-page--hard';
+  const mark = document.createElement('span');
+  mark.className = 'rk-fb-backmark';
+  mark.setAttribute('aria-hidden', 'true');
+  mark.textContent = 'RUBY KITCHEN 81';
+  back.appendChild(mark);
+  out.push(back);
 
   return out;
 }

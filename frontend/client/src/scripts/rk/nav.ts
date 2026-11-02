@@ -144,13 +144,22 @@ export function initRubyNav(): () => void {
     const fn = (e: Event) => {
       const href = a.getAttribute('href') ?? '';
       if (!href.startsWith('#')) return;
-      const target = document.querySelector(href === '#top' ? 'body' : href);
-      if (!target) return;
-      e.preventDefault();
       if (href === '#top') {
+        e.preventDefault();
         scrollToEl(document.body, 0);
         return;
       }
+      // Resolve by id instead of passing the href to querySelector. The previous
+      // form treated the fragment as a CSS selector: an id containing characters
+      // that are meaningful in a selector (a space, a dot, a bracket) either threw
+      // an uncaught SyntaxError or silently matched the wrong element. Today the
+      // ids are literals from content/en.ts, so this changes nothing rendered —
+      // it removes a trap that only appears once an anchor is generated.
+      const id = href.slice(1);
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
       scrollToEl(target, nav.offsetHeight + 8);
     };
     a.addEventListener('click', fn);

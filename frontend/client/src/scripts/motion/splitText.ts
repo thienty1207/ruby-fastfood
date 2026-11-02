@@ -48,8 +48,28 @@ export function buildSplitMarkup(text: string, kind: SplitKind = 'words'): strin
   return `<span class="sr-only">${escapeHtml(text)}</span><span aria-hidden="true" data-split-inner>${parts}</span>`;
 }
 
+/**
+ * Escape a string for interpolation into HTML text or a quoted attribute.
+ *
+ * Covers all five characters that can terminate a text node or a single- OR
+ * double-quoted attribute: `&` first so nothing is double-escaped, then `< >`,
+ * then both quote characters and the backtick. The previous version omitted `'`
+ * and the backtick, which was safe only because every call site currently uses a
+ * double-quoted attribute — an assumption that would break silently the first
+ * time an attribute is written with single quotes.
+ *
+ * This sits at the boundary between content and markup. It does not change any
+ * rendered byte while the content stays quote-free; it removes the trap for when
+ * it does not.
+ */
 export function escapeHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/`/g, '&#96;');
 }
 
 /** Animate every [data-pop] inside `root`. Call after the markup is in the DOM. */
