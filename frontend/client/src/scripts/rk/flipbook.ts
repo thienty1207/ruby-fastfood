@@ -94,42 +94,43 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
   // StPageFlip wants the pages in the DOM before loadFromHTML.
   host.replaceChildren(...nodes);
 
+  const stageBox = host.closest('.rk-fb__stage')?.getBoundingClientRect();
   /* Geometry is computed here instead of `size: 'stretch'`: with stretch the
      library measured the host after it had begun writing its own inline sizes and
      the book grew to 1354x1913 inside a 1440px viewport with nothing visible.
 
-     TWO MODES:
-       >= 1024px  landscape, two facing pages (spread = 2 x pageW)
-       <  1024px  portrait, one page at a time (spread = 1 x pageW)
-     The page is sized from whichever dimension is scarce, so a phone gets a
-     tall readable page instead of a wide, uselessly short one. */
-  // Measure the STAGE, not the immediate parent: the parent is the flex item
-  // that shrinks around the host, so reading it produced 136px and the book
-  // computed a 140px page.
-  const stageBox = host.closest('.rk-fb__stage')?.getBoundingClientRect();
+     MODE IS DECIDED FROM THE MEASURED STAGE WIDTH, not window.innerWidth. On a
+     phone innerWidth reported a desktop-sized value while the section was still
+     laying out (or mid orientation change), so the book came up in LANDSCAPE:
+     two tiny pages side by side, cropped off both screen edges — the broken
+     mobile layout. The stage box is already laid out when this runs, so it
+     cannot lie about the space actually available.
+
+       wide stage (>=900)   landscape, two facing pages (spread = 2 x pageW)
+       narrow stage         portrait, one page at a time (spread = 1 x pageW) */
+  const stageW = stageBox?.width ?? window.innerWidth;
+  // Threshold tuned to the MEASURED stage, not the viewport: at a 900px viewport the
+  // stage is only ~821px wide (the .rk-wrap gutter eats the rest), so a 900 threshold
+  // wrongly dropped that size into portrait. 720 keeps tablets on the two-page spread
+  // and only phones in single-page mode.
+  const isWide = stageW >= 720;
   // Subtract the two arrows and their gaps so the spread fits between them.
-  // On a phone the arrows are narrow and hug the edges; on desktop they are bigger
-  // and flank a wide spread.
-  const arrowCol = 2 * (window.innerWidth >= 1024 ? 60 : 46);
-  const availW = Math.max(140, Math.round((stageBox?.width ?? 880) - arrowCol));
-  const isWide = window.innerWidth >= 1024;
+  const arrowCol = 2 * (isWide ? 60 : 46);
+  const availW = Math.max(140, Math.round(stageW - arrowCol));
   const PAGE_RATIO = 1491 / 1055; // height / width
 
-  // Vertical room: viewport minus navbar, section head, controls and padding.
-  // Room for the navbar, the section head and the drop shadow. The arrows sit
-  // beside the book now rather than below it, so ~330 is enough on desktop.
-  // The Open button sits in flow BELOW the book now, so it needs its own slice of
-  // the budget: ~56px of button plus margin.
-  // viewport - navbar - section head - open button - section padding.
+  // Vertical room: viewport minus the navbar, the section head, the Open button
+  // (which sits in flow below the book) and the shadow.
   const budgetH = Math.max(240, window.innerHeight - (isWide ? 300 : 320));
-  // In landscape the width is the limit (two pages share it); in portrait the
-  // height is, because a single page can be as wide as the column.
+
+  // Wide: the width is the limit because two pages share it. Narrow: the height
+  // is, because a single page may be as wide as the column.
   const pageW = isWide
-    ? Math.max(140, Math.min(Math.round(availW / 2), Math.round((budgetH / PAGE_RATIO))))
+    ? Math.max(140, Math.min(Math.round(availW / 2), Math.round(budgetH / PAGE_RATIO)))
     : Math.max(140, Math.min(Math.round(availW), Math.round(budgetH / PAGE_RATIO)));
   const pageH = Math.round(pageW * PAGE_RATIO);
-  /* StPageFlip replaces the host's children and, on init, writes its own inline
-     min-width onto the host. Give the host an explicit width first, otherwise it
+  /* StPageFlip replaces the host's children and writes its own inline min-width
+     onto it on init. Give the host an explicit spread width first, otherwise it
      collapses to that min-width and the book renders at page size instead of
      spread size. */
   host.style.width = `${isWide ? pageW * 2 : pageW}px`;
@@ -194,12 +195,22 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
     prev: () => flip.flipPrev(),
     current: () => flip.getCurrentPageIndex(),
     destroy: () => {
+      /* PageFlip.destroy() calls block.remove() — it takes the HOST element out of
+         the document. The caller keeps a reference to that host and expects it to
+         stay in place, so the host is re-inserted into its parent immediately.
+         Without this a rebuild (resize / orientation change) left the section with
+         an empty box and no book at all — measured: 0 .rk-fb-page and 0 .stf__item
+         after shrinking the viewport. */
+      const parent = host.parentElement;
+      const nextSibling = host.nextSibling;
       try {
         flip.destroy();
       } catch {
         /* already gone */
       }
       host.replaceChildren();
+      host.removeAttribute('style');
+      if (parent && !host.isConnected) parent.insertBefore(host, nextSibling);
     },
   };
 }

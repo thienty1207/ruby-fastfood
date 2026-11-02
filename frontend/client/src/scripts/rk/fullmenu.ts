@@ -250,6 +250,41 @@ export function initFullMenu(): () => void {
   const raf = requestAnimationFrame(() => {
     mount();
 
+    /* ── Rebuild on a real width change ──────────────────────────────────
+       StPageFlip bakes the page size in at construction, so a phone rotating — or a
+       window crossing the wide/narrow threshold — would otherwise keep the OLD
+       geometry. That is how a phone ended up drawing the LANDSCAPE spread with both
+       edges cropped (two columns of text cut off), instead of one centred page.
+
+       Guarded on a width change >40px: on mobile the address bar showing/hiding
+       fires resize with a height-only change, which must not tear the book down
+       mid-read. Debounced because resize fires continuously while dragging. */
+    let lastW = window.innerWidth;
+    let resizeTimer = 0;
+    const onResize = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        const w = window.innerWidth;
+        if (Math.abs(w - lastW) < 40) return; // height-only change
+        lastW = w;
+        const page = handle?.current() ?? 0;
+        handle?.destroy();
+        handle = createFlipbook(host);
+        if (!handle) return;
+        // Keep the reading position across a rotation, never snap back to cover.
+        for (let i = 0; i < page; i++) handle.next();
+        // Re-run the controller sync so the arrows and Open button match.
+        host.dispatchEvent(new CustomEvent('rk:flip', { detail: { page } }));
+      }, 220);
+    };
+    window.addEventListener('resize', onResize);
+    window.addEventListener('orientationchange', onResize);
+    cleanups.push(() => {
+      window.clearTimeout(resizeTimer);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('orientationchange', onResize);
+    });
+
     if (reduced) {
       gsap.set('.rk-fb__head, .rk-fb__stage', { opacity: 1, clearProps: 'transform' });
       return;
