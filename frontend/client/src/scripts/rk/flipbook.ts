@@ -169,8 +169,13 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
     useMouseEvents: false,
     swipeDistance: 24,
     showPageCorners: false,
-    // A click anywhere on the book must NOT flip it either — only the arrows do.
-    disableFlipByClick: true,
+    /* MUST stay false. StPageFlip's flipPrev()/flipNext() call flip() with a point
+       near the top corner (x:10, y:1), and flip() begins with
+         if (disableFlipByClick && !isPointOnCorners(pos)) return;
+       so enabling this flag makes the API itself a no-op — the back arrow stopped
+       working past the pinned interior pages, which is exactly the bug on mobile.
+       Clicks are kept from flipping by useMouseEvents:false plus our own handler. */
+    disableFlipByClick: false,
   };
 
   let flip: Flip;
