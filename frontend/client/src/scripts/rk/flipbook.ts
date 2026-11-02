@@ -115,7 +115,10 @@ export function createFlipbook(host: HTMLElement): FlipbookHandle | null {
   // and only phones in single-page mode.
   const isWide = stageW >= 720;
   // Subtract the two arrows and their gaps so the spread fits between them.
-  const arrowCol = 2 * (isWide ? 60 : 46);
+  // Wide: the arrows sit beside the book, so their columns must be subtracted.
+  // Narrow: the arrows OVERLAY the book (see fullmenu.css), so they cost no width
+  // — only a small inset so the page does not run under the buttons.
+  const arrowCol = isWide ? 120 : 24;
   const availW = Math.max(140, Math.round(stageW - arrowCol));
   const PAGE_RATIO = 1491 / 1055; // height / width
 

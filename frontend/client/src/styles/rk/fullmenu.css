@@ -221,3 +221,40 @@
     transition: none;
   }
 }
+
+/* ══ Mobile: arrows overlay the book instead of flanking it ════════════
+   Flanking arrows cost 2 x (46px arrow + 9.6px gap) out of a 390px screen, which
+   left the page only 261px wide with dead space either side. On a phone the arrows
+   float over the book's lower corners instead — the book grows to nearly the full
+   column, and the arrows still sit vertically centred on it. */
+@media (max-width: 719px) {
+  .rk-fb__stage {
+    gap: 0;
+    display: block;
+    position: relative;
+  }
+
+  .rk-fb__bookwrap {
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .rk-fb__arrow {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: 60;
+    width: 2.6rem;
+    height: 2.6rem;
+    background: rgb(12 12 12 / 0.62);
+    backdrop-filter: blur(6px);
+  }
+
+  .rk-fb__arrow--prev {
+    left: 0.25rem;
+  }
+
+  .rk-fb__arrow--next {
+    right: 0.25rem;
+  }
+}
