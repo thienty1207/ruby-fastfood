@@ -20,8 +20,6 @@ ruby-fastfood/
 │   └── shared/            @ruby/shared   types + valibot schemas
 ├── tools/                 release script
 │   └── qa/                regression harness (Playwright measurement scripts)
-├── _research/             teardown, probes, recon scripts (archive, no runtime role)
-├── remix/                 design-phase blueprints (archive, no runtime role)
 ├── bunfig.toml
 ├── tsconfig.base.json
 └── .env.example
@@ -141,7 +139,6 @@ that produced it, so they can be deleted at any time.
 | `frontend/admin` | 🟡 Astro MPA shell builds; pages not built yet |
 | `backend` | 🟡 Hono runs, `/api/health` OK, auth gate OK; no DB yet |
 | `tools/qa` | ✅ `stable.mjs` byte-identical to the original harness |
-| `_research` | ✅ teardown, probes, 33 recon scripts archived |
 
 ### What the migration preserved
 
